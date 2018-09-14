@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Ofabee_OLP.xcodeproj">
+      location = "group:/Users/user/Desktop/Althaf/Projects/Git Projects/MediKnit/Mediknit_iOS/Mediknit_Ofabee.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
