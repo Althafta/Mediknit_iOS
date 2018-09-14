@@ -1,0 +1,64 @@
+PODS:
+  - ADMozaicCollectionViewLayout (4.0.4)
+  - Alamofire (4.6.0)
+  - CitrusGraphics (2.0.0)
+  - DropDown (2.3.1)
+  - FAPanels (0.3.8)
+  - FontAwesomeKit.Swift (0.4.2)
+  - PayUmoney_CoreSDK (3.1)
+  - PayUmoney_PnP (2.1):
+    - CitrusGraphics
+    - PayUmoney_CoreSDK
+  - SlideMenuControllerSwift (4.0.0)
+  - SnapKit (3.2.0)
+  - STRatingControl (1.1.0)
+  - YNDropDownMenu (3.0.1)
+  - YouTubePlayer (0.4.0)
+
+DEPENDENCIES:
+  - ADMozaicCollectionViewLayout
+  - Alamofire (~> 4.4)
+  - DropDown
+  - FAPanels (~> 0.3)
+  - FontAwesomeKit.Swift (~> 0.4)
+  - PayUmoney_PnP
+  - SlideMenuControllerSwift
+  - SnapKit (~> 3.0)
+  - STRatingControl
+  - YNDropDownMenu
+  - YouTubePlayer
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ADMozaicCollectionViewLayout
+    - Alamofire
+    - CitrusGraphics
+    - DropDown
+    - FAPanels
+    - FontAwesomeKit.Swift
+    - PayUmoney_CoreSDK
+    - PayUmoney_PnP
+    - SlideMenuControllerSwift
+    - SnapKit
+    - STRatingControl
+    - YNDropDownMenu
+    - YouTubePlayer
+
+SPEC CHECKSUMS:
+  ADMozaicCollectionViewLayout: 3145a65a65e5f1f5dc22dd31b2e9a03407259adf
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  CitrusGraphics: 99a20691ab62595796b26dcc64646c12abbd962c
+  DropDown: 20499c7b2731b0d21609af924e47c7677a2be50d
+  FAPanels: b1b89a3916741be8f8fe29775eaf683435a7e91b
+  FontAwesomeKit.Swift: 252b2e05752e6c7410866693c7350e62313da910
+  PayUmoney_CoreSDK: 650af3bbe3b274819112c40ae9fe37a42b1c4525
+  PayUmoney_PnP: 3041f47f2df4e5a8b0d63d2f2f7e2d6bb04b62df
+  SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
+  SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
+  STRatingControl: 92346816fb485c8a547c9687a19f94c81d7929ba
+  YNDropDownMenu: 967ebe0c633ce8f40e8667574525aa230ba24560
+  YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
+
+PODFILE CHECKSUM: ef7842d0c0599f7a5eba41e2ffe035468f923246
+
+COCOAPODS: 1.5.3
