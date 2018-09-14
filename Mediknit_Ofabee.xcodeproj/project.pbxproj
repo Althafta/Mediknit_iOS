@@ -114,7 +114,7 @@
 		84D25F8D1F39E3D9006D488A /* OFABrowserCourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D25F8C1F39E3D9006D488A /* OFABrowserCourseTableViewCell.swift */; };
 		84DB72B41FBB1C8F003A5053 /* OFAForgotPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB72B31FBB1C8F003A5053 /* OFAForgotPasswordTableViewController.swift */; };
 		84FEA9D31F6150B000D2D201 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FEA9D21F6150B000D2D201 /* GlobalVariables.swift */; };
-		CEBC66A4214BCA7900ADFA82 /* client_id.json in Resources */ = {isa = PBXBuildFile; fileRef = CEBC66A3214BCA7800ADFA82 /* client_id.json */; };
+		CEBC66A4214BCA7900ADFA82 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEBC66A3214BCA7800ADFA82 /* credentials.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -291,7 +291,7 @@
 		84E0D8682037212600395A9C /* FontAwesome_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FontAwesome_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84FEA9D21F6150B000D2D201 /* GlobalVariables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		B44A05F9B6D300B8A18467C4 /* Pods_Mediknit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mediknit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEBC66A3214BCA7800ADFA82 /* client_id.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = client_id.json; sourceTree = "<group>"; };
+		CEBC66A3214BCA7800ADFA82 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		D3BA94B31F236A0F032BCA22 /* Pods-Ofabee_OLP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ofabee_OLP.release.xcconfig"; path = "Pods/Target Support Files/Pods-Ofabee_OLP/Pods-Ofabee_OLP.release.xcconfig"; sourceTree = "<group>"; };
 		D51BA30CBC926154C03BC7F9 /* Pods-Life_Line.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life_Line.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Life_Line/Pods-Life_Line.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -609,7 +609,7 @@
 			children = (
 				84B0B8B71F4EB33E00B88EE8 /* open-sans */,
 				847A82D91F39740100AB3D32 /* AppDelegate.swift */,
-				CEBC66A3214BCA7800ADFA82 /* client_id.json */,
+				CEBC66A3214BCA7800ADFA82 /* credentials.plist */,
 				847A82F11F39744800AB3D32 /* MVC */,
 				847A82E31F39740100AB3D32 /* Assets.xcassets */,
 				847A82E51F39740100AB3D32 /* LaunchScreen.storyboard */,
@@ -1101,7 +1101,7 @@
 				847A82E41F39740100AB3D32 /* Assets.xcassets in Resources */,
 				84B0B8C41F4EB33E00B88EE8 /* OpenSans-Bold.ttf in Resources */,
 				847A82DF1F39740100AB3D32 /* Main.storyboard in Resources */,
-				CEBC66A4214BCA7900ADFA82 /* client_id.json in Resources */,
+				CEBC66A4214BCA7900ADFA82 /* credentials.plist in Resources */,
 				84B0B8CD1F4EB33E00B88EE8 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				84B0B8C91F4EB33E00B88EE8 /* OpenSans-Light.ttf in Resources */,
 				84B0B8CB1F4EB33E00B88EE8 /* OpenSans-Regular.ttf in Resources */,
