@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3760B8DE16A1888B849E23FF /* Pods_Mediknit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44A05F9B6D300B8A18467C4 /* Pods_Mediknit.framework */; };
 		8400CB211F3D79F1005B2086 /* OFAPreLoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8400CB201F3D79F1005B2086 /* OFAPreLoginTableViewController.swift */; };
 		8400CB231F3D92B9005B2086 /* OFALeftSideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8400CB221F3D92B9005B2086 /* OFALeftSideMenuTableViewController.swift */; };
 		8400CB261F3D9306005B2086 /* OFALeftSideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8400CB251F3D9306005B2086 /* OFALeftSideTableViewCell.swift */; };
@@ -87,7 +88,6 @@
 		8488FBEA1F41BBBD000B5E11 /* OFACourseDetailsDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8488FBE91F41BBBD000B5E11 /* OFACourseDetailsDetailTableViewCell.swift */; };
 		8488FBEC1F41BBD2000B5E11 /* OFACourseDetailsPaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8488FBEB1F41BBD2000B5E11 /* OFACourseDetailsPaymentTableViewCell.swift */; };
 		8488FBEE1F41BBE5000B5E11 /* OFACourseDetailsDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8488FBED1F41BBE5000B5E11 /* OFACourseDetailsDescriptionTableViewCell.swift */; };
-		848E479D2036C09400B38734 /* Pods_Life_Line.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848E479E2036C09400B38734 /* Pods_Life_Line.framework */; };
 		8498D8941F46BABA008732C6 /* OFAMyCourseDetailsDisussionRepliesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498D8931F46BABA008732C6 /* OFAMyCourseDetailsDisussionRepliesTableViewController.swift */; };
 		849B69FA1F629D0D00EFD167 /* OFAQuestionDetailsRepliesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B69F91F629D0D00EFD167 /* OFAQuestionDetailsRepliesTableViewCell.swift */; };
 		84A2F9621FC2A0DA00FE05B8 /* OFADetailedReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A2F9611FC2A0DA00FE05B8 /* OFADetailedReportViewController.swift */; };
@@ -95,7 +95,6 @@
 		84A343AB1F87B1BA00C48332 /* OFAAssessmentQuestionListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A343AA1F87B1BA00C48332 /* OFAAssessmentQuestionListTableViewCell.swift */; };
 		84A5D9CC1F70E7280003C017 /* OFAPDFDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A5D9CB1F70E7280003C017 /* OFAPDFDocumentViewController.swift */; };
 		84A5D9CE1F7146E10003C017 /* OFACurriculumTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A5D9CD1F7146E10003C017 /* OFACurriculumTextViewController.swift */; };
-		84ACFC2920E25F1B0084406D /* ContactStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ACFC2820E25F1B0084406D /* ContactStruct.swift */; };
 		84B0B8C31F4EB33E00B88EE8 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84B0B8B81F4EB33E00B88EE8 /* LICENSE.txt */; };
 		84B0B8C41F4EB33E00B88EE8 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84B0B8B91F4EB33E00B88EE8 /* OpenSans-Bold.ttf */; };
 		84B0B8C51F4EB33E00B88EE8 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84B0B8BA1F4EB33E00B88EE8 /* OpenSans-BoldItalic.ttf */; };
@@ -115,6 +114,7 @@
 		84D25F8D1F39E3D9006D488A /* OFABrowserCourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D25F8C1F39E3D9006D488A /* OFABrowserCourseTableViewCell.swift */; };
 		84DB72B41FBB1C8F003A5053 /* OFAForgotPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB72B31FBB1C8F003A5053 /* OFAForgotPasswordTableViewController.swift */; };
 		84FEA9D31F6150B000D2D201 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FEA9D21F6150B000D2D201 /* GlobalVariables.swift */; };
+		CEBC66A4214BCA7900ADFA82 /* client_id.json in Resources */ = {isa = PBXBuildFile; fileRef = CEBC66A3214BCA7800ADFA82 /* client_id.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -141,6 +141,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		171B41A1991D75B6F9E6AE7B /* Pods-Mediknit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mediknit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mediknit/Pods-Mediknit.debug.xcconfig"; sourceTree = "<group>"; };
+		3175ADDF027DEC1A2A1E0B17 /* Pods-Mediknit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mediknit.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mediknit/Pods-Mediknit.release.xcconfig"; sourceTree = "<group>"; };
 		31DC643822E433BEB7DD4732 /* Pods_Life_Line.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Life_Line.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36F6C14BB8951EA0B4F65ED6 /* Pods-Ofabee_OLP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ofabee_OLP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Ofabee_OLP/Pods-Ofabee_OLP.debug.xcconfig"; sourceTree = "<group>"; };
 		41876F84D8DBA7D92DB3FE03 /* Pods-Life_Line.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life_Line.release.xcconfig"; path = "Pods/Target Support Files/Pods-Life_Line/Pods-Life_Line.release.xcconfig"; sourceTree = "<group>"; };
@@ -266,7 +268,6 @@
 		84A343AA1F87B1BA00C48332 /* OFAAssessmentQuestionListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAAssessmentQuestionListTableViewCell.swift; sourceTree = "<group>"; };
 		84A5D9CB1F70E7280003C017 /* OFAPDFDocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFAPDFDocumentViewController.swift; sourceTree = "<group>"; };
 		84A5D9CD1F7146E10003C017 /* OFACurriculumTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFACurriculumTextViewController.swift; sourceTree = "<group>"; };
-		84ACFC2820E25F1B0084406D /* ContactStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactStruct.swift; sourceTree = "<group>"; };
 		84AE184A2034871B00C94FF7 /* GPAC4iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GPAC4iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B0B8B81F4EB33E00B88EE8 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		84B0B8B91F4EB33E00B88EE8 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -289,6 +290,8 @@
 		84DB72B31FBB1C8F003A5053 /* OFAForgotPasswordTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAForgotPasswordTableViewController.swift; sourceTree = "<group>"; };
 		84E0D8682037212600395A9C /* FontAwesome_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FontAwesome_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84FEA9D21F6150B000D2D201 /* GlobalVariables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
+		B44A05F9B6D300B8A18467C4 /* Pods_Mediknit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mediknit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEBC66A3214BCA7800ADFA82 /* client_id.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = client_id.json; sourceTree = "<group>"; };
 		D3BA94B31F236A0F032BCA22 /* Pods-Ofabee_OLP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ofabee_OLP.release.xcconfig"; path = "Pods/Target Support Files/Pods-Ofabee_OLP/Pods-Ofabee_OLP.release.xcconfig"; sourceTree = "<group>"; };
 		D51BA30CBC926154C03BC7F9 /* Pods-Life_Line.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life_Line.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Life_Line/Pods-Life_Line.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -298,7 +301,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				848E479D2036C09400B38734 /* Pods_Life_Line.framework in Frameworks */,
+				3760B8DE16A1888B849E23FF /* Pods_Mediknit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +315,8 @@
 				D3BA94B31F236A0F032BCA22 /* Pods-Ofabee_OLP.release.xcconfig */,
 				D51BA30CBC926154C03BC7F9 /* Pods-Life_Line.debug.xcconfig */,
 				41876F84D8DBA7D92DB3FE03 /* Pods-Life_Line.release.xcconfig */,
+				171B41A1991D75B6F9E6AE7B /* Pods-Mediknit.debug.xcconfig */,
+				3175ADDF027DEC1A2A1E0B17 /* Pods-Mediknit.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -332,6 +337,7 @@
 				841F2ADC1F3B4000000435C6 /* Pods_Ofabee_OLP.framework */,
 				5758172BEAEB3EA78D732FAA /* Pods_Ofabee_OLP.framework */,
 				31DC643822E433BEB7DD4732 /* Pods_Life_Line.framework */,
+				B44A05F9B6D300B8A18467C4 /* Pods_Mediknit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -603,6 +609,7 @@
 			children = (
 				84B0B8B71F4EB33E00B88EE8 /* open-sans */,
 				847A82D91F39740100AB3D32 /* AppDelegate.swift */,
+				CEBC66A3214BCA7800ADFA82 /* client_id.json */,
 				847A82F11F39744800AB3D32 /* MVC */,
 				847A82E31F39740100AB3D32 /* Assets.xcassets */,
 				847A82E51F39740100AB3D32 /* LaunchScreen.storyboard */,
@@ -637,7 +644,6 @@
 		847A82F01F39744100AB3D32 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				84ACFC2820E25F1B0084406D /* ContactStruct.swift */,
 				84AD5CC62036CA6F003DB93B /* Font Awesome */,
 				8419F1541F7241A9003758C8 /* UITextfield ScrollableVC */,
 				8419F1551F7241B6003758C8 /* Subtle Volume */,
@@ -1027,6 +1033,7 @@
 				E6A463A8A3864CD9229ACEB7 /* [CP] Embed Pods Frameworks */,
 				84456BC71FC830F8008F2C53 /* Embed PlugIns */,
 				849434D020344398007E0145 /* Embed Frameworks */,
+				FBB5FCA743A8F6C2857EBE77 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1094,6 +1101,7 @@
 				847A82E41F39740100AB3D32 /* Assets.xcassets in Resources */,
 				84B0B8C41F4EB33E00B88EE8 /* OpenSans-Bold.ttf in Resources */,
 				847A82DF1F39740100AB3D32 /* Main.storyboard in Resources */,
+				CEBC66A4214BCA7900ADFA82 /* client_id.json in Resources */,
 				84B0B8CD1F4EB33E00B88EE8 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				84B0B8C91F4EB33E00B88EE8 /* OpenSans-Light.ttf in Resources */,
 				84B0B8CB1F4EB33E00B88EE8 /* OpenSans-Regular.ttf in Resources */,
@@ -1115,7 +1123,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Life_Line-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Mediknit-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1128,13 +1136,16 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Life_Line/Pods-Life_Line-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Mediknit/Pods-Mediknit-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ADMozaicCollectionViewLayout/ADMozaicCollectionViewLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${PODS_ROOT}/CitrusGraphics/Framework/graphics-sdk/CitrusGraphics.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/FAPanels/FAPanels.framework",
 				"${BUILT_PRODUCTS_DIR}/FontAwesomeKit.Swift/FontAwesomeKit_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${PODS_ROOT}/PayUmoney_CoreSDK/CoreSDK/PayUMoneyCoreSDK.framework",
 				"${PODS_ROOT}/PayUmoney_PnP/PlugNPlay/PlugNPlay.framework",
 				"${BUILT_PRODUCTS_DIR}/STRatingControl/STRatingControl.framework",
@@ -1151,6 +1162,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FAPanels.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesomeKit_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PayUMoneyCoreSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlugNPlay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/STRatingControl.framework",
@@ -1161,7 +1175,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Life_Line/Pods-Life_Line-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mediknit/Pods-Mediknit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FBB5FCA743A8F6C2857EBE77 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Mediknit/Pods-Mediknit-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mediknit/Pods-Mediknit-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1256,7 +1288,6 @@
 				847A83491F398B3500AB3D32 /* UIImage+MultiFormat.m in Sources */,
 				847CAF5A20F4BF28009D741D /* OFAMyCoursesContainerViewController.swift in Sources */,
 				847A83411F398B3500AB3D32 /* SDWebImageCompat.m in Sources */,
-				84ACFC2920E25F1B0084406D /* ContactStruct.swift in Sources */,
 				847A83401F398B3500AB3D32 /* SDImageCacheConfig.m in Sources */,
 				843B3FE01FAC974300CD36BF /* OFAGenerateTestResultsTableViewCell.swift in Sources */,
 				8488FBDE1F41A040000B5E11 /* OFACourseCurriculumTableViewCell.swift in Sources */,
@@ -1398,7 +1429,7 @@
 		};
 		847A82EC1F39740100AB3D32 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D51BA30CBC926154C03BC7F9 /* Pods-Life_Line.debug.xcconfig */;
+			baseConfigurationReference = 171B41A1991D75B6F9E6AE7B /* Pods-Mediknit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1411,8 +1442,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Ofabee_OLP",
-					"$(PROJECT_DIR)/Ofabee_OLP/JuspaySafeBrowser",
 				);
 				INFOPLIST_FILE = Mediknit_Ofabee/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -1429,7 +1458,7 @@
 		};
 		847A82ED1F39740100AB3D32 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41876F84D8DBA7D92DB3FE03 /* Pods-Life_Line.release.xcconfig */;
+			baseConfigurationReference = 3175ADDF027DEC1A2A1E0B17 /* Pods-Mediknit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1442,8 +1471,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Ofabee_OLP",
-					"$(PROJECT_DIR)/Ofabee_OLP/JuspaySafeBrowser",
 				);
 				INFOPLIST_FILE = Mediknit_Ofabee/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;

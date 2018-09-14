@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import SlideMenuControllerSwift
 import FAPanels
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,12 +23,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return self.orientationLock
     }
     
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //        AnyUIView.appearance().font = UIFont(name: "yourFont", size: yourSize)
         //        UILabel.appearance().font = UIFont(name: "Open-Sans", size: 15.0)
         UserDefaults.standard.set("1", forKey: DomainKey)
         UIApplication.shared.statusBarStyle = .default
+        GIDSignIn.sharedInstance().clientID = GoogleClientID
         if UserDefaults.standard.value(forKey: DomainKey) != nil{
             self.initializePreLoginPage()
         }else{
@@ -100,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func initializeBrowserCourse(){
-        UIApplication.shared.statusBarStyle = .lightContent
+        UIApplication.shared.statusBarStyle = .default
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let leftMenuVC: OFALeftSideMenuTableViewController = mainStoryboard.instantiateViewController(withIdentifier: "LeftSideMenu") as! OFALeftSideMenuTableViewController
         let centerVC: OFAMyCoursesContainerViewController = mainStoryboard.instantiateViewController(withIdentifier: "MyCoursesContainerVC") as! OFAMyCoursesContainerViewController

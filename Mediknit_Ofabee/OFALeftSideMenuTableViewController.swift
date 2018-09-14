@@ -41,7 +41,7 @@ class OFALeftSideMenuTableViewController: UITableViewController {
         
         self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.height/2
         self.imageViewUser.layer.borderWidth = 3.0
-        self.imageViewUser.layer.borderColor = UIColor.white.cgColor
+        self.imageViewUser.layer.borderColor = OFAUtils.getColorFromHexString("8FD5FA").cgColor
         if OFASingletonUser.ofabeeUser.user_imageURL != nil{
             self.imageViewUser.sd_setImage(with: URL(string: OFASingletonUser.ofabeeUser.user_imageURL!), placeholderImage: #imageLiteral(resourceName: "Default image"), options: .progressiveDownload)
             self.labelUserName.text = OFASingletonUser.ofabeeUser.user_name!
@@ -68,7 +68,7 @@ class OFALeftSideMenuTableViewController: UITableViewController {
         let dicUserInfo = notification.userInfo! as NSDictionary
         self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.height/2
         self.imageViewUser.layer.borderWidth = 3.0
-        self.imageViewUser.layer.borderColor = UIColor.white.cgColor
+        self.imageViewUser.layer.borderColor = OFAUtils.getColorFromHexString("8FD5FA").cgColor
         self.labelUserName.text = "\(dicUserInfo["name"]!)"
         if OFASingletonUser.ofabeeUser.user_imageURL != nil{
             self.imageViewUser.sd_setImage(with: URL(string: "\(dicUserInfo["image"]!)"), placeholderImage: #imageLiteral(resourceName: "Default image"), options: .progressiveDownload)
@@ -87,9 +87,10 @@ class OFALeftSideMenuTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "sideMenuCell", for: indexPath) as! OFALeftSideTableViewCell
         
+        cell.textLabel?.backgroundColor = UIColor.clear
         cell.textLabel?.text = self.arraySideMenu[indexPath.row]
         if indexPath.row == currentRow {
-            cell.backgroundColor = OFAUtils.getColorFromHexString(sectionBackgroundColor)
+            cell.backgroundColor = OFAUtils.getColorFromHexString("D3EEFD")
         }else{
             cell.backgroundColor = UIColor.white
         }

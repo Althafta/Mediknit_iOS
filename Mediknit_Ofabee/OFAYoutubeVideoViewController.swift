@@ -24,6 +24,14 @@ class OFAYoutubeVideoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.buttonQandA.layer.borderColor = OFAUtils.getColorFromHexString(barTintColor).cgColor
+        self.buttonQandA.layer.cornerRadius = self.buttonQandA.frame.height/2
+        self.buttonQandA.layer.borderWidth = 1.0
+        
+        self.buttonCurriculum.layer.borderColor = OFAUtils.getColorFromHexString(barTintColor).cgColor
+        self.buttonCurriculum.layer.cornerRadius = self.buttonCurriculum.frame.height/2
+        self.buttonCurriculum.layer.borderWidth = 1.0
+        
         if self.isBrowseCourse{
             self.buttonDone.isHidden=false
         }else{

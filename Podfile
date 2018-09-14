@@ -17,6 +17,7 @@ pod 'DropDown'
 pod 'FAPanels', '~> 0.3'
 pod 'PayUmoney_PnP'
 pod 'ADMozaicCollectionViewLayout'
+pod 'GoogleSignIn'
   # Pods for Ofabee_OLP
 
 end

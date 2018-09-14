@@ -5,6 +5,26 @@ PODS:
   - DropDown (2.3.1)
   - FAPanels (0.3.8)
   - FontAwesomeKit.Swift (0.4.2)
+  - GoogleSignIn (4.2.0):
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
+    - GTMOAuth2 (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.1.4):
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+  - GoogleToolboxForMac/Defines (2.1.4)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.4)":
+    - GoogleToolboxForMac/DebugUtils (= 2.1.4)
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.4)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.1.4)"
+  - GTMOAuth2 (1.1.6):
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.2.0):
+    - GTMSessionFetcher/Full (= 1.2.0)
+  - GTMSessionFetcher/Core (1.2.0)
+  - GTMSessionFetcher/Full (1.2.0):
+    - GTMSessionFetcher/Core (= 1.2.0)
   - PayUmoney_CoreSDK (3.1)
   - PayUmoney_PnP (2.1):
     - CitrusGraphics
@@ -21,6 +41,7 @@ DEPENDENCIES:
   - DropDown
   - FAPanels (~> 0.3)
   - FontAwesomeKit.Swift (~> 0.4)
+  - GoogleSignIn
   - PayUmoney_PnP
   - SlideMenuControllerSwift
   - SnapKit (~> 3.0)
@@ -36,6 +57,10 @@ SPEC REPOS:
     - DropDown
     - FAPanels
     - FontAwesomeKit.Swift
+    - GoogleSignIn
+    - GoogleToolboxForMac
+    - GTMOAuth2
+    - GTMSessionFetcher
     - PayUmoney_CoreSDK
     - PayUmoney_PnP
     - SlideMenuControllerSwift
@@ -51,6 +76,10 @@ SPEC CHECKSUMS:
   DropDown: 20499c7b2731b0d21609af924e47c7677a2be50d
   FAPanels: b1b89a3916741be8f8fe29775eaf683435a7e91b
   FontAwesomeKit.Swift: 252b2e05752e6c7410866693c7350e62313da910
+  GoogleSignIn: 591e46382014e591269f862ba6e7bc0fbd793532
+  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
+  GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
+  GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   PayUmoney_CoreSDK: 650af3bbe3b274819112c40ae9fe37a42b1c4525
   PayUmoney_PnP: 3041f47f2df4e5a8b0d63d2f2f7e2d6bb04b62df
   SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
@@ -59,6 +88,6 @@ SPEC CHECKSUMS:
   YNDropDownMenu: 967ebe0c633ce8f40e8667574525aa230ba24560
   YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
-PODFILE CHECKSUM: ef7842d0c0599f7a5eba41e2ffe035468f923246
+PODFILE CHECKSUM: 59be0baed10dd880f74e845559e85c6ae509f12a
 
 COCOAPODS: 1.5.3

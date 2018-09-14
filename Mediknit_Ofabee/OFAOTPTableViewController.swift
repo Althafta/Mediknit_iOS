@@ -14,6 +14,7 @@ class OFAOTPTableViewController: UITableViewController {
     @IBOutlet var textOTP: UITextField!
     @IBOutlet var labelCountDown: UILabel!
     @IBOutlet var buttonResendOTP: UIButton!
+    @IBOutlet weak var buttonDone: UIButton!
     
     var userEmail = ""
     var seconds = 60
@@ -23,6 +24,11 @@ class OFAOTPTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.buttonResendOTP.isHidden = true
+        self.buttonResendOTP.layer.cornerRadius = self.buttonResendOTP.frame.height/2
+        self.buttonResendOTP.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
+        
+        self.buttonDone.layer.cornerRadius = self.buttonDone.frame.height/2
+        self.buttonDone.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
         
         OFAUtils.setBackgroundForTableView(tableView: self.tableView)
         self.tableView.backgroundColor = .white

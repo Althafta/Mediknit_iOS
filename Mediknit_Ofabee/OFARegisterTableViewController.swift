@@ -16,9 +16,13 @@ class OFARegisterTableViewController: UITableViewController {
     @IBOutlet var textEmail: JJMaterialTextfield!
     @IBOutlet var textPassword: JJMaterialTextfield!
     
+    @IBOutlet weak var buttonRegister: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.buttonRegister.layer.cornerRadius = self.buttonRegister.frame.height/2
+        self.buttonRegister.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
+        
         OFAUtils.setBackgroundForTableView(tableView: self.tableView)
         self.tableView.backgroundColor = .white
         

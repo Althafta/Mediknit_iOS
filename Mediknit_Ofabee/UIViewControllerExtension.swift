@@ -13,14 +13,14 @@ extension UIViewController {
     
     func setNavigationBarItem(isSidemenuEnabled:Bool) {
         OFAUtils.lockOrientation(.portrait)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+        self.navigationController?.navigationBar.tintColor = OFAUtils.getColorFromHexString(barTintColor)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:OFAUtils.getColorFromHexString(barTintColor)]
         if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSForegroundColorAttributeName: OFAUtils.getColorFromHexString(barTintColor)]
         } else {
             // Fallback on earlier versions
         }
-        self.navigationController?.navigationBar.barTintColor = OFAUtils.getColorFromHexString(barTintColor)
+        self.navigationController?.navigationBar.barTintColor = UIColor.white//OFAUtils.getColorFromHexString(barTintColor)
         if isSidemenuEnabled{
             self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
         }
@@ -46,7 +46,7 @@ extension UIView {
         self.layer.masksToBounds = false
         self.layer.shadowColor = UIColor.gray.cgColor
         self.layer.shadowOpacity = 0.2
-        self.layer.shadowOffset = CGSize(width: -1, height: 1)
+        self.layer.shadowOffset = CGSize(width: -1, height: 2)
         self.layer.shadowRadius = 1
         
 //        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath

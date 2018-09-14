@@ -85,28 +85,7 @@ class OFABrowseCourseTableViewController: UITableViewController,UISearchBarDeleg
             }else{
                 self.setNavigationBarItem(isSidemenuEnabled: true)
             }
-        }else{
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            self.navigationController?.navigationBar.shadowImage = UIImage()
-            self.navigationController?.navigationBar.isTranslucent=false
-            self.navigationController?.view.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
-            self.navigationController?.navigationBar.tintColor = .white
         }
-        
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
-        if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        } else {
-            // Fallback on earlier versions
-        }
-        self.navigationController?.navigationBar.barTintColor = OFAUtils.getColorFromHexString(barTintColor)
-        
-        //        if #available(iOS 11.0, *) {
-        //            self.navigationController?.navigationBar.prefersLargeTitles = true
-        //        } else {
-        //            // Fallback on earlier versions
-        //        }
         self.refreshController.tintColor = OFAUtils.getColorFromHexString(barTintColor)
         self.refreshController.addTarget(self, action: #selector(self.refreshInitiated), for: .valueChanged)
         self.tableView.refreshControl = self.refreshController

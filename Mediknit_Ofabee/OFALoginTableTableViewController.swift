@@ -13,13 +13,16 @@ class OFALoginTableTableViewController: UITableViewController {
 
     @IBOutlet var textEmail: JJMaterialTextfield!
     @IBOutlet var textPassword: JJMaterialTextfield!
+    @IBOutlet weak var buttonSignIn: UIButton!
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var userDetails: [User] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.buttonSignIn.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
+        self.buttonSignIn.layer.cornerRadius = self.buttonSignIn.frame.height/2
+        
        OFAUtils.setBackgroundForTableView(tableView: self.tableView)
         self.tableView.backgroundColor = .white
         

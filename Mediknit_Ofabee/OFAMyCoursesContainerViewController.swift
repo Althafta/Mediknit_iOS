@@ -45,7 +45,7 @@ class OFAMyCoursesContainerViewController: UIViewController {
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
+        return .default
     }
     
     //MARK:- Button Action

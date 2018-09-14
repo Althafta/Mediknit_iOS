@@ -10,7 +10,7 @@ import Foundation
 
 //APIDetails :- http://beta.ofabee.com/assets/apis/
 
-var YoutubeAPIKey = "AIzaSyB7WHAAZ-lIq5Zq27thwv3Qd9T-npMvOyE"
+var GoogleClientID = "352279737943-utamca1c23s5v430fd52ppk1dnml0nh0.apps.googleusercontent.com"
 
 var DomainKey = "Domain_Key"
 
@@ -48,7 +48,7 @@ var STATUS_CODE = 200
 
 var currencySymbol = "CURRENCY"
 
-let barTintColor = "ed1b24"//Orange
+let barTintColor = "3db6f6"
 
 let sectionBackgroundColor = "EFEFF4"
 

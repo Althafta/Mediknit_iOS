@@ -12,8 +12,12 @@ import Alamofire
 class OFAForgotPasswordTableViewController: UITableViewController,UITextFieldDelegate {
 
     @IBOutlet var textEmail: JJMaterialTextfield!
+    @IBOutlet weak var buttonSendEmail: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.buttonSendEmail.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
+        self.buttonSendEmail.layer.cornerRadius = self.buttonSendEmail.frame.height/2
+        
         OFAUtils.setBackgroundForTableView(tableView: self.tableView)
         self.tableView.backgroundColor = .white
         
