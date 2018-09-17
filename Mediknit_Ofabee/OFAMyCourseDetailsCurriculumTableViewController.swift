@@ -166,8 +166,9 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
             }else if curriculumType == "2"{
                 self.getPDFViewControllerWithLectureId(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
             }else if curriculumType == "3"{
-                let dicAssessment = dicLecture["assesment"] as! NSDictionary
-                self.getAssessment(lectureId: "\(dicLecture["id"]!)", lectureTitle: "\(dicLecture["cl_lecture_name"]!)",duration:"\(dicAssessment["a_duration"]!)",assessmentID: "\(dicLecture["assessment_id"]!)")
+//                let dicAssessment = dicLecture["assesment"] as! NSDictionary
+//                self.getAssessment(lectureId: "\(dicLecture["id"]!)", lectureTitle: "\(dicLecture["cl_lecture_name"]!)",duration:"\(dicAssessment["a_duration"]!)",assessmentID: "\(dicLecture["assessment_id"]!)")
+                OFAUtils.showToastWithTitle("Assessments can be attended in a PC/Laptop")
             }else if curriculumType == "4"{
                 self.getYoutubeDetails(lectureId: "\(dicLecture["id"]!)")
             }else if curriculumType == "5"{

@@ -137,14 +137,14 @@ class VGVerticalVideoViewController: UIViewController {
             
             //            self.time = Int(currentTime)
             let intCurrentTime = Int(currentTime)
-            if intCurrentTime != self.time{
+            if intCurrentTime > self.time{
                 print("seeked to time")
                 self.isSeeked = true
                 self.timerStarted.invalidate()
             }else{
                 self.isSeeked = false
             }
-            
+                
             self.time += 1
         }
     }
@@ -261,3 +261,12 @@ class VGVerticalVideoViewController: UIViewController {
     }
 }
 
+extension Double {
+    func toInt() -> Int? {
+        if self > Double(Int.min) && self < Double(Int.max) {
+            return Int(self)
+        } else {
+            return nil
+        }
+    }
+}

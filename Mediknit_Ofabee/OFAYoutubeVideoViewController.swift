@@ -34,6 +34,8 @@ class OFAYoutubeVideoViewController: UIViewController {
         
         if self.isBrowseCourse{
             self.buttonDone.isHidden=false
+            self.buttonCurriculum.isHidden = true
+            self.buttonQandA.isHidden = true
         }else{
             self.buttonDone.isHidden=true
         }
