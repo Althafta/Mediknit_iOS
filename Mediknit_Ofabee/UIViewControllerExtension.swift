@@ -14,9 +14,9 @@ extension UIViewController {
     func setNavigationBarItem(isSidemenuEnabled:Bool) {
         OFAUtils.lockOrientation(.portrait)
         self.navigationController?.navigationBar.tintColor = OFAUtils.getColorFromHexString(barTintColor)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:OFAUtils.getColorFromHexString(barTintColor)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:OFAUtils.getColorFromHexString(barTintColor)]
         if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSForegroundColorAttributeName: OFAUtils.getColorFromHexString(barTintColor)]
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: OFAUtils.getColorFromHexString(barTintColor)]
         } else {
             // Fallback on earlier versions
         }
@@ -35,7 +35,7 @@ extension UIViewController {
         navigationItem.leftBarButtonItem = leftButton
     }
     
-    func toggleLeft(){
+    @objc func toggleLeft(){
         panel?.openLeft(animated: true)
     }
 }

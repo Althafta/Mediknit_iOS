@@ -21,7 +21,7 @@ class OFAAssessmentQuestionListTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         self.navigationController?.navigationBar.barTintColor = OFAUtils.getColorFromHexString(barTintColor)
         
 //        self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -39,7 +39,7 @@ class OFAAssessmentQuestionListTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Questions"
         if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
             self.navigationController?.navigationBar.prefersLargeTitles = false
         } else {
             // Fallback on earlier versions
@@ -51,7 +51,7 @@ class OFAAssessmentQuestionListTableViewController: UITableViewController {
         OFAUtils.lockOrientation(.portrait)
     }
      
-    func dismissViewController(){
+    @objc func dismissViewController(){
         self.dismiss(animated: true, completion: nil)
     }
     

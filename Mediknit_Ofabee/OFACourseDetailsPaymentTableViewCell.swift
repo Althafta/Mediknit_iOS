@@ -38,7 +38,7 @@ class OFACourseDetailsPaymentTableViewCell: UITableViewCell {
                     mAmount = originalPrice
                     labelDiscountedPrice.text = "RS. \(originalPrice)"
                     let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "RS. \(discountPrice)")
-                    attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
+                    attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
                     labelOriginalPrice.attributedText = attributeString
                 }else{
                     labelDiscountedPrice.text = ""//"Free"
@@ -51,7 +51,7 @@ class OFACourseDetailsPaymentTableViewCell: UITableViewCell {
                     mAmount = discountPrice
                     labelDiscountedPrice.text = discountPrice
                     let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "RS. \(originalPrice)")
-                    attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
+                    attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
                     labelOriginalPrice.attributedText = attributeString
                 }else{
                     labelDiscountedPrice.text = ""//"Free"

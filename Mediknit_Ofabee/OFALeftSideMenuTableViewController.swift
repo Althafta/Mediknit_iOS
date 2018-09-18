@@ -58,13 +58,13 @@ class OFALeftSideMenuTableViewController: UITableViewController {
         }
     }
     
-    func loadUserDetails(notification:Notification){
+    @objc func loadUserDetails(notification:Notification){
         let dicUserInfo = notification.userInfo! as NSDictionary
         self.labelUserName.text = "\(dicUserInfo["name"]!)"
         self.tableView.reloadData()
     }
     
-    func loadProfileDetails(notification:Notification){
+    @objc func loadProfileDetails(notification:Notification){
         let dicUserInfo = notification.userInfo! as NSDictionary
         self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.height/2
         self.imageViewUser.layer.borderWidth = 3.0

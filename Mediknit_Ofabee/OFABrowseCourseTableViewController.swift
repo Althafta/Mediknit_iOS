@@ -119,7 +119,7 @@ class OFABrowseCourseTableViewController: UITableViewController,UISearchBarDeleg
         self.blurEffectView.addGestureRecognizer(singleTap)
     }
     
-    func touchesView(){//tapAction
+    @objc func touchesView(){//tapAction
         
     }
     
@@ -146,7 +146,7 @@ class OFABrowseCourseTableViewController: UITableViewController,UISearchBarDeleg
         self.setNavigationBarItem(isSidemenuEnabled: true)
     }
     
-    func refreshInitiated(){
+    @objc func refreshInitiated(){
         index = 0
         self.offset=1
         

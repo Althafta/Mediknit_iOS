@@ -46,7 +46,7 @@ class OFAOTPTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func tapAction(){
+    @objc func tapAction(){
         self.view.endEditing(true)
     }
     
@@ -54,7 +54,7 @@ class OFAOTPTableViewController: UITableViewController {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabel), userInfo: nil, repeats: true)
     }
     
-    func updateLabel(){
+    @objc func updateLabel(){
         seconds -= 1
         self.labelCountDown.text = "\(seconds)" + " seconds left"
         if seconds <= 0 {

@@ -114,7 +114,7 @@ class OFABrowseCourseDetailsTableViewController: UITableViewController,CourseDet
         }
     }
     
-    func wishListClicked(){
+    @objc func wishListClicked(){
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
         var status = 1
         
@@ -198,7 +198,7 @@ class OFABrowseCourseDetailsTableViewController: UITableViewController,CourseDet
                             self.mAmount = courseOriginalPrice
                             self.labelFooterDiscountPrice.text = "RS. \(courseOriginalPrice)"
                             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "RS. \(courseDiscountPrice)")
-                            attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
+                            attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
                             self.labelFooterOriginalPrice.attributedText = attributeString
                         }else{
                             self.labelFooterDiscountPrice.text = ""//"Free"
@@ -211,7 +211,7 @@ class OFABrowseCourseDetailsTableViewController: UITableViewController,CourseDet
                             self.mAmount = courseDiscountPrice
                             self.labelFooterDiscountPrice.text = courseDiscountPrice
                             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "RS. \(courseOriginalPrice)")
-                            attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
+                            attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
                             self.labelFooterOriginalPrice.attributedText = attributeString
                         }else{
                             self.labelFooterDiscountPrice.text = ""//"Free"
@@ -395,7 +395,7 @@ class OFABrowseCourseDetailsTableViewController: UITableViewController,CourseDet
             cell.textViewDescription.adjustsFontForContentSizeCategory = true
             do {
                 let attrStr = try NSAttributedString(data: "\(self.dicCourseDescription["cb_description"]!)".data(using: String.Encoding.unicode, allowLossyConversion: true)!,
-                                                     options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                     options: [ NSAttributedString.DocumentReadingOptionKey(rawValue: NSAttributedString.DocumentAttributeKey.documentType.rawValue): NSAttributedString.DocumentType.html],
                                                      documentAttributes: nil)
                 cell.textViewDescription.text = attrStr.string
             }catch{

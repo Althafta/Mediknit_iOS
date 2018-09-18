@@ -44,7 +44,7 @@ class OFAWishListTableViewCell: UITableViewCell {
                     //                    mAmount = coursePrice
                     labelCourseDiscountPrice.text = "RS. \(coursePrice)"
                     let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "RS. \(courseDiscountPrice)")
-                    attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
+                    attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
                     labelCoursePrice.attributedText = attributeString
                 }else{
                     labelCourseDiscountPrice.text = "Free"
@@ -57,7 +57,7 @@ class OFAWishListTableViewCell: UITableViewCell {
                     //                    mAmount = courseDiscountPrice
                     labelCourseDiscountPrice.text = courseDiscountPrice
                     let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "RS. \(coursePrice)")
-                    attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
+                    attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
                     labelCoursePrice.attributedText = attributeString
                 }else{
                     labelCourseDiscountPrice.text = "Free"

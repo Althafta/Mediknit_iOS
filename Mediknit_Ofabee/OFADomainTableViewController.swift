@@ -33,7 +33,7 @@ class OFADomainTableViewController: UITableViewController,UITextFieldDelegate {
         self.navigationController?.isNavigationBarHidden = true
     }
     
-    func tapAction(){
+    @objc func tapAction(){
         self.view.endEditing(true)
     }
     

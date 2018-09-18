@@ -138,7 +138,7 @@ class OFAAssessmentContainerViewController: UIViewController,AssessmentAnswerDel
     
     //MARK:- Helper Functions
     
-    func questionListPressed(){
+    @objc func questionListPressed(){
         let questionList = self.storyboard?.instantiateViewController(withIdentifier: "AssessmentQuestionList") as! OFAAssessmentQuestionListTableViewController
         questionList.arrayQuestions = self.arrayQuestions
         questionList.delegate = self
@@ -150,7 +150,7 @@ class OFAAssessmentContainerViewController: UIViewController,AssessmentAnswerDel
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabel), userInfo: nil, repeats: true)
     }
     
-    func updateLabel(){
+    @objc func updateLabel(){
         seconds -= 1
         var durationString = ""
         let duration = self.getDuration(seconds: seconds)
@@ -527,7 +527,7 @@ class OFAAssessmentContainerViewController: UIViewController,AssessmentAnswerDel
         delegate.logout()
     }
     
-    func submitAssessmentPressed(){
+    @objc func submitAssessmentPressed(){
         self.customizeSubmitPopUp()
         self.isExamCompleted = true
         self.showSubmitPopUp()
@@ -769,7 +769,7 @@ class OFAAssessmentContainerViewController: UIViewController,AssessmentAnswerDel
         }
     }
     
-    func touchesView(){//tapAction
+    @objc func touchesView(){//tapAction
         
         if isExamCompleted{
 //            removeBlur()

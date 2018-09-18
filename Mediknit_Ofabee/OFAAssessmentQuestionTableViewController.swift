@@ -101,7 +101,7 @@ class OFAAssessmentQuestionTableViewController: UITableViewController,UITextView
         }
     }
     
-    func tapped(){
+    @objc func tapped(){
         self.textViewDescription.isScrollEnabled = true
         self.textViewDescription.dataDetectorTypes = []
         self.textViewDescription.isEditable = true
@@ -113,7 +113,7 @@ class OFAAssessmentQuestionTableViewController: UITableViewController,UITextView
         // Dispose of any resources that can be recreated.
     }
 
-    func dismissKeyboard(){
+    @objc func dismissKeyboard(){
         self.view.endEditing(true)
         self.textViewDescription.isScrollEnabled = false
         self.textViewDescription.dataDetectorTypes = .all
@@ -125,12 +125,12 @@ class OFAAssessmentQuestionTableViewController: UITableViewController,UITextView
         self.currentTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateCurrentTime), userInfo: nil, repeats: true)
     }
     
-    func updateCurrentTime(){
+    @objc func updateCurrentTime(){
         self.currentTimePeriod += 1
         print("CurrentTime = \(self.currentTimePeriod)")
     }
     
-    func examCompletedNotificationObserver(){
+    @objc func examCompletedNotificationObserver(){
 //        self.tableView.allowsSelection = false
 //        self.textViewDescription.isUserInteractionEnabled = false
     }

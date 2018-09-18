@@ -36,7 +36,7 @@ class OFARegisterTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func tapAction(){
+    @objc func tapAction(){
         self.view.endEditing(true)
     }
     

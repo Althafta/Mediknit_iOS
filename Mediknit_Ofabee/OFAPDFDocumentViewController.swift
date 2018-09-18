@@ -152,7 +152,7 @@ class OFAPDFDocumentViewController: UIViewController {
 //        self.loadPDFAndShare()
     }
     
-    func savePdf(){
+    @objc func savePdf(){
         let fileManager = FileManager.default
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/\(self.pdfTitle)"
         let pdfDoc = NSData(contentsOf:URL(string: self.pdfURLString)!)

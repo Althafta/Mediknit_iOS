@@ -40,8 +40,8 @@ class TabySegmentedControl: UISegmentedControl {
         
         
         let normalTextAttributes = [
-            NSForegroundColorAttributeName: UIColor.white,
-            NSFontAttributeName: font
+            NSAttributedStringKey.foregroundColor: UIColor.white,
+            NSAttributedStringKey.font: font
         ]
         
         self.setTitleTextAttributes(normalTextAttributes, for: UIControlState())

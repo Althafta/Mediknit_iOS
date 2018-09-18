@@ -191,7 +191,7 @@ class HADropDown: UIView {
       // Default tableview frame
       var tableFrame = CGRect.zero
 
-    func didTapBackground(gesture: UIGestureRecognizer) {
+    @objc func didTapBackground(gesture: UIGestureRecognizer) {
         isCollapsed = true
         collapseTableView()
         

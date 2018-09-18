@@ -40,7 +40,7 @@ open class YNDropDownMenu: UIView, YNDropDownDelegate {
         }
         set {
             guard let _dropDownViews = newValue else { return }
-            _dropDownViews.flatMap({ $0 as? YNDropDownView }).forEach { $0.delegate = self }
+            _dropDownViews.compactMap({ $0 as? YNDropDownView }).forEach { $0.delegate = self }
             self._dropDownViews = newValue
         }
     }

@@ -85,7 +85,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
         self.textViewQuestion.adjustsFontForContentSizeCategory = true
         do {
             let attrStr = try NSAttributedString(data: "\(self.dicQuestionDetails["comment"]!)".data(using: String.Encoding.unicode, allowLossyConversion: true)!,
-                                                 options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                 options: [ NSAttributedString.DocumentReadingOptionKey(rawValue: NSAttributedString.DocumentAttributeKey.documentType.rawValue): NSAttributedString.DocumentType.html],
                                                  documentAttributes: nil)
             comment = attrStr.string
         }catch{
@@ -184,7 +184,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
         cell.labelDate.adjustsFontForContentSizeCategory = true
         do {
             let attrStr = try NSAttributedString(data: "\(dicReply["comment"]!)".data(using: String.Encoding.unicode, allowLossyConversion: true)!,
-                                                 options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                 options: [ NSAttributedString.DocumentReadingOptionKey(rawValue: NSAttributedString.DocumentAttributeKey.documentType.rawValue): NSAttributedString.DocumentType.html],
                                                  documentAttributes: nil)
             comment = attrStr.string
         }catch{
@@ -424,7 +424,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
         }
     }
     
-    func touchesView(){//tapAction
+    @objc func touchesView(){//tapAction
         removeBlur()
         animateOut()
     }

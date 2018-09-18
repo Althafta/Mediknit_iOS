@@ -75,7 +75,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         
     }
     
-    func refreshInitiated(){
+    @objc func refreshInitiated(){
         self.loadMyCourses()
     }
     

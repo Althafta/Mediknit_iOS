@@ -89,7 +89,7 @@ class OFAAssessmentScoreCardTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func dismissScoreCard(){
+    @objc func dismissScoreCard(){
 //        self.navigationController?.popToViewController((self.parent?.parent)!, animated: true)
         UserDefaults.standard.removeObject(forKey: "OriginalAssessmentQuestions")
         let controllers = self.navigationController?.viewControllers

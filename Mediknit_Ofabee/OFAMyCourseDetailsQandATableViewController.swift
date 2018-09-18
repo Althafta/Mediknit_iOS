@@ -39,7 +39,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         self.tableView.refreshControl = self.refreshController
         
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         self.navigationController?.navigationBar.barTintColor = OFAUtils.getColorFromHexString(barTintColor)
         
         self.tableView.backgroundColor = OFAUtils.getColorFromHexString(sectionBackgroundColor)
@@ -73,7 +73,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         self.refreshInitiated()
     }
     
-    func refreshInitiated(){
+    @objc func refreshInitiated(){
         index = 0
         self.offset=1
         
@@ -82,11 +82,11 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         self.loadDiscussion(userID: user_id, offset: 1, limit: "10")
     }
      
-    func dismissKeyboard(){
+    @objc func dismissKeyboard(){
         self.viewAskQuestionPopUp.endEditing(true)
     }
     
-    func dismissAction(){
+    @objc func dismissAction(){
         self.navigationController?.popViewController(animated: true)
         removeBlur()
         animateOut()
@@ -159,7 +159,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         cell.labelComment.adjustsFontForContentSizeCategory = true
         do {
             let attrStr = try NSAttributedString(data: "\(dicDiscussion["comment"]!)".data(using: String.Encoding.unicode, allowLossyConversion: true)!,
-                                                 options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                 options: [ NSAttributedString.DocumentReadingOptionKey(rawValue: NSAttributedString.DocumentAttributeKey.documentType.rawValue): NSAttributedString.DocumentType.html],
                                                  documentAttributes: nil)
             comment = attrStr.string
         }catch{
@@ -280,7 +280,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         }
     }
     
-    func touchesView(){//tapAction
+    @objc func touchesView(){//tapAction
         removeBlur()
         animateOut()
     }

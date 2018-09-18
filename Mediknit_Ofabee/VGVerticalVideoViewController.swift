@@ -129,7 +129,7 @@ class VGVerticalVideoViewController: UIViewController {
     
     //MARK:- Save percentage helper
     
-    func updateTimer(){
+    @objc func updateTimer(){
         if avPlayer.timeControlStatus == .playing{
             let currentTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.currentTime())!)
             let totalPlayerTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.asset.duration)!)
@@ -144,12 +144,11 @@ class VGVerticalVideoViewController: UIViewController {
             }else{
                 self.isSeeked = false
             }
-                
             self.time += 1
         }
     }
     
-    func didFinishedPlaying(){
+    @objc func didFinishedPlaying(){
         self.isFullyViewed = true
     }
     
@@ -203,7 +202,7 @@ class VGVerticalVideoViewController: UIViewController {
     
     //MARK:- Helpers
     
-    func getVideoDetails(){
+    @objc func getVideoDetails(){
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
         let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
         let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String

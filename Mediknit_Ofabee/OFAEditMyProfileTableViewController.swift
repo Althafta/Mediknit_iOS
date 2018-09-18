@@ -58,7 +58,7 @@ class OFAEditMyProfileTableViewController: UITableViewController,UIImagePickerCo
         self.navigationItem.title = "Edit Profile"
     }
     
-    func tapAction(){
+    @objc func tapAction(){
         self.imagePicker.delegate = self
         actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         actionSheet.addAction(UIAlertAction(title: NSLocalizedString("Camera", comment: ""), style: .default, handler: { (alert:UIAlertAction) -> Void in
@@ -104,7 +104,7 @@ class OFAEditMyProfileTableViewController: UITableViewController,UIImagePickerCo
         }
     }
     
-    func saveProfilePressed(){
+    @objc func saveProfilePressed(){
         let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
         let dicParameters = NSDictionary(objects: [user_id,self.textUserName.text!,self.textViewBioDescription.text!,domainKey,accessToken], forKeys: ["user_id" as NSCopying,"user_name" as NSCopying,"user_bio" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])

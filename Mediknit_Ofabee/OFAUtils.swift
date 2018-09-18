@@ -354,7 +354,7 @@ class OFAUtils: NSObject {
         var originalString = ""
         do {
             let attrStr = try NSAttributedString(data: htmlString.data(using: String.Encoding.unicode, allowLossyConversion: true)!,
-                                                 options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                 options: [ NSAttributedString.DocumentReadingOptionKey(rawValue: NSAttributedString.DocumentAttributeKey.documentType.rawValue): NSAttributedString.DocumentType.html],
                                                  documentAttributes: nil)
             originalString = attrStr.string
         }catch{
@@ -368,7 +368,7 @@ class OFAUtils: NSObject {
         var originalString = ""
         do {
             let attrStr = try NSAttributedString(data: htmlString.data(using: String.Encoding.unicode, allowLossyConversion: true)!,
-                                                 options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                 options: [ NSAttributedString.DocumentReadingOptionKey(rawValue: NSAttributedString.DocumentAttributeKey.documentType.rawValue): NSAttributedString.DocumentType.html],
                                                  documentAttributes: nil)
             originalString = attrStr.string
         }catch{

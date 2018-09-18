@@ -72,7 +72,7 @@ class OFAMyProfileTableViewController: UITableViewController {
     
     //MARK:- Button Actions
     
-    func editPressed(){
+    @objc func editPressed(){
         let editProfile = self.storyboard?.instantiateViewController(withIdentifier: "EditMyProfileTVC") as! OFAEditMyProfileTableViewController
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(editProfile, animated: true)
