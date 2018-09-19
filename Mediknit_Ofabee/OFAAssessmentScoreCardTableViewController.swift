@@ -195,6 +195,19 @@ class OFAAssessmentScoreCardTableViewController: UITableViewController {
             Segment(color: OFAUtils.getColorFromHexString("00a6a9"), value: (totalValueFull * (dicResult["accuracy"] as! CGFloat))/100),
             Segment(color: OFAUtils.getColorFromHexString(ofabeeGreenColorCode), value: totalValueFull)
         ]
+//        let pieLayer = PieLayer()
+//        pieLayer.frame = CGRect(x: 0, y: 0, width: 90 , height: 90)
+//        pieLayer.addValues([PieElement(value: Float("\(dicResult["accuracy"]!)")!, color: OFAUtils.getColorFromHexString("00a6a9")),PieElement(value: (100 - Float("\(dicResult["accuracy"]!)")!), color: OFAUtils.getColorFromHexString(ofabeeGreenColorCode))], animated: false)
+//        //            self.viewPieChart.contentMode = .center
+//        self.viewPieChart.layer.addSublayer(pieLayer)
+//
+//        let semiPieLayer = PieLayer()
+//        semiPieLayer.frame = CGRect(x: 0, y: 0, width: 90 , height: 90)
+//        semiPieLayer.startAngle = 0
+//        semiPieLayer.endAngle = 180
+//        semiPieLayer.addValues([PieElement(value: Float(totalValuePartial * averageValue), color: OFAUtils.getColorFromHexString("00a6a9")),PieElement(value: (100 - Float(totalValuePartial * averageValue)), color: OFAUtils.getColorFromHexString(ofabeeGreenColorCode))], animated: false)
+//        //            self.viewSemiCirclePieChart.contentMode = .center
+//        self.viewSemiCirclePieChart.layer.addSublayer(semiPieLayer)
     }
     
     func getDuration(seconds:Int) -> [Int]{
