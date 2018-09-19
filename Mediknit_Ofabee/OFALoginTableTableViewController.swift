@@ -123,22 +123,6 @@ class OFALoginTableTableViewController: UITableViewController {
         }
     }
 
-    func sendPasswordToEmail(emailString:String) {
-        OFAUtils.showLoadingViewWithTitle("Loading")
-        OFAUtils.removeLoadingView(nil)
-        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-        let dicParameters = NSDictionary(objects: [emailString,domainKey], forKeys: ["email" as NSCopying,"domain_key" as NSCopying])
-        Alamofire.request(userBaseURL+"api/authenticate/forgot", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
-            if let result = responseJSON.result.value {
-                OFAUtils.removeLoadingView(nil)
-                OFAUtils.showToastWithTitle("You password has been sent to email Id")
-            }else{
-                OFAUtils.removeLoadingView(nil)
-                OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle:"Unable to send Password", message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
-            }
-        }
-    }
-
     //MARK:- Textfield Delegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
