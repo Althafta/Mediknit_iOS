@@ -90,11 +90,11 @@
         
         let screenSize : CGRect = UIScreen.main.bounds
         
-        if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation))
+        if(UIDevice.current.orientation.isLandscape)
         {
             durum  = true
         }
-        else if (UIDeviceOrientationIsPortrait(UIDevice.current.orientation))
+        else if (UIDevice.current.orientation.isPortrait)
         {
             durum  = false
         }

@@ -297,7 +297,7 @@ class OFAAssessmentQuestionTableViewController: UITableViewController,UITextView
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         self.tableView.estimatedRowHeight = 83
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         return self.tableView.rowHeight
     }
     

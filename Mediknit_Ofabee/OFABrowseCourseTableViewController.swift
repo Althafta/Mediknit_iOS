@@ -21,7 +21,7 @@ class OFABrowseCourseTableViewController: UITableViewController,UISearchBarDeleg
     @IBOutlet var buttonCategory: UIButton!
     @IBOutlet var buttonSignIn: UIButton!
     
-    var blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+    var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
     var blurEffectView = UIVisualEffectView()
     
     var refreshController = UIRefreshControl()
@@ -65,7 +65,7 @@ class OFABrowseCourseTableViewController: UITableViewController,UISearchBarDeleg
         //        tabBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, spacing);
         //        tabBtn.titleEdgeInsets = UIEdgeInsetsMake(0, spacing, 0, 0);
         
-        self.buttonCategory.imageEdgeInsets = UIEdgeInsetsMake(0, self.tableViewHeaderView.frame.width-76, 0, 0)
+        self.buttonCategory.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: self.tableViewHeaderView.frame.width-76, bottom: 0, right: 0)
         
         self.refreshInitiated()
     }

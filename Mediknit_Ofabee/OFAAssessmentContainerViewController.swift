@@ -65,7 +65,7 @@ class OFAAssessmentContainerViewController: UIViewController,AssessmentAnswerDel
     var totalDuration = Int()
     var statusCount = 0
     
-    var blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+    var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
     var blurEffectView = UIVisualEffectView()
     
     var isExamCompleted = false
@@ -242,8 +242,8 @@ class OFAAssessmentContainerViewController: UIViewController,AssessmentAnswerDel
                 assessmentTVC?.arrayOptions = arrayOption.mutableCopy() as! NSMutableArray
             }
             
-            self.addChildViewController(vc)
-            vc.didMove(toParentViewController: self)
+            self.addChild(vc)
+            vc.didMove(toParent: self)
             
             vc.view.frame = self.viewContainer.bounds
             self.viewContainer.addSubview(vc.view)

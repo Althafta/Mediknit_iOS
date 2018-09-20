@@ -41,7 +41,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
     var dicQuestionDetails = NSDictionary()
     var dateString = ""
     
-    var blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+    var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
     var blurEffectView = UIVisualEffectView()
     
     let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
@@ -207,7 +207,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         self.tableView.estimatedRowHeight = 118
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         return self.tableView.rowHeight
     }
     

@@ -118,7 +118,7 @@ class OFALeftSideMenuTableViewController: UITableViewController {
             })
         }
         
-        self.tableView .reloadRows(at: [IndexPath(row: currentRow, section: currentSection),IndexPath(row: lastSelectedRow, section: 0)], with:UITableViewRowAnimation.fade)
+        self.tableView .reloadRows(at: [IndexPath(row: currentRow, section: currentSection),IndexPath(row: lastSelectedRow, section: 0)], with:UITableView.RowAnimation.fade)
         self.tableView.reloadData()
     }
     

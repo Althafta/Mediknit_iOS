@@ -41,7 +41,7 @@ class VGVerticalVideoViewController: UIViewController {
     var tsDataFiles = NSMutableData()
     var arrayTSURLs = [String]()
     var index = 0
-    var videoIOSUrl = "https://elearning.lifelinemcs.org/lifeline_ios_app/"
+    var videoIOSUrl = "https://elearn.maven-silicon.com/maven_ios_app/"
     var seekedTime = CMTime()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

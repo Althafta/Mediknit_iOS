@@ -125,7 +125,7 @@ class OFALoginTableTableViewController: UITableViewController {
 
     //MARK:- Textfield Delegate
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    @objc func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag+1
         let nextResponder = textField.superview?.superview?.superview?.viewWithTag(nextTag)
         if nextResponder != nil{

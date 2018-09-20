@@ -119,7 +119,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
                         emptyAlert.addAction(UIAlertAction(title: "Get", style: .default, handler: { (alertAction) in
                             let browseCourse = self.storyboard?.instantiateViewController(withIdentifier: "BrowseCourseTVC") as!OFABrowseCourseTableViewController
                             browseCourse.isPushedView = true
-                            self.navigationController?.childViewControllers[0].navigationItem.title = ""
+                            self.navigationController?.children[0].navigationItem.title = ""
                             self.navigationController?.pushViewController(browseCourse, animated: true)
                         }))
                         emptyAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in

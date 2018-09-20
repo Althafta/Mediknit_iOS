@@ -166,8 +166,8 @@ class OFAMyCourseCurriculumListContainerViewController: UIViewController {
     func displayCurrentTab(){
         if let vc = curriculumTabTVC {
             
-            self.addChildViewController(vc)
-            vc.didMove(toParentViewController: self)
+            self.addChild(vc)
+            vc.didMove(toParent: self)
             
             vc.view.frame = self.viewContainer.bounds
             self.viewContainer.addSubview(vc.view)

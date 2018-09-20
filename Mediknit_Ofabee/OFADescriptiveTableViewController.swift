@@ -35,7 +35,7 @@ class OFADescriptiveTableViewController: UITableViewController,UITextFieldDelega
     var comment_api = ""
     var marks = ""
     
-    var blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+    var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
     var blurEffectView = UIVisualEffectView()
     
     override func viewDidLoad() {
@@ -240,7 +240,7 @@ class OFADescriptiveTableViewController: UITableViewController,UITextFieldDelega
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         self.tableView.estimatedRowHeight = 118
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         return self.tableView.rowHeight
     }
     

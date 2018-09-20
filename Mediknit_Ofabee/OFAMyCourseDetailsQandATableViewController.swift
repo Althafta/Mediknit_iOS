@@ -26,7 +26,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     
     var isPresented = false
     
-    var blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+    var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
     var blurEffectView = UIVisualEffectView()
     
     var refreshController = UIRefreshControl()
@@ -39,7 +39,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         self.tableView.refreshControl = self.refreshController
         
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         self.navigationController?.navigationBar.barTintColor = OFAUtils.getColorFromHexString(barTintColor)
         
         self.tableView.backgroundColor = OFAUtils.getColorFromHexString(sectionBackgroundColor)
@@ -174,7 +174,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let discussionRepliesTVC = self.storyboard?.instantiateViewController(withIdentifier: "DiscussionRepliesTVC") as! OFAMyCourseDetailsDisussionRepliesTableViewController
         if isPresented == false{
-            self.navigationController?.childViewControllers[1].navigationItem.title = ""
+            self.navigationController?.children[1].navigationItem.title = ""
         }else{
             self.navigationItem.title = ""
         }

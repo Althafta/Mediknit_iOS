@@ -134,7 +134,7 @@ public extension FontAwesomeKit where Base: UIButton {
     ///
     /// - parameter type:  The fontAwesome type, and you don't need to 'setImage' or 'setBackgroundImage'
     /// - parameter state: The state that uses the specified title. The possible values are described in UIControlState.
-    public func setTitle(_ type: FontAwesomeType, for state: UIControlState) {
+    public func setTitle(_ type: FontAwesomeType, for state: UIControl.State) {
         base.titleLabel?.font = UIFont.fa?.fontSize(28)
         base.setTitle(type.fa.cCharString, for: state)
     }
@@ -149,7 +149,7 @@ public extension UIBarButtonItem {
     /// - parameter action:   The action to send to target when this item is selected.
     ///
     /// - returns: Newly initialized item with fontAwesome icon.
-    public convenience init(awesomeType type: FontAwesomeType, size fontSize: CGFloat = 24.0, style: UIBarButtonItemStyle, target: Any?, action: Selector?) {
+    public convenience init(awesomeType type: FontAwesomeType, size fontSize: CGFloat = 24.0, style: UIBarButtonItem.Style, target: Any?, action: Selector?) {
         let barItemLabel = UILabel()
         barItemLabel.fa.text = type
         barItemLabel.font = UIFont.fa?.fontSize(fontSize)
@@ -187,7 +187,7 @@ public extension UIButton {
     /// - parameter type:  The fontAwesome type, and you don't need to 'setImage' or 'setBackgroundImage'
     /// - parameter state: The state that uses the specified title. The possible values are described in UIControlState.
     @available(*, deprecated, message: "UIButton's fa_setTitle is deprecated, use `fa.setTitle` instead.", renamed: "fa.setTitle(_:)")
-    public func fa_setTitle(_ type: FontAwesomeType, for state: UIControlState) {
+    public func fa_setTitle(_ type: FontAwesomeType, for state: UIControl.State) {
         self.titleLabel?.font = UIFont(fa_fontSize: 28)
         self.setTitle(type.fa.cCharString, for: state)
     }

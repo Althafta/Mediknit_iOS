@@ -198,7 +198,7 @@ class OFABrowseCourseDetailsTableViewController: UITableViewController,CourseDet
                             self.mAmount = courseOriginalPrice
                             self.labelFooterDiscountPrice.text = "RS. \(courseOriginalPrice)"
                             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "RS. \(courseDiscountPrice)")
-                            attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+                            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
                             self.labelFooterOriginalPrice.attributedText = attributeString
                         }else{
                             self.labelFooterDiscountPrice.text = ""//"Free"
@@ -211,7 +211,7 @@ class OFABrowseCourseDetailsTableViewController: UITableViewController,CourseDet
                             self.mAmount = courseDiscountPrice
                             self.labelFooterDiscountPrice.text = courseDiscountPrice
                             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "RS. \(courseOriginalPrice)")
-                            attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+                            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
                             self.labelFooterOriginalPrice.attributedText = attributeString
                         }else{
                             self.labelFooterDiscountPrice.text = ""//"Free"
@@ -456,7 +456,7 @@ class OFABrowseCourseDetailsTableViewController: UITableViewController,CourseDet
         }
         if indexPath.row == 3 {
             self.tableView.estimatedRowHeight = 168
-            self.tableView.rowHeight = UITableViewAutomaticDimension
+            self.tableView.rowHeight = UITableView.automaticDimension
             return self.tableView.rowHeight//170+53
         }
         if indexPath.row == 5 {

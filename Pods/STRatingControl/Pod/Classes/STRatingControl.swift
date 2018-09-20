@@ -68,7 +68,7 @@ open class STRatingControl: UIView {
       for _ in 0..<maxRating {
         let button = UIButton()
         
-        button.setImage(emptyStarImage, for: UIControlState())
+        button.setImage(emptyStarImage, for: UIControl.State())
         button.setImage(filledStarImage, for: .selected)
         button.setImage(filledStarImage, for: [.highlighted, .selected])
         button.isUserInteractionEnabled = false

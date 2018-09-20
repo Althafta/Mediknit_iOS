@@ -26,13 +26,13 @@ class TabySegmentedControl: UISegmentedControl {
         let backgroundImageSelected = UIImage(named: "segmented_selected_bg")?.withRenderingMode(.alwaysTemplate)
         self.tintColor = UIColor.white//OFAUtils.getColorFromHexString(ofabeeGreenColorCode)
         
-        self.setBackgroundImage(backgroundImage, for: UIControlState(), barMetrics: .default)
+        self.setBackgroundImage(backgroundImage, for: UIControl.State(), barMetrics: .default)
         self.setBackgroundImage(backgroundImageSelected, for: .highlighted, barMetrics: .default)
         self.setBackgroundImage(backgroundImageSelected, for: .selected, barMetrics: .default)
         
-        self.setDividerImage(dividerImage, forLeftSegmentState: UIControlState(), rightSegmentState: .selected, barMetrics: .default)
-        self.setDividerImage(dividerImage, forLeftSegmentState: .selected, rightSegmentState: UIControlState(), barMetrics: .default)
-        self.setDividerImage(dividerImage, forLeftSegmentState: UIControlState(), rightSegmentState: UIControlState(), barMetrics: .default)
+        self.setDividerImage(dividerImage, forLeftSegmentState: UIControl.State(), rightSegmentState: .selected, barMetrics: .default)
+        self.setDividerImage(dividerImage, forLeftSegmentState: .selected, rightSegmentState: UIControl.State(), barMetrics: .default)
+        self.setDividerImage(dividerImage, forLeftSegmentState: UIControl.State(), rightSegmentState: UIControl.State(), barMetrics: .default)
     }
     
     func setupFonts(){
@@ -40,11 +40,11 @@ class TabySegmentedControl: UISegmentedControl {
         
         
         let normalTextAttributes = [
-            NSAttributedStringKey.foregroundColor: UIColor.white,
-            NSAttributedStringKey.font: font
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font: font
         ]
         
-        self.setTitleTextAttributes(normalTextAttributes, for: UIControlState())
+        self.setTitleTextAttributes(normalTextAttributes, for: UIControl.State())
         self.setTitleTextAttributes(normalTextAttributes, for: .highlighted)
         self.setTitleTextAttributes(normalTextAttributes, for: .selected)
     }

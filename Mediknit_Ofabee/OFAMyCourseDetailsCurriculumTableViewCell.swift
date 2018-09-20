@@ -19,7 +19,9 @@ class OFAMyCourseDetailsCurriculumTableViewCell: UITableViewCell {
     @IBOutlet var buttonCompleted: UIButton!
     @IBOutlet var imageViewIcon: UIImageView!
     
+    @IBOutlet weak var labelCount: UILabel!
     @IBOutlet var viewBackground: UIView!
+    @IBOutlet weak var viewCountBG: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,13 +34,17 @@ class OFAMyCourseDetailsCurriculumTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func customizeCellWithDetails(curriculumTitle:String,details:String,percentage:CGFloat,serialNumber:String,downloadStatus:String,completeStatus:String){
+    func customizeCellWithDetails(curriculumTitle:String,details:String,percentage:CGFloat,serialNumber:String,downloadStatus:String,completeStatus:String,viewText:String,viewStatus:Bool){
         self.labelCurriculumTitle.text = curriculumTitle
         self.labelDetails.text = details
         self.buttonProgress.linearLoadingWith(progress: percentage)
         self.buttonProgress.layer.cornerRadius = self.buttonProgress.frame.height/2
         self.labelSerialNumber.text = serialNumber
         self.viewBackground.dropShadow()
+        self.viewCountBG.layer.cornerRadius = self.viewCountBG.frame.height/2
+        self.viewCountBG.dropShadow()
+        self.labelCount.text = viewText
+        self.viewCountBG.isHidden = viewStatus
         if percentage < 100{
             self.buttonCompleted.isHidden = true
             self.buttonDownload.isHidden = true

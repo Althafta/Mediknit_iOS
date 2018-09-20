@@ -60,12 +60,12 @@ class OFAEditMyProfileTableViewController: UITableViewController,UIImagePickerCo
     
     @objc func tapAction(){
         self.imagePicker.delegate = self
-        actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         actionSheet.addAction(UIAlertAction(title: NSLocalizedString("Camera", comment: ""), style: .default, handler: { (alert:UIAlertAction) -> Void in
             
             if UIImagePickerController.isSourceTypeAvailable(.camera) == false {
-                let cameraAlert = UIAlertController ( title:  NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("Camera Unavailable", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
-                cameraAlert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.cancel, handler: { (alert:UIAlertAction) -> Void in
+                let cameraAlert = UIAlertController ( title:  NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("Camera Unavailable", comment: ""), preferredStyle: UIAlertController.Style.alert)
+                cameraAlert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertAction.Style.cancel, handler: { (alert:UIAlertAction) -> Void in
                     self.dismiss(animated: true, completion: nil)
                 }))
                 self.present(cameraAlert, animated: true, completion: nil)
@@ -79,8 +79,8 @@ class OFAEditMyProfileTableViewController: UITableViewController,UIImagePickerCo
         }))
         actionSheet.addAction(UIAlertAction(title: NSLocalizedString("Photo Library", comment: ""), style: .default, handler: { (alert:UIAlertAction) -> Void in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) == false {
-                let cameraAlert = UIAlertController ( title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("Gallery Unavailable", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
-                cameraAlert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.cancel, handler: { (alert:UIAlertAction) -> Void in
+                let cameraAlert = UIAlertController ( title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("Gallery Unavailable", comment: ""), preferredStyle: UIAlertController.Style.alert)
+                cameraAlert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertAction.Style.cancel, handler: { (alert:UIAlertAction) -> Void in
                     self.dismiss(animated: true, completion: nil)
                 }))
                 self.present(cameraAlert, animated: true, completion: nil)
@@ -241,15 +241,18 @@ class OFAEditMyProfileTableViewController: UITableViewController,UIImagePickerCo
     
     //MARK:- ImagePicker Delegates
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
 //        pickedImage = (info[UIImagePickerControllerEditedImage] as? UIImage)!
         
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         let photoURL = NSURL(fileURLWithPath: documentDirectory)
         let localPath = photoURL.appendingPathComponent("ProfileImage(\(self.user_id)")
-        pickedImage = (info[UIImagePickerControllerEditedImage] as? UIImage)!
+        pickedImage = (info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage)!
         let resizeImage = OFAUtils.resizeImage(pickedImage, newWidth: 350)
-        self.imageData = UIImageJPEGRepresentation(resizeImage, 1.0)
+        self.imageData = resizeImage.jpegData(compressionQuality: 1.0)
         do
         {
             try self.imageData?.write(to: localPath!, options: Data.WritingOptions.atomic)
@@ -264,4 +267,14 @@ class OFAEditMyProfileTableViewController: UITableViewController,UIImagePickerCo
         self.uploadImage(fileURL: localPath!)
         dismiss(animated: true, completion: nil)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

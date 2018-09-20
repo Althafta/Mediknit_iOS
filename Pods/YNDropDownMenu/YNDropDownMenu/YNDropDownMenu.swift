@@ -58,7 +58,7 @@ open class YNDropDownMenu: UIView, YNDropDownDelegate {
     open var blurEffectViewAlpha:CGFloat = 1.0
     
     /// Blur effect style in background view
-    open var blurEffectStyle:UIBlurEffectStyle = .dark
+    open var blurEffectStyle:UIBlurEffect.Style = .dark
     
     /// Make background blur view enabled
     open var backgroundBlurEnabled = true
@@ -475,7 +475,7 @@ open class YNDropDownMenu: UIView, YNDropDownDelegate {
         dropDownView.isHidden = false
         
         self.addSubview(dropDownView)
-        self.sendSubview(toBack: dropDownView)
+        self.sendSubviewToBack(dropDownView)
         
         (dropDownView as? YNDropDownView)?.dropDownViewOpened()
         

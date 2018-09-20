@@ -59,8 +59,8 @@ class OFAMyCourseDetailsViewController: UIViewController {
     func displayCurrentTab(_ tabIndex: Int){
         if let vc = viewControllerForSelectedSegmentIndex(tabIndex) {
             
-            self.addChildViewController(vc)
-            vc.didMove(toParentViewController: self)
+            self.addChild(vc)
+            vc.didMove(toParent: self)
             
             vc.view.frame = self.contentView.bounds
             self.contentView.addSubview(vc.view)
@@ -70,7 +70,7 @@ class OFAMyCourseDetailsViewController: UIViewController {
     
     @IBAction func segmentControlSelected(_ sender: TabySegmentedControl) {
         self.currentViewController!.view.removeFromSuperview()
-        self.currentViewController!.removeFromParentViewController()
+        self.currentViewController!.removeFromParent()
         
         displayCurrentTab(sender.selectedSegmentIndex)
     }

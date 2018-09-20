@@ -144,11 +144,11 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
             cell.imageViewIcon.image = image
 //            cell.labelDetails.font = UIFont.fontAwesome(ofSize: 14)
             let stringVar = String()
-            let fontVar = UIFont(fa_fontSize: 15)
+            let fontVar = UIFont.fa?.fontSize(15)
             let faType = stringVar.fa.fontAwesome(.fa_ellipsis_v)
             cell.labelDetails.font = fontVar
             
-            cell.customizeCellWithDetails(curriculumTitle: "\(dicLecture["cl_lecture_name"]!)", details: details, percentage: percentage, serialNumber: "\(indexPath.row + 1)", downloadStatus: "\(dicLecture["cl_downloadable"]!)", completeStatus: "")
+            cell.customizeCellWithDetails(curriculumTitle: "\(dicLecture["cl_lecture_name"]!)", details: details, percentage: percentage, serialNumber: "\(indexPath.row + 1)", downloadStatus: "\(dicLecture["cl_downloadable"]!)", completeStatus: "",viewText: "\(dicLecture["ll_attempt"]!)/\(dicLecture["cl_limited_access"]!) Views", viewStatus:"\(dicLecture["cl_limited_access"]!)" == "0" ? true : false)
             cell.buttonAction.indexPath = indexPath
             cell.buttonDownload.indexPath = indexPath
         }
@@ -166,9 +166,8 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
             }else if curriculumType == "2"{
                 self.getPDFViewControllerWithLectureId(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
             }else if curriculumType == "3"{
-//                let dicAssessment = dicLecture["assesment"] as! NSDictionary
-//                self.getAssessment(lectureId: "\(dicLecture["id"]!)", lectureTitle: "\(dicLecture["cl_lecture_name"]!)",duration:"\(dicAssessment["a_duration"]!)",assessmentID: "\(dicLecture["assessment_id"]!)")
-                OFAUtils.showToastWithTitle("Assessments can be attended in a PC/Laptop")
+                let dicAssessment = dicLecture["assesment"] as! NSDictionary
+                self.getAssessment(lectureId: "\(dicLecture["id"]!)", lectureTitle: "\(dicLecture["cl_lecture_name"]!)",duration:"\(dicAssessment["a_duration"]!)",assessmentID: "\(dicLecture["assessment_id"]!)")
             }else if curriculumType == "4"{
                 self.getYoutubeDetails(lectureId: "\(dicLecture["id"]!)")
             }else if curriculumType == "5"{
@@ -178,6 +177,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
             }else if curriculumType == "8"{
                 let dicDescriptive = dicLecture["descriptive"] as! NSDictionary
                 let arrayComments = dicDescriptive["comments"] as! NSArray
+//                self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments)
                 if let dicDescriptive = dicLecture["descriptive"] as? NSDictionary {
                     if dicDescriptive["dt_total_mark"] != nil{
                         self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments, marks: "\(dicDescriptive["marks"]!)", totalMarks: "\(dicDescriptive["dt_total_mark"]!)")
@@ -219,18 +219,22 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                 percentage = 0
             }else{
                 guard let n = NumberFormatter().number(from: "\(dicLecture["ll_percentage"]!)")
-                    else { return 125 }
+                    else { return 128 }
                 percentage = CGFloat(n)
                 if percentage < 100 {
-                    return 125
+                    if "\(dicLecture["cl_limited_access"]!)" == "0"{
+                        return 128
+                    }else{
+                        return 170
+                    }
                 }else{
                     if "\(dicLecture["cl_downloadable"]!)" == "0"{
-                        return 100
+                        return 128
                     }
                 }
             }
         }
-        return 125
+        return 170
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -481,53 +485,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
         return [hours,minutes,second]
     }
     
-    //MARK:- Get Lecture Details
-    
-    func getLectureDetails(lectureId:String, percentage:String,completionHandler:@escaping(NSDictionary?)->()){
-        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-        let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
-        let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
-        let dicParameters = NSDictionary(objects: [COURSE_ID,user_id,lectureId,domainKey,accessToken], forKeys: ["course_id" as NSCopying,"user_id" as NSCopying,"lecture_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
-        OFAUtils.showLoadingViewWithTitle("Loading Lecture")
-        Alamofire.request(userBaseURL+"api/course/get_lecture", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
-            if let dicResult = responseJSON.result.value as? NSDictionary{
-                OFAUtils.removeLoadingView(nil)
-                if "\(dicResult["message"]!)" == "Login failed" {
-                    let sessionAlert = UIAlertController(title: "Session Expired", message: nil, preferredStyle: .alert)
-                    sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
-                        self.sessionExpired()
-                    }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
-                    }))
-                    self.present(sessionAlert, animated: true, completion: nil)
-                    return
-                }
-                if "\(dicResult["message"]!)" == "Course subscription expired" {
-                    let sessionAlert = UIAlertController(title: "Course ended", message: nil, preferredStyle: .alert)
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
-                    }))
-                    self.present(sessionAlert, animated: true, completion: nil)
-                    return
-                }
-                if let dicBody = dicResult["body"] as? NSDictionary{
-                    completionHandler(dicBody)
-                }
-            }else{
-                OFAUtils.removeLoadingView(nil)
-                OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle: "Warning", message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
-            }
-        }
-    }
-    
     //MARK:- Video
-    
-//    func getVideoDetails(){
-//        self.getLectureDetails(lectureId: "", percentage: "") { (dicBody) in
-//            
-//        }
-//    }
     
     func getVideoDetails(lectureId:String, percentage:String){
         var urlString = ""
@@ -552,7 +510,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     return
                 }
                 if "\(dicResult["message"]!)" == "Course subscription expired" {
-                    let sessionAlert = UIAlertController(title: "Course ended", message: nil, preferredStyle: .alert)
+                    let sessionAlert = UIAlertController(title: "Course expired", message: nil, preferredStyle: .alert)
                     sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
                         sessionAlert.dismiss(animated: true, completion: nil)
                     }))
@@ -578,11 +536,11 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     videoPlayer.videoTitle = videoTitle
                     videoPlayer.lectureID = lectureId
                     videoPlayer.percentage = Float64(percentage)!
-                    self.navigationController?.childViewControllers[1].navigationItem.title = ""
+                    self.navigationController?.children[1].navigationItem.title = ""
                     self.navigationController?.pushViewController(videoPlayer, animated: true)
                 }else{
                     OFAUtils.removeLoadingView(nil)
-                    OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle: "Some error occured", message: "Try again later", cancelButtonTitle: "OK")
+                    OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle: nil, message: "Try again later", cancelButtonTitle: "OK")
                 }
             }else{
                 OFAUtils.removeLoadingView(nil)
@@ -614,7 +572,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     return
                 }
                 if "\(dicResult["message"]!)" == "Course subscription expired" {
-                    let sessionAlert = UIAlertController(title: "Course ended", message: nil, preferredStyle: .alert)
+                    let sessionAlert = UIAlertController(title: "Course expired", message: nil, preferredStyle: .alert)
                     sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
                         sessionAlert.dismiss(animated: true, completion: nil)
                     }))
@@ -628,7 +586,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     pdfViewer.pdfURLString = "\(dicBody["filename"]!)"
                     pdfViewer.lectureID = lectureId
                     pdfViewer.percentage = percentage
-                    self.navigationController?.childViewControllers[1].navigationItem.title = ""
+                    self.navigationController?.children[1].navigationItem.title = ""
                     self.navigationController?.pushViewController(pdfViewer, animated: true)
                 } else {
                     // Fallback on earlier versions
@@ -685,7 +643,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     return
                 }
                 if "\(dicResult["message"]!)" == "Course subscription expired" {
-                    let sessionAlert = UIAlertController(title: "Course ended", message: nil, preferredStyle: .alert)
+                    let sessionAlert = UIAlertController(title: "Course expired", message: nil, preferredStyle: .alert)
                     sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
                         sessionAlert.dismiss(animated: true, completion: nil)
                     }))
@@ -698,7 +656,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                 textVC.textTitle = "\(dicBody["lecture_name"]!)"
                 textVC.lectureID = lectureId
                 textVC.percentage = percentage
-                self.navigationController?.childViewControllers[1].navigationItem.title = ""
+                self.navigationController?.children[1].navigationItem.title = ""
                 self.navigationController?.pushViewController(textVC, animated: true)
             }else{
                 OFAUtils.removeLoadingView(nil)
@@ -730,7 +688,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     return
                 }
                 if "\(dicResult["message"]!)" == "Course subscription expired" {
-                    let sessionAlert = UIAlertController(title: "Course ended", message: nil, preferredStyle: .alert)
+                    let sessionAlert = UIAlertController(title: "Course expired", message: nil, preferredStyle: .alert)
                     sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
                         sessionAlert.dismiss(animated: true, completion: nil)
                     }))
@@ -742,7 +700,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                 youtubePlayerVC.videoURL = OFAUtils.getYoutubeId(youtubeUrl: "\(dicBody["filename"]!)")//"\(dicBody["filename"]!)"
                 youtubePlayerVC.isBrowseCourse = false
                 youtubePlayerVC.lectureID = lectureId
-                self.navigationController?.childViewControllers[1].navigationItem.title = "\(dicBody["lecture_name"]!)"
+                self.navigationController?.children[1].navigationItem.title = "\(dicBody["lecture_name"]!)"
                 self.navigationController?.pushViewController(youtubePlayerVC, animated: true)
 //                self.present(youtubePlayerVC, animated: true, completion: nil)
             }else{
@@ -775,7 +733,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     return
                 }
                 if "\(dicResult["message"]!)" == "Course subscription expired" {
-                    let sessionAlert = UIAlertController(title: "Course ended", message: nil, preferredStyle: .alert)
+                    let sessionAlert = UIAlertController(title: "Course expired", message: nil, preferredStyle: .alert)
                     sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
                         sessionAlert.dismiss(animated: true, completion: nil)
                     }))
@@ -797,7 +755,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     descriptiveVC.marks = marks+" / "+totalMarks
                 }
                 
-                self.navigationController?.childViewControllers[1].navigationItem.title = "\(dicBody["lecture_name"]!)"
+                self.navigationController?.children[1].navigationItem.title = "\(dicBody["lecture_name"]!)"
                 self.navigationController?.pushViewController(descriptiveVC, animated: true)
                 
             }else{
@@ -834,7 +792,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     return
                 }
                 if "\(dicResult["message"]!)" == "Course subscription expired" {
-                    let sessionAlert = UIAlertController(title: "Course ended", message: nil, preferredStyle: .alert)
+                    let sessionAlert = UIAlertController(title: "Course expired", message: nil, preferredStyle: .alert)
                     sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
                         sessionAlert.dismiss(animated: true, completion: nil)
                     }))
@@ -849,7 +807,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                 assessmentVC.totalDuration = Int(duration)! * 60
                 assessmentVC.assessmentID = assessmentID
                 assessmentVC.lectureID = lectureId
-                self.navigationController?.childViewControllers[1].navigationItem.title = lectureTitle
+                self.navigationController?.children[1].navigationItem.title = lectureTitle
                 assessmentVC.arrayQuestions = arrayQuestions.mutableCopy() as! NSMutableArray
 //                assessmentVC.arrayOriginalQuestions = arrayQuestions.mutableCopy() as! NSMutableArray
 //                UserDefaults.standard.setValue(arrayQuestions.mutableCopy() as! NSMutableArray, forKey: "OriginalAssessmentQuestions")

@@ -21,7 +21,7 @@ class OFAAssessmentQuestionListTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         self.navigationController?.navigationBar.barTintColor = OFAUtils.getColorFromHexString(barTintColor)
         
 //        self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -39,7 +39,7 @@ class OFAAssessmentQuestionListTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Questions"
         if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
             self.navigationController?.navigationBar.prefersLargeTitles = false
         } else {
             // Fallback on earlier versions
@@ -78,7 +78,7 @@ class OFAAssessmentQuestionListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         self.tableView.estimatedRowHeight = 91
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         return self.tableView.rowHeight
     }
 

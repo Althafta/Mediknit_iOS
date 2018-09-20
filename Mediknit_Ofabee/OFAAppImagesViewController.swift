@@ -24,7 +24,7 @@ class OFAAppImagesViewController: UIPageViewController,UIPageViewControllerDataS
         
         self.dataSource = self
         
-        self.setViewControllers([getViewControllerAtIndex(0)] as [UIViewController], direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
+        self.setViewControllers([getViewControllerAtIndex(0)] as [UIViewController], direction: UIPageViewController.NavigationDirection.forward, animated: false, completion: nil)
     }
     // MARK:- UIPageViewControllerDataSource Methods
     

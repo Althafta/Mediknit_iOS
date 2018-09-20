@@ -14,9 +14,9 @@ extension UIViewController {
     func setNavigationBarItem(isSidemenuEnabled:Bool) {
         OFAUtils.lockOrientation(.portrait)
         self.navigationController?.navigationBar.tintColor = OFAUtils.getColorFromHexString(barTintColor)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:OFAUtils.getColorFromHexString(barTintColor)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:OFAUtils.getColorFromHexString(barTintColor)]
         if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: OFAUtils.getColorFromHexString(barTintColor)]
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: OFAUtils.getColorFromHexString(barTintColor)]
         } else {
             // Fallback on earlier versions
         }
@@ -31,7 +31,7 @@ extension UIViewController {
     }
 //    
     public func addLeftBarButtonWithImage(_ buttonImage: UIImage) {
-        let leftButton: UIBarButtonItem = UIBarButtonItem(image: buttonImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.toggleLeft))
+        let leftButton: UIBarButtonItem = UIBarButtonItem(image: buttonImage, style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.toggleLeft))
         navigationItem.leftBarButtonItem = leftButton
     }
     

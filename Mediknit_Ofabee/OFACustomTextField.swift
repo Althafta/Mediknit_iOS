@@ -15,10 +15,10 @@ import UIKit
         let imageView=UIImageView(image: rightPaddingImage)
         imageView.tag=10
         imageView.frame=CGRect(x: 0, y: 0, width: viewRightPadding.bounds.size.width-10, height: viewRightPadding.bounds.size.height)
-        imageView.contentMode=UIViewContentMode.right
+        imageView.contentMode=UIView.ContentMode.right
         viewRightPadding.addSubview(imageView)
         rightView=viewRightPadding
-        rightViewMode = UITextFieldViewMode.always
+        rightViewMode = UITextField.ViewMode.always
         
         let viewLeftPadding=UIView(frame: CGRect(x: 0,y: 0,width: self.bounds.size.width/7,height: self.bounds.size.height))
         let imageViewLeft=UIImageView(image: leftPaddingImage)
@@ -26,10 +26,10 @@ import UIKit
         imageViewLeft.frame=CGRect(x: 0, y: 0, width: viewLeftPadding.bounds.size.width-10, height: viewLeftPadding.bounds.size.height)
         imageViewLeft.image = imageViewLeft.image?.withRenderingMode(.alwaysTemplate)
         imageViewLeft.tintColor = OFAUtils.getColorFromHexString(barTintColor)
-        imageViewLeft.contentMode=UIViewContentMode.left
+        imageViewLeft.contentMode=UIView.ContentMode.left
         viewLeftPadding.addSubview(imageViewLeft)
         leftView=viewLeftPadding
-        leftViewMode = UITextFieldViewMode.always
+        leftViewMode = UITextField.ViewMode.always
 
     }
     @IBInspectable var cornerRadius: CGFloat = 0 {
