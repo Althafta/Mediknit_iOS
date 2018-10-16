@@ -26,9 +26,9 @@ class OFAMyProfileTableViewController: UITableViewController {
         self.imageViewUser.layer.borderWidth = 3.0
         self.imageViewUser.layer.borderColor = UIColor.lightGray.cgColor
         self.textViewBio.dropShadow()
-        
+        self.textViewBio.isHidden = true
 //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.editPressed))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "profileEdit"), style: .plain, target: self, action: #selector(self.editPressed))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "profileEdit"), style: .plain, target: self, action: #selector(self.editPressed))
         
         self.tableView.reloadData()
     }

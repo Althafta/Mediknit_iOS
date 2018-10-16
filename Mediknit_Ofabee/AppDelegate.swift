@@ -72,15 +72,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func autoLogin(userId:String){
-        let userArray = self.getDataFromCoreData()
+        let userArray = self.getAllUsersFromCoreData()
         let filteredArray = userArray.filtered(using: NSPredicate(format: "user_id==%@", userId))
-        let user = filteredArray.last as! User
-        let dicData = NSDictionary(objects: [user.user_name!,user.user_email!,user.user_phone!,user.user_image!,user.user_about!,user.user_id!], forKeys: ["us_name" as NSCopying,"us_email" as NSCopying,"us_phone" as NSCopying,"us_image" as NSCopying,"us_about" as NSCopying,"user_id" as NSCopying])
-        OFASingletonUser.ofabeeUser.updateUserDetailsFromCoreData(dicData: dicData)
-        self.initializeBrowserCourse()
+        if filteredArray.count > 0{
+            let user = filteredArray.last as! User
+            let dicData = NSDictionary(objects: [user.user_name!,user.user_email!,user.user_phone!,user.user_image!,user.user_about!,user.user_id!], forKeys: ["us_name" as NSCopying,"us_email" as NSCopying,"us_phone" as NSCopying,"us_image" as NSCopying,"us_about" as NSCopying,"user_id" as NSCopying])
+            OFASingletonUser.ofabeeUser.updateUserDetailsFromCoreData(dicData: dicData)
+            self.initializeBrowserCourse()
+        }else{
+            self.initializePreLoginPage()
+        }
     }
     
-    func getDataFromCoreData() -> NSArray{
+    func getAllUsersFromCoreData() -> NSArray{
         var arrayResult = NSArray()
         let context = persistentContainer.viewContext
         do{
@@ -128,7 +132,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func logout(){
+        GIDSignIn.sharedInstance().signOut()
         UIApplication.shared.statusBarStyle = .default
+        let userArray = self.getAllUsersFromCoreData()
+        let filteredArray = userArray.filtered(using: NSPredicate(format: "user_id==%@", UserDefaults.standard.value(forKey: USER_ID) as! String))
+        for item in filteredArray{
+            let user = item as! User
+            self.persistentContainer.viewContext.delete(user)
+        }
         UserDefaults.standard.removeObject(forKey: USER_ID)
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let loginView = storyBoard.instantiateViewController(withIdentifier: "PreLoginNVC")

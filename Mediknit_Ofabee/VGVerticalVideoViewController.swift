@@ -127,7 +127,7 @@ class VGVerticalVideoViewController: UIViewController {
         UIApplication.shared.isStatusBarHidden = false
     }
     
-    //MARK:- Save percentage helper
+    //MARK:- Save percentage he lper
     
     @objc func updateTimer(){
         if avPlayer.timeControlStatus == .playing{

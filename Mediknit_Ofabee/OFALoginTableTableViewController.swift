@@ -25,6 +25,10 @@ class OFALoginTableTableViewController: UITableViewController {
         
        OFAUtils.setBackgroundForTableView(tableView: self.tableView)
         self.tableView.backgroundColor = .white
+        let email = UserDefaults.standard.value(forKey: EMAIL) as? String
+        if UserDefaults.standard.value(forKey: EMAIL) != nil{
+            self.textEmail.text = email!
+        }
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.tapAction))
         singleTap.numberOfTapsRequired = 1
@@ -83,7 +87,7 @@ class OFALoginTableTableViewController: UITableViewController {
     func checkUserLoginDetails () {
         OFAUtils.showLoadingViewWithTitle("Loading")
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-        let encryptedPassword = self.textPassword.text?.sha1()
+        let encryptedPassword = self.textPassword.text?.md5()
         let dicParameters = NSDictionary(objects: [self.textEmail.text!,encryptedPassword!,domainKey], forKeys: ["email" as NSCopying,"password" as NSCopying,"domain_key" as NSCopying])
         Alamofire.request(userBaseURL+"api/authenticate/login", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             
@@ -92,6 +96,7 @@ class OFALoginTableTableViewController: UITableViewController {
                 if let token = dicResponse["token"] {
                     let dicResult = dicResponse["body"] as! NSDictionary
                     
+                    UserDefaults.standard.setValue(self.textEmail.text!, forKey: EMAIL)
                     UserDefaults.standard.set(token as! String, forKey: ACCESS_TOKEN)
                     UserDefaults.standard.set("\(dicResult["id"]!)", forKey: USER_ID)
                     
@@ -111,7 +116,7 @@ class OFALoginTableTableViewController: UITableViewController {
                     delegate.initializeBrowserCourse()
                     
                     OFAUtils.removeLoadingView(nil)
-                    OFAUtils.showToastWithTitle("\(dicResponse["message"]!)")
+                    OFAUtils.showToastWithTitle("\(dicResponse["message"]!)")//"Logged in successfully" message from DB
                 }else{
                     OFAUtils.removeLoadingView(nil)
                     OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle: nil, message: "\(dicResponse["message"]!)", cancelButtonTitle: "OK")
@@ -138,11 +143,12 @@ class OFALoginTableTableViewController: UITableViewController {
 }
 
 extension String {
-    func sha1() -> String {
+    func md5() -> String {
         let data = self.data(using: String.Encoding.utf8)!
-        var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
+        var digest = [UInt8](repeating: 0, count:Int(CC_MD5_DIGEST_LENGTH))
         data.withUnsafeBytes {
-            _ = CC_SHA1($0, CC_LONG(data.count), &digest)
+//            _ = CC_SHA1($0, CC_LONG(data.count), &digest)
+            _ = CC_MD5($0, CC_LONG(data.count), &digest)
         }
         let hexBytes = digest.map { String(format: "%02hhx", $0) }
         return hexBytes.joined()

@@ -3913,13 +3913,13 @@
         <!--My Course Details Curriculum Table View Controller-->
         <scene sceneID="N5N-qt-ff7">
             <objects>
-                <tableViewController storyboardIdentifier="MyCourseCurriculumTVC" automaticallyAdjustsScrollViewInsets="NO" id="K9h-vO-kVs" customClass="OFAMyCourseDetailsCurriculumTableViewController" customModule="Maven_Silicon" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MyCourseCurriculumTVC" automaticallyAdjustsScrollViewInsets="NO" id="K9h-vO-kVs" customClass="OFAMyCourseDetailsCurriculumTableViewController" customModule="Mediknit" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="154" sectionHeaderHeight="28" sectionFooterHeight="28" id="4Kh-6P-yxl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyCourseDetailsCurriculum" rowHeight="170" id="83V-PN-c01" customClass="OFAMyCourseDetailsCurriculumTableViewCell" customModule="Maven_Silicon" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyCourseDetailsCurriculum" rowHeight="170" id="83V-PN-c01" customClass="OFAMyCourseDetailsCurriculumTableViewCell" customModule="Mediknit" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="170"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="83V-PN-c01" id="m6u-Ey-n2k">
@@ -3939,11 +3939,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XpF-ie-ayN">
-                                                    <rect key="frame" x="68" y="62" width="35" height="20"/>
+                                                    <rect key="frame" x="68" y="62" width="34" height="20"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUN-JS-8yX" customClass="MHProgressButton" customModule="Maven_Silicon" customModuleProvider="target">
+                                                <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUN-JS-8yX" customClass="MHProgressButton" customModule="Mediknit" customModuleProvider="target">
                                                     <rect key="frame" x="47" y="99" width="254" height="6"/>
                                                     <color key="backgroundColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -3951,7 +3951,7 @@
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="loadingColor">
-                                                            <color key="value" red="0.37254901959999998" green="0.72156862749999995" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="value" red="0.24052932858467102" green="0.71346527338027954" blue="0.96319597959518433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
@@ -3960,7 +3960,7 @@
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MB8-HD-514" customClass="OFACustomButton" customModule="Maven_Silicon" customModuleProvider="target">
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MB8-HD-514" customClass="OFACustomButton" customModule="Mediknit" customModuleProvider="target">
                                                     <rect key="frame" x="319" y="60" width="20" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="eH7-Yc-Irl"/>
@@ -3987,7 +3987,7 @@
                                                         <action selector="completeAction:" destination="K9h-vO-kVs" eventType="touchUpInside" id="Tzr-Rf-Wz8"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEN-Lz-5zd" customClass="OFACustomButton" customModule="Maven_Silicon" customModuleProvider="target">
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEN-Lz-5zd" customClass="OFACustomButton" customModule="Mediknit" customModuleProvider="target">
                                                     <rect key="frame" x="319" y="81" width="20" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="1Ll-ip-8q6"/>

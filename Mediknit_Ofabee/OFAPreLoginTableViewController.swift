@@ -117,17 +117,52 @@ class OFAPreLoginTableViewController: UITableViewController,GIDSignInDelegate,GI
             let familyName = user.profile.familyName
             let email = user.profile.email
             
-            var dicJSONRequest = Dictionary<String,Any>()
-            let dicContent = NSDictionary(objects: [givenName!,familyName!,email!,idToken!], forKeys: ["first_name" as NSCopying,"last_name" as NSCopying,"email" as NSCopying,"id_token" as NSCopying])
-            dicJSONRequest["request_body"] = NSDictionary(objects: ["social_signup",dicContent], forKeys: ["action" as NSCopying,"content" as NSCopying])
-            let dicParameters = dicJSONRequest
-//            self.loginAPICallWith(parameters: dicParameters, givenName: givenName!, familyName: familyName!, email: email!, isSocial: true)
-            OFAUtils.showToastWithTitle("Send data to backend")
-            GIDSignIn.sharedInstance().signOut()
+            let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
+            let dicParameters = NSDictionary(objects: [givenName!,familyName!,email!,idToken!,domainKey], forKeys: ["first_name" as NSCopying,"last_name" as NSCopying,"email" as NSCopying,"id_token" as NSCopying,"domain_key" as NSCopying])
+            self.loginAPICallWith(parameters: dicParameters, givenName: givenName!, familyName: familyName!, email: email!)
         }
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         OFAUtils.showToastWithTitle("Failed with error: \(error.localizedDescription)")
+    }
+    
+    func loginAPICallWith(parameters:NSDictionary,givenName:String,familyName:String,email:String){
+        Alamofire.request(userBaseURL+"api/authenticate/social_signup", method: .post, parameters: parameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
+            
+            if let result = responseJSON.result.value {
+                let dicResponse = result as! NSDictionary
+                if let token = dicResponse["token"] {
+                    let dicResult = dicResponse["body"] as! NSDictionary
+                    
+                    UserDefaults.standard.set(token as! String, forKey: ACCESS_TOKEN)
+                    UserDefaults.standard.set("\(dicResult["id"]!)", forKey: USER_ID)
+                    
+                    let userDetails = User(context: self.context)
+                    userDetails.user_name = "\(dicResult["us_name"]!)"
+                    userDetails.user_email = "\(dicResult["us_email"]!)"
+                    userDetails.user_image = "\(dicResult["us_image"]!)"
+                    userDetails.user_phone = "\(dicResult["us_phone"]!)"
+                    userDetails.user_about = "\(dicResult["us_about"]!)"
+                    userDetails.user_id =  "\(dicResult["id"]!)"
+                    
+                    let delegate = UIApplication.shared.delegate as! AppDelegate
+                    delegate.saveContext()
+                    
+                    OFASingletonUser.ofabeeUser.initWithDictionary(dicData: dicResult)
+                    
+                    delegate.initializeBrowserCourse()
+                    
+                    OFAUtils.removeLoadingView(nil)
+                    OFAUtils.showToastWithTitle("\(dicResponse["message"]!)")//"Logged in successfully" message from DB
+                }else{
+                    OFAUtils.removeLoadingView(nil)
+                    OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle: nil, message: "\(dicResponse["message"]!)", cancelButtonTitle: "OK")
+                }
+            }else {
+                OFAUtils.removeLoadingView(nil)
+                OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle:"Some error occured, try again later", message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+            }
+        }
     }
 }
