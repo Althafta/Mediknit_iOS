@@ -170,9 +170,6 @@ class VGVerticalVideoViewController: UIViewController {
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()
                     }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
-                    }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return
                 }
@@ -215,9 +212,6 @@ class VGVerticalVideoViewController: UIViewController {
                     let sessionAlert = UIAlertController(title: "Session Expired", message: nil, preferredStyle: .alert)
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()
-                    }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
                     }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return

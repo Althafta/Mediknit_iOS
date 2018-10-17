@@ -69,4 +69,19 @@ class OFAMyCourseDetailsCurriculumTableViewCell: UITableViewCell {
         }
     }
     
+    func customizeCellWithDetails(curriculumTitle:String,details:String,percentage:CGFloat,serialNumber:String){
+        self.buttonDownload.isHidden = true
+        self.buttonAction.isHidden = true
+        self.buttonCompleted.isHidden = true
+        self.viewCountBG.isHidden = true
+        self.labelCount.isHidden = true
+        
+        self.labelCurriculumTitle.text = curriculumTitle
+        self.labelDetails.text = details
+        self.buttonProgress.linearLoadingWith(progress: percentage)
+        self.buttonProgress.layer.cornerRadius = self.buttonProgress.frame.height/2
+        self.labelSerialNumber.text = serialNumber
+        self.viewBackground.dropShadow()
+    }
+    
 }

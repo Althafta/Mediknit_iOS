@@ -80,9 +80,6 @@ class OFAYoutubeVideoViewController: UIViewController {
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()
                     }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
-                    }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return
                 }

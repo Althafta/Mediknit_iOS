@@ -62,6 +62,7 @@ class OFAOTPTableViewController: UITableViewController {
             self.textOTP.isEnabled = false
             self.labelCountDown.isHidden = true
             self.buttonResendOTP.isHidden = false
+            self.buttonDone.isHidden = true
         }
     }
     
@@ -87,10 +88,11 @@ class OFAOTPTableViewController: UITableViewController {
     
     @IBAction func resendOTPPressed(_ sender: UIButton) {
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-        let dicParameters = NSDictionary(objects:[userEmail,domainKey], forKeys:["email_id" as NSCopying,"domain_key" as NSCopying])
+        let dicParameters = NSDictionary(objects:[userEmail,domainKey], forKeys:["email" as NSCopying,"domain_key" as NSCopying])
         Alamofire.request(userBaseURL+"api/authenticate/send_otp", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             self.labelCountDown.isHidden = false
             self.buttonResendOTP.isHidden = true
+            self.buttonDone.isHidden = false
             self.textOTP.isEnabled = true
             self.seconds = 60
             self.runTimer()
@@ -105,7 +107,7 @@ class OFAOTPTableViewController: UITableViewController {
         }
         OFAUtils.showLoadingViewWithTitle("Verifying")
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-        let dicParameters = NSDictionary(objects:[self.textOTP.text!,userEmail,domainKey], forKeys:["otp_number" as NSCopying,"email_id" as NSCopying,"domain_key" as NSCopying])
+        let dicParameters = NSDictionary(objects:[self.textOTP.text!,userEmail,domainKey], forKeys:["otp_number" as NSCopying,"email" as NSCopying,"domain_key" as NSCopying])
         Alamofire.request(userBaseURL+"api/authenticate/verify_otp", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let dicResult = responseJSON.result.value as? NSDictionary{
                 OFAUtils.removeLoadingView(nil)

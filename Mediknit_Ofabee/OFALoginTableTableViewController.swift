@@ -90,10 +90,29 @@ class OFALoginTableTableViewController: UITableViewController {
         let encryptedPassword = self.textPassword.text?.md5()
         let dicParameters = NSDictionary(objects: [self.textEmail.text!,encryptedPassword!,domainKey], forKeys: ["email" as NSCopying,"password" as NSCopying,"domain_key" as NSCopying])
         Alamofire.request(userBaseURL+"api/authenticate/login", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
-            
+            OFAUtils.removeLoadingView(nil)
             if let result = responseJSON.result.value {
                 let dicResponse = result as! NSDictionary
-                if let token = dicResponse["token"] {
+                if responseJSON.response?.statusCode == 203{
+                    //invalid user/password
+                    OFAUtils.removeLoadingView(nil)
+                    OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle: nil, message: "\(dicResponse["message"]!)", cancelButtonTitle: "OK")
+                }else if responseJSON.response?.statusCode == 204{
+                    // mail not verified
+                    let sessionAlert = UIAlertController(title: "OTP not verified", message: nil, preferredStyle: .alert)
+                    sessionAlert.addAction(UIAlertAction(title: "Verify OTP", style: .default, handler: { (action) in
+                        let otpPage = self.storyboard?.instantiateViewController(withIdentifier: "OTPTVC") as! OFAOTPTableViewController
+                        self.navigationItem.title = ""
+                        otpPage.userEmail = self.textEmail.text!
+                        OFAUtils.removeLoadingView(nil)
+                        self.navigationController?.pushViewController(otpPage, animated: true)
+                    }))
+                    sessionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                        
+                    }))
+                    self.present(sessionAlert, animated: true, completion: nil)
+                }
+                else if let token = dicResponse["token"] {
                     let dicResult = dicResponse["body"] as! NSDictionary
                     
                     UserDefaults.standard.setValue(self.textEmail.text!, forKey: EMAIL)
@@ -107,13 +126,28 @@ class OFALoginTableTableViewController: UITableViewController {
                     userDetails.user_phone = "\(dicResult["us_phone"]!)"
                     userDetails.user_about = "\(dicResult["us_about"]!)"
                     userDetails.user_id =  "\(dicResult["id"]!)"
+                    userDetails.otp_status = "\(dicResult["otp_status"]!)"
                     
                     let delegate = UIApplication.shared.delegate as! AppDelegate
                     delegate.saveContext()
                     
                     OFASingletonUser.ofabeeUser.initWithDictionary(dicData: dicResult)
-                    
-                    delegate.initializeBrowserCourse()
+                    if "\(dicResult["otp_status"]!)" == "1"{
+                        delegate.initializeBrowserCourse()
+                    }else{
+                        let sessionAlert = UIAlertController(title: "OTP not verified", message: nil, preferredStyle: .alert)
+                        sessionAlert.addAction(UIAlertAction(title: "Verify OTP", style: .default, handler: { (action) in
+                            let otpPage = self.storyboard?.instantiateViewController(withIdentifier: "OTPTVC") as! OFAOTPTableViewController
+                            self.navigationItem.title = ""
+                            otpPage.userEmail = "\(dicResult["us_email"]!)"
+                            OFAUtils.removeLoadingView(nil)
+                            self.navigationController?.pushViewController(otpPage, animated: true)
+                        }))
+                        sessionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                            
+                        }))
+                        self.present(sessionAlert, animated: true, completion: nil)
+                    }
                     
                     OFAUtils.removeLoadingView(nil)
                     OFAUtils.showToastWithTitle("\(dicResponse["message"]!)")//"Logged in successfully" message from DB
@@ -123,7 +157,11 @@ class OFALoginTableTableViewController: UITableViewController {
                 }
             }else {
                 OFAUtils.removeLoadingView(nil)
-                OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle:"Some error occured, try again later", message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+                if responseJSON.response?.statusCode == 500{
+                    
+                }else{
+                    OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle:"Some error occured, try again later", message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+                }
             }
         }
     }

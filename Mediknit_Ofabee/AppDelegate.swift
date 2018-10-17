@@ -76,9 +76,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let filteredArray = userArray.filtered(using: NSPredicate(format: "user_id==%@", userId))
         if filteredArray.count > 0{
             let user = filteredArray.last as! User
-            let dicData = NSDictionary(objects: [user.user_name!,user.user_email!,user.user_phone!,user.user_image!,user.user_about!,user.user_id!], forKeys: ["us_name" as NSCopying,"us_email" as NSCopying,"us_phone" as NSCopying,"us_image" as NSCopying,"us_about" as NSCopying,"user_id" as NSCopying])
+            let dicData = NSDictionary(objects: [user.user_name!,user.user_email!,user.user_phone!,user.user_image!,user.user_about!,user.user_id!,user.otp_status!], forKeys: ["us_name" as NSCopying,"us_email" as NSCopying,"us_phone" as NSCopying,"us_image" as NSCopying,"us_about" as NSCopying,"user_id" as NSCopying,"otp_status" as NSCopying])
             OFASingletonUser.ofabeeUser.updateUserDetailsFromCoreData(dicData: dicData)
-            self.initializeBrowserCourse()
+            if user.otp_status != "1"{
+                self.initializePreLoginPage()
+            }else{
+                self.initializeBrowserCourse()
+            }
         }else{
             self.initializePreLoginPage()
         }
@@ -113,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .default
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let leftMenuVC: OFALeftSideMenuTableViewController = mainStoryboard.instantiateViewController(withIdentifier: "LeftSideMenu") as! OFALeftSideMenuTableViewController
-        let centerVC: OFAMyCoursesContainerViewController = mainStoryboard.instantiateViewController(withIdentifier: "MyCoursesContainerVC") as! OFAMyCoursesContainerViewController
+        let centerVC: OFAMyCourseTableViewController = mainStoryboard.instantiateViewController(withIdentifier: "MyCourseTVC") as! OFAMyCourseTableViewController
         let centerNavVC = UINavigationController(rootViewController: centerVC)
         
         let rootController = FAPanelController()

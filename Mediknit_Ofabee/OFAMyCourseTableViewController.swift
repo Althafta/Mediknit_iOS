@@ -29,17 +29,12 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.setNavigationBarItem()
-        
-//        self.tableView.contentOffset = CGPoint(x: 0, y: self.searchBar.bounds.height)
         self.refreshController.tintColor = OFAUtils.getColorFromHexString(barTintColor)//.white
         self.refreshController.addTarget(self, action: #selector(self.refreshInitiated), for: .valueChanged)
-//        self.tableView.refreshControl = self.refreshController
+
         self.tableView.backgroundColor = OFAUtils.getColorFromHexString(ofabeeCellBackground)
         self.headerView.backgroundColor = OFAUtils.getColorFromHexString(ofabeeCellBackground)
-        
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(self.searchBarButtonPressed))
-//        self.refreshInitiated()
+        self.setNavigationBarItem(isSidemenuEnabled: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,11 +61,11 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
 //        }
 //    }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        self.navigationItem.title = "My Courses"
-//    }
-//    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationItem.title = "My Courses"
+    }
+    
     func searchBarButtonPressed(){
         
     }
@@ -96,10 +91,6 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()
                     }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        self.refreshController.endRefreshing()
-                        sessionAlert.dismiss(animated: true, completion: nil)
-                    }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return
                 }
@@ -114,19 +105,20 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
                         self.filteredArray = self.arrayMyCourses.mutableCopy() as! NSArray
                         self.refreshController.endRefreshing()
                         self.tableView.reloadData()
-                    }else{
-                        let emptyAlert = UIAlertController(title: "Get Courses", message: "Get some courses to get trained on", preferredStyle: .alert)
-                        emptyAlert.addAction(UIAlertAction(title: "Get", style: .default, handler: { (alertAction) in
-                            let browseCourse = self.storyboard?.instantiateViewController(withIdentifier: "BrowseCourseTVC") as!OFABrowseCourseTableViewController
-                            browseCourse.isPushedView = true
-                            self.navigationController?.children[0].navigationItem.title = ""
-                            self.navigationController?.pushViewController(browseCourse, animated: true)
-                        }))
-                        emptyAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
-                            
-                        }))
-                        self.present(emptyAlert, animated: true, completion: nil)
                     }
+//                    else{
+//                        let emptyAlert = UIAlertController(title: "Get Courses", message: "Get some courses to get trained on", preferredStyle: .alert)
+//                        emptyAlert.addAction(UIAlertAction(title: "Get", style: .default, handler: { (alertAction) in
+//                            let browseCourse = self.storyboard?.instantiateViewController(withIdentifier: "BrowseCourseTVC") as!OFABrowseCourseTableViewController
+//                            browseCourse.isPushedView = true
+//                            self.navigationController?.children[0].navigationItem.title = ""
+//                            self.navigationController?.pushViewController(browseCourse, animated: true)
+//                        }))
+//                        emptyAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
+//
+//                        }))
+//                        self.present(emptyAlert, animated: true, completion: nil)
+//                    }
                 }
             }else{
                 OFAUtils.removeLoadingView(nil)

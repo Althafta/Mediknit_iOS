@@ -156,7 +156,7 @@ class OFAPreLoginTableViewController: UITableViewController,GIDSignInDelegate,GI
                     OFAUtils.removeLoadingView(nil)
                     OFAUtils.showToastWithTitle("\(dicResponse["message"]!)")//"Logged in successfully" message from DB
                 }else{
-                    OFAUtils.removeLoadingView(nil)
+                     OFAUtils.removeLoadingView(nil)
                     OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle: nil, message: "\(dicResponse["message"]!)", cancelButtonTitle: "OK")
                 }
             }else {

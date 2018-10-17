@@ -17,7 +17,7 @@ class OFALeftSideMenuTableViewController: UITableViewController {
     @IBOutlet var labelUserName: UILabel!
     
     var arraySideMenu = ["My Courses","My Profile","Logout"]
-    var arrayIdentifiers = ["MyCoursesContainerVC","ProfileTVC",""]
+    var arrayIdentifiers = ["MyCourseTVC","ProfileTVC",""]
     
     var currentRow:Int = 0
     var currentSection = 0

@@ -25,8 +25,8 @@ class OFAMyProfileTableViewController: UITableViewController {
         self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.height/2
         self.imageViewUser.layer.borderWidth = 3.0
         self.imageViewUser.layer.borderColor = UIColor.lightGray.cgColor
-        self.textViewBio.dropShadow()
-        self.textViewBio.isHidden = true
+//        self.textViewBio.dropShadow()
+//        self.textViewBio.isHidden = true
 //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.editPressed))
 //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "profileEdit"), style: .plain, target: self, action: #selector(self.editPressed))
         
@@ -55,7 +55,7 @@ class OFAMyProfileTableViewController: UITableViewController {
             }else{
                 self.labelPhone.text = OFASingletonUser.ofabeeUser.user_phone!
             }
-            self.textViewBio.text = OFASingletonUser.ofabeeUser.user_about!
+//            self.textViewBio.text = OFASingletonUser.ofabeeUser.user_about!
         }else{
             self.imageViewUser.image = #imageLiteral(resourceName: "Default image")
         }

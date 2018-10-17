@@ -83,9 +83,6 @@ class OFAMyCourseCurriculumListContainerViewController: UIViewController {
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()
                     }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
-                    }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return
                 }
@@ -140,7 +137,7 @@ class OFAMyCourseCurriculumListContainerViewController: UIViewController {
                 self.labelLectureTitle.text = "\(self.dicLecture["cl_lecture_name"]!)"
                 let percentage = "\(dicLecture["ll_percentage"]!)"
                 guard let floatPercentage = NumberFormatter().number(from: percentage) else { return }
-                self.buttonProgressBar.linearLoadingWith(progress: CGFloat(floatPercentage))
+                self.buttonProgressBar.linearLoadingWith(progress: CGFloat(truncating: floatPercentage))
             }else{
                 self.labelLectureTitle.text = "\(self.dicLecture["cl_lecture_name"]!)"
                 let percentage = "\(dicLecture["ll_percentage"]!)"

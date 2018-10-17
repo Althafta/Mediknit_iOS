@@ -189,7 +189,7 @@
 		847A82E31F39740100AB3D32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		847A82E61F39740100AB3D32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		847A82E81F39740100AB3D32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		847A82F41F3974F300AB3D32 /* OFALoginTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFALoginTableTableViewController.swift; sourceTree = "<group>"; };
+		847A82F41F3974F300AB3D32 /* OFALoginTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFALoginTableTableViewController.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		847A82F61F39750000AB3D32 /* OFARegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFARegisterTableViewController.swift; sourceTree = "<group>"; };
 		847A82F81F39752200AB3D32 /* OFAOTPTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFAOTPTableViewController.swift; sourceTree = "<group>"; };
 		847A82FA1F397CDD00AB3D32 /* Mediknit-Ofabee-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mediknit-Ofabee-Bridging-Header.h"; sourceTree = "<group>"; };

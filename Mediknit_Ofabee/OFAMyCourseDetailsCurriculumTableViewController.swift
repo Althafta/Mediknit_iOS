@@ -65,9 +65,6 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()
                     }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
-                    }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return
                 }
@@ -79,7 +76,9 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     let dicTopic = item as! NSDictionary
                     self.arraySections.add(dicTopic)
                 }
-                self.imageBaseURL = "\(dicBody["user_image_url"]!)"
+                if dicBody["user_image_url"] != nil{
+                    self.imageBaseURL = "\(dicBody["user_image_url"]!)"
+                }
                 self.tableView.reloadData()
             }else{
                 OFAUtils.removeLoadingView(nil)
@@ -107,9 +106,9 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
         let arrLectures = dicSection["lectures"] as! NSArray
         if let dicLecture = arrLectures[indexPath.row] as? NSDictionary{
             let details = self.curriculumDetail(indexPath: indexPath)
-            var percentage:CGFloat = 5                          //static value given for testing
+            var percentage:CGFloat = 0
             
-            if dicLecture["ll_percentage"] == nil {
+            if dicLecture["ll_percentage"] == nil{
                 percentage = 0
             }else{
                 guard let n = NumberFormatter().number(from: "\(dicLecture["ll_percentage"]!)")
@@ -148,7 +147,9 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
             let faType = stringVar.fa.fontAwesome(.fa_ellipsis_v)
             cell.labelDetails.font = fontVar
             
-            cell.customizeCellWithDetails(curriculumTitle: "\(dicLecture["cl_lecture_name"]!)", details: details, percentage: percentage, serialNumber: "\(indexPath.row + 1)", downloadStatus: "\(dicLecture["cl_downloadable"]!)", completeStatus: "",viewText: "\(dicLecture["ll_attempt"]!)/\(dicLecture["cl_limited_access"]!) Views", viewStatus:"\(dicLecture["cl_limited_access"]!)" == "0" ? true : false)
+//            cell.customizeCellWithDetails(curriculumTitle: "\(dicLecture["cl_lecture_name"]!)", details: details, percentage: percentage, serialNumber: "\(indexPath.row + 1)", downloadStatus: "\(dicLecture["cl_downloadable"]!)", completeStatus: "",viewText: "\(dicLecture["ll_attempt"]!)/\(dicLecture["cl_limited_access"]!) Views", viewStatus:"\(dicLecture["cl_limited_access"]!)" == "0" ? true : false)
+            
+            cell.customizeCellWithDetails(curriculumTitle: "\(dicLecture["cl_lecture_name"]!)", details: details, percentage: percentage, serialNumber: "\(indexPath.row + 1)")
             cell.buttonAction.indexPath = indexPath
             cell.buttonDownload.indexPath = indexPath
         }
@@ -163,34 +164,37 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
             curriculumType = "\(dicLecture["cl_lecture_type"]!)"
             if curriculumType == "1"{
                 self.getVideoDetails(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
-            }else if curriculumType == "2"{
-                self.getPDFViewControllerWithLectureId(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
-            }else if curriculumType == "3"{
+            }
+//            else if curriculumType == "2"{
+//                self.getPDFViewControllerWithLectureId(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
+//            }
+            else if curriculumType == "3"{
                 let dicAssessment = dicLecture["assesment"] as! NSDictionary
                 self.getAssessment(lectureId: "\(dicLecture["id"]!)", lectureTitle: "\(dicLecture["cl_lecture_name"]!)",duration:"\(dicAssessment["a_duration"]!)",assessmentID: "\(dicLecture["assessment_id"]!)")
-            }else if curriculumType == "4"{
-                self.getYoutubeDetails(lectureId: "\(dicLecture["id"]!)")
-            }else if curriculumType == "5"{
-                self.getTextDetails(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
-            }else if curriculumType == "7"{//live
-                self.getVideoDetails(lectureId: "\(dicLecture["id"]!)", percentage: "")
-            }else if curriculumType == "8"{
-                let dicDescriptive = dicLecture["descriptive"] as! NSDictionary
-                let arrayComments = dicDescriptive["comments"] as! NSArray
-//                self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments)
-                if let dicDescriptive = dicLecture["descriptive"] as? NSDictionary {
-                    if dicDescriptive["dt_total_mark"] != nil{
-                        self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments, marks: "\(dicDescriptive["marks"]!)", totalMarks: "\(dicDescriptive["dt_total_mark"]!)")
-                    }else{
-                        if "\(dicDescriptive["marks"]!)" == "-1"{
-                            self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments, marks: "\(dicDescriptive["marks"]!)", totalMarks: "")
-                        }
-                    }
-//                    self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments, marks: "\(dicDescriptive["marks"]!)", totalMarks: "\(dicDescriptive["dt_total_mark"]!)")
-                }else{
-                    OFAUtils.showToastWithTitle("Invalid Test")
-                }
             }
+//            else if curriculumType == "4"{
+//                self.getYoutubeDetails(lectureId: "\(dicLecture["id"]!)")
+//            }else if curriculumType == "5"{
+//                self.getTextDetails(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
+//            }else if curriculumType == "7"{//live
+//                self.getVideoDetails(lectureId: "\(dicLecture["id"]!)", percentage: "")
+//            }else if curriculumType == "8"{
+//                let dicDescriptive = dicLecture["descriptive"] as! NSDictionary
+//                let arrayComments = dicDescriptive["comments"] as! NSArray
+////                self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments)
+//                if let dicDescriptive = dicLecture["descriptive"] as? NSDictionary {
+//                    if dicDescriptive["dt_total_mark"] != nil{
+//                        self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments, marks: "\(dicDescriptive["marks"]!)", totalMarks: "\(dicDescriptive["dt_total_mark"]!)")
+//                    }else{
+//                        if "\(dicDescriptive["marks"]!)" == "-1"{
+//                            self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments, marks: "\(dicDescriptive["marks"]!)", totalMarks: "")
+//                        }
+//                    }
+////                    self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments, marks: "\(dicDescriptive["marks"]!)", totalMarks: "\(dicDescriptive["dt_total_mark"]!)")
+//                }else{
+//                    OFAUtils.showToastWithTitle("Invalid Test")
+//                }
+//            }
             else{
                 OFAUtils.showToastWithTitle("under development")
             }
@@ -220,18 +224,19 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
             }else{
                 guard let n = NumberFormatter().number(from: "\(dicLecture["ll_percentage"]!)")
                     else { return 128 }
-                percentage = CGFloat(n)
-                if percentage < 100 {
-                    if "\(dicLecture["cl_limited_access"]!)" == "0"{
-                        return 128
-                    }else{
-                        return 170
-                    }
-                }else{
-                    if "\(dicLecture["cl_downloadable"]!)" == "0"{
-                        return 128
-                    }
-                }
+//                percentage = CGFloat(n)
+//                if percentage < 100 {
+//                    if "\(dicLecture["cl_limited_access"]!)" == "0"{
+//                        return 128
+//                    }else{
+//                        return 170
+//                    }
+//                }else{
+//                    if "\(dicLecture["cl_downloadable"]!)" == "0"{
+//                        return 128
+//                    }
+//                }
+                return 128
             }
         }
         return 170
@@ -297,9 +302,6 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     let sessionAlert = UIAlertController(title: "Session Expired", message: nil, preferredStyle: .alert)
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()
-                    }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
                     }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return
@@ -503,9 +505,6 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()
                     }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
-                    }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return
                 }
@@ -564,9 +563,6 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     let sessionAlert = UIAlertController(title: "Session Expired", message: nil, preferredStyle: .alert)
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()
-                    }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
                     }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return
@@ -636,9 +632,6 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()
                     }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
-                    }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return
                 }
@@ -681,9 +674,6 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()
                     }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
-                    }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return
                 }
@@ -725,9 +715,6 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     let sessionAlert = UIAlertController(title: "Session Expired", message: nil, preferredStyle: .alert)
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()
-                    }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
                     }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return
@@ -780,9 +767,6 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     let sessionAlert = UIAlertController(title: "Session Expired", message: nil, preferredStyle: .alert)
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()
-                    }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        sessionAlert.dismiss(animated: true, completion: nil)
                     }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return

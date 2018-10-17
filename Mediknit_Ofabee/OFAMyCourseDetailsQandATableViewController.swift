@@ -110,10 +110,6 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
                         self.refreshController.endRefreshing()
                         self.sessionExpired()
                     }))
-                    sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
-                        self.refreshController.endRefreshing()
-                        sessionAlert.dismiss(animated: true, completion: nil)
-                    }))
                     self.present(sessionAlert, animated: true, completion: nil)
                     return
                 }
