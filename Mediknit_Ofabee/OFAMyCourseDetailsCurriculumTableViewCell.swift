@@ -18,6 +18,7 @@ class OFAMyCourseDetailsCurriculumTableViewCell: UITableViewCell {
     @IBOutlet var buttonDownload: OFACustomButton!
     @IBOutlet var buttonCompleted: UIButton!
     @IBOutlet var imageViewIcon: UIImageView!
+    @IBOutlet weak var labelPercentage: UILabel!
     
     @IBOutlet weak var labelCount: UILabel!
     @IBOutlet var viewBackground: UIView!
@@ -76,6 +77,7 @@ class OFAMyCourseDetailsCurriculumTableViewCell: UITableViewCell {
         self.viewCountBG.isHidden = true
         self.labelCount.isHidden = true
         
+        self.labelPercentage.text = "\(percentage) %"
         self.labelCurriculumTitle.text = curriculumTitle
         self.labelDetails.text = details
         self.buttonProgress.linearLoadingWith(progress: percentage)

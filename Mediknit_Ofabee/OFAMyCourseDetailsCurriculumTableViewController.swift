@@ -126,14 +126,14 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                 image = #imageLiteral(resourceName: "Video")
             }else if curriculumType == "2"{//Doc
                 image = #imageLiteral(resourceName: "Document")
-            }else if curriculumType == "3"{//Assessment
+            }else if curriculumType == "7"{//Assessment
                 image = #imageLiteral(resourceName: "Assessment")
             }else if curriculumType == "4"{//youtube
                 image = #imageLiteral(resourceName: "Video")
             }else if curriculumType == "5"{//text
                 image = #imageLiteral(resourceName: "Document")
             }else if curriculumType == "6"{//wikipedia
-            }else if curriculumType == "7"{//live
+            }else if curriculumType == "3"{//live
                 image = #imageLiteral(resourceName: "Video")
             }else if curriculumType == "8"{//Descriptive
                 image = #imageLiteral(resourceName: "Assessment")
@@ -168,15 +168,20 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
 //            else if curriculumType == "2"{
 //                self.getPDFViewControllerWithLectureId(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
 //            }
-            else if curriculumType == "3"{
-                let dicAssessment = dicLecture["assesment"] as! NSDictionary
-                self.getAssessment(lectureId: "\(dicLecture["id"]!)", lectureTitle: "\(dicLecture["cl_lecture_name"]!)",duration:"\(dicAssessment["a_duration"]!)",assessmentID: "\(dicLecture["assessment_id"]!)")
+            else if curriculumType == "7"{
+//                let dicAssessment = dicLecture["assesment"] as! NSDictionary
+//                self.getAssessment(lectureId: "\(dicLecture["id"]!)", lectureTitle: "\(dicLecture["cl_lecture_name"]!)",duration:"\(dicAssessment["a_duration"]!)",assessmentID: "\(dicLecture["assessment_id"]!)")
+                let assessmentAlert = UIAlertController(title: nil, message: "Assessments can be attended in PC/Laptop", preferredStyle: .alert)
+                assessmentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    assessmentAlert.dismiss(animated: true, completion: nil)
+                }))
+                self.present(assessmentAlert, animated: true, completion: nil)
             }
 //            else if curriculumType == "4"{
 //                self.getYoutubeDetails(lectureId: "\(dicLecture["id"]!)")
 //            }else if curriculumType == "5"{
 //                self.getTextDetails(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
-//            }else if curriculumType == "7"{//live
+//            }else if curriculumType == "3"{//live
 //                self.getVideoDetails(lectureId: "\(dicLecture["id"]!)", percentage: "")
 //            }else if curriculumType == "8"{
 //                let dicDescriptive = dicLecture["descriptive"] as! NSDictionary
@@ -454,14 +459,14 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
             self.getVideoDetails(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
         }else if curriculumType == "2"{
             self.getPDFViewControllerWithLectureId(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
-        }else if curriculumType == "3"{
+        }else if curriculumType == "7"{
             let dicAssessment = dicLecture["assesment"] as! NSDictionary
             self.getAssessment(lectureId: "\(dicLecture["id"]!)", lectureTitle: "\(dicLecture["cl_lecture_name"]!)",duration:"\(dicAssessment["a_duration"]!)",assessmentID: "\(dicLecture["assessment_id"]!)")
         }else if curriculumType == "4"{
             self.getYoutubeDetails(lectureId: "\(dicLecture["id"]!)")
         }else if curriculumType == "5"{
             self.getTextDetails(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
-        }else if curriculumType == "7"{//live
+        }else if curriculumType == "3"{//live
             self.getVideoDetails(lectureId: "\(dicLecture["id"]!)", percentage: "")
         }else if curriculumType == "8"{
             let dicDescriptive = dicLecture["descriptive"] as! NSDictionary
@@ -833,15 +838,15 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
             detailString = "  video - duration - \(durationString)"
         }else if curriculumType == "2"{//Doc
             detailString = "  Document"
-        }else if curriculumType == "3"{//Assessment
-            detailString = "  Assessment - \(dicLecture["num_of_question"]!) questions"
+        }else if curriculumType == "7"{//Assessment
+            detailString = "  Assessment -  questions"//"  Assessment - \(dicLecture["num_of_question"]!) questions"
         }else if curriculumType == "4"{//youtube
             detailString = "  Youtube"
         }else if curriculumType == "5"{//text
             detailString = "  Text "//- \(dicLecture["num_of_question"]!) questions"
         }else if curriculumType == "6"{//wikipedia
             detailString = "  Wiki"
-        }else if curriculumType == "7"{//live
+        }else if curriculumType == "3"{//live
             detailString = "  Live "
         }else if curriculumType == "8"{//Descriptive
             detailString = "  Descriptive "//- \(dicLecture["num_of_question"]!) questions"
