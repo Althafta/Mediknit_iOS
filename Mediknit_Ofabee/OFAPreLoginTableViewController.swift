@@ -145,6 +145,7 @@ class OFAPreLoginTableViewController: UITableViewController,GIDSignInDelegate,GI
                     userDetails.user_phone = "\(dicResult["us_phone"]!)"
                     userDetails.user_about = "\(dicResult["us_about"]!)"
                     userDetails.user_id =  "\(dicResult["id"]!)"
+                    userDetails.otp_status = "\(dicResult["otp_status"]!)"
                     
                     let delegate = UIApplication.shared.delegate as! AppDelegate
                     delegate.saveContext()
