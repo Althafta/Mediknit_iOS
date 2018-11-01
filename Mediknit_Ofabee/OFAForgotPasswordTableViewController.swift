@@ -41,7 +41,7 @@ class OFAForgotPasswordTableViewController: UITableViewController,UITextFieldDel
         }
         else{
             self.sendPasswordToEmail(emailString: self.textEmail.text!)
-            OFAUtils.showToastWithTitle("New password link has been sent to your mail ID")
+//            OFAUtils.showToastWithTitle("New password link has been sent to your mail ID")
         }
     }
     
