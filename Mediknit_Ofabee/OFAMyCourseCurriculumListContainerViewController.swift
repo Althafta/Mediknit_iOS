@@ -142,7 +142,7 @@ class OFAMyCourseCurriculumListContainerViewController: UIViewController {
                 self.labelLectureTitle.text = "\(self.dicLecture["cl_lecture_name"]!)"
                 let percentage = "\(dicLecture["ll_percentage"]!)"
                 guard let floatPercentage = NumberFormatter().number(from: percentage) else { return }
-                self.buttonProgressBar.linearLoadingWith(progress: CGFloat(floatPercentage))
+                self.buttonProgressBar.linearLoadingWith(progress: CGFloat(truncating: floatPercentage))
             }
         }else{
             let dicTopic = self.arraySections[0] as! NSDictionary
@@ -152,7 +152,7 @@ class OFAMyCourseCurriculumListContainerViewController: UIViewController {
             self.labelLectureTitle.text = "\(self.dicLecture["cl_lecture_name"]!)"
             let percentage = "\(dicLecture["ll_percentage"]!)"
             guard let floatPercentage = NumberFormatter().number(from: percentage) else { return }
-            self.buttonProgressBar.linearLoadingWith(progress: CGFloat(floatPercentage))
+            self.buttonProgressBar.linearLoadingWith(progress: CGFloat(truncating: floatPercentage))
         }
     }
     

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="d5f-YE-nFH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="d5f-YE-nFH">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -1517,7 +1517,7 @@
                                                     <rect key="frame" x="0.0" y="28" width="355" height="90"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2FA-eo-HfX" id="439-kk-kWg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="89.5"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bz-39-Nk4">
@@ -1750,6 +1750,109 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lL3-eu-3H8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="669.60000000000002" y="2222.3388305847079"/>
+        </scene>
+        <!--Interactive Questions Table View Controller-->
+        <scene sceneID="D6l-l0-o2f">
+            <objects>
+                <tableViewController storyboardIdentifier="InteractiveQuestionsTVC" id="61z-pI-wjP" customClass="OFAInteractiveQuestionsTableViewController" customModule="Mediknit" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="u24-3l-WR4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="bpe-6X-Sgs">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="133"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mQS-dx-4KS">
+                                    <rect key="frame" x="20" y="10" width="335" height="113"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES" lookupSuggestion="YES"/>
+                                </textView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="mQS-dx-4KS" firstAttribute="top" secondItem="bpe-6X-Sgs" secondAttribute="top" constant="10" id="LJU-2H-Efs"/>
+                                <constraint firstItem="mQS-dx-4KS" firstAttribute="leading" secondItem="bpe-6X-Sgs" secondAttribute="leading" constant="20" id="jca-su-9O9"/>
+                                <constraint firstAttribute="trailing" secondItem="mQS-dx-4KS" secondAttribute="trailing" constant="20" id="xYQ-Df-GFJ"/>
+                                <constraint firstAttribute="bottom" secondItem="mQS-dx-4KS" secondAttribute="bottom" constant="10" id="yvj-9l-3rw"/>
+                            </constraints>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="H9J-2F-u2l">
+                            <rect key="frame" x="0.0" y="231" width="375" height="133"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KL5-qT-0Pa">
+                                    <rect key="frame" x="20" y="10" width="335" height="113"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES" lookupSuggestion="YES"/>
+                                </textView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="KL5-qT-0Pa" secondAttribute="trailing" constant="20" id="6Tp-r5-3ZQ"/>
+                                <constraint firstAttribute="bottom" secondItem="KL5-qT-0Pa" secondAttribute="bottom" constant="10" id="O6Q-xk-Sdh"/>
+                                <constraint firstItem="KL5-qT-0Pa" firstAttribute="top" secondItem="H9J-2F-u2l" secondAttribute="top" constant="10" id="ZSh-Xd-cda"/>
+                                <constraint firstItem="KL5-qT-0Pa" firstAttribute="leading" secondItem="H9J-2F-u2l" secondAttribute="leading" constant="20" id="gZX-57-1Qj"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="InteractiveOptionCell" rowHeight="70" id="o76-yM-gvO" customClass="OFAVideoInteractiveQuestionTableViewCell" customModule="Mediknit" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="161" width="375" height="70"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o76-yM-gvO" id="HaD-b3-nL1">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cuf-uL-EzT">
+                                            <rect key="frame" x="315" y="15" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="Kuw-LA-dVo"/>
+                                                <constraint firstAttribute="width" constant="40" id="efZ-Wh-AA4"/>
+                                            </constraints>
+                                        </imageView>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dhq-8e-JbO">
+                                            <rect key="frame" x="20" y="11" width="285" height="48"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES" lookupSuggestion="YES"/>
+                                        </textView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Dhq-8e-JbO" firstAttribute="top" secondItem="HaD-b3-nL1" secondAttribute="top" constant="11" id="Hsc-WS-NXM"/>
+                                        <constraint firstItem="Dhq-8e-JbO" firstAttribute="leading" secondItem="HaD-b3-nL1" secondAttribute="leading" constant="20" id="Jis-0m-Fj1"/>
+                                        <constraint firstAttribute="bottom" secondItem="Dhq-8e-JbO" secondAttribute="bottom" constant="11" id="Ohv-wh-AJj"/>
+                                        <constraint firstAttribute="trailing" secondItem="cuf-uL-EzT" secondAttribute="trailing" constant="20" id="aLm-eZ-8TP"/>
+                                        <constraint firstAttribute="trailing" secondItem="Dhq-8e-JbO" secondAttribute="trailing" constant="70" id="fJq-S3-JC5"/>
+                                        <constraint firstItem="cuf-uL-EzT" firstAttribute="centerY" secondItem="Dhq-8e-JbO" secondAttribute="centerY" id="zUv-uk-exk"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="imageViewStatus" destination="cuf-uL-EzT" id="YFB-wb-N9y"/>
+                                    <outlet property="textViewOption" destination="Dhq-8e-JbO" id="yqT-Wu-IzB"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="61z-pI-wjP" id="fwW-U5-dqt"/>
+                            <outlet property="delegate" destination="61z-pI-wjP" id="lcX-LB-juG"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="textViewAnswerDescription" destination="KL5-qT-0Pa" id="5tG-IT-MM5"/>
+                        <outlet property="textViewQuestionHeader" destination="mQS-dx-4KS" id="kEw-Y3-Fzg"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FQ0-0S-3lL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1368.8" y="2220.5397301349326"/>
         </scene>
         <!--My Courses Container View Controller-->
         <scene sceneID="TtY-7G-Gib">

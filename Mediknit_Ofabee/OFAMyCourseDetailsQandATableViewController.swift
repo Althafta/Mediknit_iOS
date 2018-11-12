@@ -87,7 +87,8 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     }
     
     @objc func dismissAction(){
-        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
         removeBlur()
         animateOut()
     }

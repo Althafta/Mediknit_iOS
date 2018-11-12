@@ -41,8 +41,13 @@ class VGVerticalVideoViewController: UIViewController {
     var tsDataFiles = NSMutableData()
     var arrayTSURLs = [String]()
     var index = 0
-    var videoIOSUrl = "https://elearn.maven-silicon.com/maven_ios_app/"
+//    var videoIOSUrl = "https://elearn.maven-silicon.com/maven_ios_app/"
     var seekedTime = CMTime()
+    
+    //Interactive question's variables
+    
+    var dicInteractiveQuestion = NSDictionary()
+    var arrayQuestionTimes = NSArray()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -69,8 +74,8 @@ class VGVerticalVideoViewController: UIViewController {
         
         view.addSubview(volumeBar)
         
-        let m3u8URLString = self.videoURLString.components(separatedBy: "/videos/")
-        self.videoURLString = videoIOSUrl + m3u8URLString[1]
+//        let m3u8URLString = self.videoURLString.components(separatedBy: "/videos/")
+//        self.videoURLString = videoIOSUrl + m3u8URLString[1]
         
         self.avPlayer = AVPlayer(url: URL(string: self.videoURLString)!)
         self.avVideoPlayerController.view.frame = self.viewVideoContent.frame
@@ -80,12 +85,13 @@ class VGVerticalVideoViewController: UIViewController {
             make.edges.equalTo(strongSelf.viewVideoContent)
         }
         self.avVideoPlayerController.player = self.avPlayer
-        
+
         if self.percentage != 100.0{
             let totalPlayerTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.asset.duration)!)
             let currentTime = (self.percentage/100)*totalPlayerTime
             let cmtime = CMTime(seconds: currentTime, preferredTimescale: 1)
             self.avPlayer.play()
+//            self.avVideoPlayerController.showsPlaybackControls = false
             self.time = Int(CMTimeGetSeconds(cmtime))
             self.avPlayer.seek(to: cmtime)
             self.seekedTime = cmtime
@@ -94,6 +100,9 @@ class VGVerticalVideoViewController: UIViewController {
             self.avPlayer.play()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.didFinishedPlaying), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+        
+        self.buttonQandA.isHidden = true
+        self.buttonCurriculum.isHidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -127,20 +136,46 @@ class VGVerticalVideoViewController: UIViewController {
         UIApplication.shared.isStatusBarHidden = false
     }
     
-    //MARK:- Save percentage he lper
+    //MARK:- Interactive Questions helper
+    
+    func getInteractiveQuestionsArray(at timeInterval:String){
+        guard let questionInterval = NumberFormatter().number(from: timeInterval) else { return }
+        if self.arrayQuestionTimes.contains(questionInterval){
+            self.avPlayer.pause()
+            self.avVideoPlayerController.dismiss(animated: true, completion: nil)
+            let arrayQuestionAtInterval = self.dicInteractiveQuestion[timeInterval] as! NSArray
+            print(arrayQuestionAtInterval)
+            let interactiveQuestions = self.storyboard?.instantiateViewController(withIdentifier: "InteractiveQuestionsTVC") as! OFAInteractiveQuestionsTableViewController
+            UserDefaults.standard.setValue(arrayQuestionAtInterval, forKey: "QuestionArray")
+            UserDefaults.standard.setValue(0, forKey: "PageIndex")
+            interactiveQuestions.arrayQuestions = arrayQuestionAtInterval
+            interactiveQuestions.questionString = "\((arrayQuestionAtInterval[0] as! NSDictionary)["question"]!)"
+            interactiveQuestions.explanationString = "\((arrayQuestionAtInterval[0] as! NSDictionary)["explanation"]!)"
+            let nav = UINavigationController(rootViewController: interactiveQuestions)
+            if self.avVideoPlayerController.isBeingPresented{
+                self.presentedViewController?.dismiss(animated: true, completion: {
+                    self.present(nav, animated: true, completion: nil)
+                })
+            }else{
+                self.present(nav, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    //MARK:- Save percentage helper
     
     @objc func updateTimer(){
         if avPlayer.timeControlStatus == .playing{
             let currentTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.currentTime())!)
             let totalPlayerTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.asset.duration)!)
             self.percentage = (currentTime/totalPlayerTime)*100
-            
+            self.getInteractiveQuestionsArray(at: "\(Int(currentTime))")
             //            self.time = Int(currentTime)
             let intCurrentTime = Int(currentTime)
             if intCurrentTime > self.time{
-                print("seeked to time")
-                self.isSeeked = true
-                self.timerStarted.invalidate()
+                //print("seeked to time")
+                self.isSeeked = false
+//                self.timerStarted.invalidate()
             }else{
                 self.isSeeked = false
             }
@@ -161,6 +196,7 @@ class VGVerticalVideoViewController: UIViewController {
         let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
         let dicParameters = NSDictionary(objects: [self.lectureID,"\(self.percentage)",user_id,domainKey,accessToken], forKeys: ["lecture_id" as NSCopying,"percentage" as NSCopying,"user_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+        print(dicParameters)
         Alamofire.request(userBaseURL+"api/course/save_lecture_percentage", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let result = responseJSON.result.value{
                 OFAUtils.removeLoadingView(nil)

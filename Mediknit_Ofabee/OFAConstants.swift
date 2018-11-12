@@ -69,5 +69,5 @@ let URL_USER_GENERATED_TEST = "http://onlineprofesor.com/assesment_report/user_g
 //test
 //let userBaseURL = "http://test.onlineprofesor.com/index.php/"
 //live
-let userBaseURL = "http://api.mediknit.org/index.php/"//"https://elearn.maven-silicon.com/"
+let userBaseURL = "https://api.mediknit.org/index.php/"//"https://elearn.maven-silicon.com/"
 

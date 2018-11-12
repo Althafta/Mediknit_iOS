@@ -523,8 +523,13 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                 }
                 let videoPlayer = self.storyboard?.instantiateViewController(withIdentifier: "CurriculumVideoPlayer") as! VGVerticalVideoViewController
                 if let dicBody = dicResult["body"] as? NSDictionary{
-                    urlString = "\(dicBody["filename"]!)"
-                    videoTitle = "\(dicBody["lecture_name"]!)"
+                    if "\(dicBody["play_status"]!)" == "0"{
+                        OFAUtils.removeLoadingView(nil)
+                        OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle: nil, message: "\(dicBody["message"]!)", cancelButtonTitle: "OK")
+                        return
+                    }
+                    urlString = "\(dicBody["full_name"]!)"// filename
+                    videoTitle = "\(dicBody["lecture_name"]!)"// lecture_name
                     if let liveVideoStatus = dicBody["live_status"] as? String{
                         videoPlayer.isLiveVideo = true
                         if liveVideoStatus == "0" || liveVideoStatus == ""{
@@ -536,6 +541,10 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                             return
                         }
                     }
+                    
+                    videoPlayer.dicInteractiveQuestion = dicBody["intractive_questions"] as! NSDictionary
+                    videoPlayer.arrayQuestionTimes = dicBody["intractive_questions_time"] as! NSArray
+                    
                     videoPlayer.videoURLString = urlString
                     videoPlayer.videoTitle = videoTitle
                     videoPlayer.lectureID = lectureId
@@ -839,7 +848,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
         }else if curriculumType == "2"{//Doc
             detailString = "  Document"
         }else if curriculumType == "7"{//Assessment
-            detailString = "  Assessment -  questions"//"  Assessment - \(dicLecture["num_of_question"]!) questions"
+            detailString = "  Assessment - \(dicLecture["num_of_question"]!) questions"
         }else if curriculumType == "4"{//youtube
             detailString = "  Youtube"
         }else if curriculumType == "5"{//text

@@ -114,6 +114,8 @@
 		84FEA9D31F6150B000D2D201 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FEA9D21F6150B000D2D201 /* GlobalVariables.swift */; };
 		CE20D4BE2153707300C851D0 /* OFAMyCourseDetailsCurriculumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20D4BD2153707200C851D0 /* OFAMyCourseDetailsCurriculumTableViewController.swift */; };
 		CE20D4C0215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20D4BF215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift */; };
+		CE712F4721958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE712F4621958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift */; };
+		CE712F492195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE712F482195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift */; };
 		CEBC66A4214BCA7900ADFA82 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEBC66A3214BCA7800ADFA82 /* credentials.plist */; };
 /* End PBXBuildFile section */
 
@@ -291,6 +293,8 @@
 		B44A05F9B6D300B8A18467C4 /* Pods_Mediknit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mediknit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE20D4BD2153707200C851D0 /* OFAMyCourseDetailsCurriculumTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFAMyCourseDetailsCurriculumTableViewController.swift; sourceTree = "<group>"; };
 		CE20D4BF215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFAMyCourseDetailsCurriculumTableViewCell.swift; sourceTree = "<group>"; };
+		CE712F4621958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAInteractiveQuestionsTableViewController.swift; sourceTree = "<group>"; };
+		CE712F482195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAVideoInteractiveQuestionTableViewCell.swift; sourceTree = "<group>"; };
 		CEBC66A3214BCA7800ADFA82 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		D3BA94B31F236A0F032BCA22 /* Pods-Ofabee_OLP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ofabee_OLP.release.xcconfig"; path = "Pods/Target Support Files/Pods-Ofabee_OLP/Pods-Ofabee_OLP.release.xcconfig"; sourceTree = "<group>"; };
 		D51BA30CBC926154C03BC7F9 /* Pods-Life_Line.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life_Line.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Life_Line/Pods-Life_Line.debug.xcconfig"; sourceTree = "<group>"; };
@@ -447,6 +451,7 @@
 				CE20D4BF215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift */,
 				843B3FE31FAC9C7500CD36BF /* Descriptive */,
 				84563B041F7E136D00AAFF81 /* Assessment */,
+				CE712F482195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift */,
 			);
 			name = Curriculum;
 			sourceTree = "<group>";
@@ -839,6 +844,7 @@
 			isa = PBXGroup;
 			children = (
 				847FA3961F6AB1910040D097 /* VGVerticalVideoViewController.swift */,
+				CE712F4621958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift */,
 			);
 			name = "Video Type";
 			sourceTree = "<group>";
@@ -1213,6 +1219,7 @@
 				8488FBE51F41A67E000B5E11 /* OFACourseInstructorsTableViewCell.swift in Sources */,
 				841400EA1F9DD5CC00B68E6B /* OFASemiCirclePieChart.swift in Sources */,
 				847A833F1F398B3500AB3D32 /* SDImageCache.m in Sources */,
+				CE712F4721958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift in Sources */,
 				845EA0831F455AA3002FED75 /* TabySegmentedControl.swift in Sources */,
 				846D09F71F3AE8A900AADB82 /* OFASingletonUser.swift in Sources */,
 				845EA08E1F45635B002FED75 /* OFAMyCourseDetailsQandATableViewController.swift in Sources */,
@@ -1221,6 +1228,7 @@
 				CE20D4C0215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift in Sources */,
 				8400CB3E1F3DB483005B2086 /* MHProgressButton.swift in Sources */,
 				846D09FA1F3AE98F00AADB82 /* HandleNullValues.m in Sources */,
+				CE712F492195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift in Sources */,
 				847A834E1F398B3500AB3D32 /* UIView+WebCacheOperation.m in Sources */,
 				8488FBDB1F419C06000B5E11 /* OFACourseDetailsCurriculumTableViewCell.swift in Sources */,
 				8419F1531F7241A4003758C8 /* UITextfieldScrollViewController.m in Sources */,
