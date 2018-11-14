@@ -4,6 +4,7 @@ PODS:
   - CitrusGraphics (2.0.0)
   - DropDown (2.3.1)
   - FAPanels (0.3.8)
+  - Floaty (4.0.1)
   - FontAwesomeKit.Swift (0.4.2)
   - GoogleSignIn (4.2.0):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
@@ -40,6 +41,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.4)
   - DropDown
   - FAPanels (~> 0.3)
+  - Floaty
   - FontAwesomeKit.Swift (~> 0.4)
   - GoogleSignIn
   - PayUmoney_PnP
@@ -56,6 +58,7 @@ SPEC REPOS:
     - CitrusGraphics
     - DropDown
     - FAPanels
+    - Floaty
     - FontAwesomeKit.Swift
     - GoogleSignIn
     - GoogleToolboxForMac
@@ -75,6 +78,7 @@ SPEC CHECKSUMS:
   CitrusGraphics: 99a20691ab62595796b26dcc64646c12abbd962c
   DropDown: 20499c7b2731b0d21609af924e47c7677a2be50d
   FAPanels: b1b89a3916741be8f8fe29775eaf683435a7e91b
+  Floaty: 82854e1a5ef4fa208281ebd4da2f3d1e51ba67a6
   FontAwesomeKit.Swift: 252b2e05752e6c7410866693c7350e62313da910
   GoogleSignIn: 591e46382014e591269f862ba6e7bc0fbd793532
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
@@ -88,6 +92,6 @@ SPEC CHECKSUMS:
   YNDropDownMenu: 967ebe0c633ce8f40e8667574525aa230ba24560
   YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
-PODFILE CHECKSUM: 59be0baed10dd880f74e845559e85c6ae509f12a
+PODFILE CHECKSUM: 77cc4b8f14409a912ec5e9953d63280936b96e7e
 
 COCOAPODS: 1.5.3

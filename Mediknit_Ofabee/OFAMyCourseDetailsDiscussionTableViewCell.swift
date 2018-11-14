@@ -10,7 +10,9 @@ import UIKit
 
 class OFAMyCourseDetailsDiscussionTableViewCell: UITableViewCell {
 
-    @IBOutlet var labelComment: UILabel!
+    @IBOutlet weak var imageViewIcon: UIImageView!
+    @IBOutlet weak var textViewComment: UITextView!
+//    @IBOutlet var labelComment: UILabel!
     @IBOutlet var labelAuthor: UILabel!
     @IBOutlet var labelDetails: UILabel!
     override func awakeFromNib() {
@@ -24,10 +26,18 @@ class OFAMyCourseDetailsDiscussionTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func customizeCellWithDetails(comment:String,author:String,dateString:String,numberOfReplies:String){
-        self.labelComment.text = comment
+    func customizeCellWithDetails(comment:String,author:String,dateString:String,numberOfReplies:String,status:String){
+        self.imageViewIcon.layer.cornerRadius = self.imageViewIcon.frame.height/2
+        var imageName = ""
+        if status == "0"{
+            imageName = "DiscussionComment"
+        }else if status == "1"{
+            imageName = "DiscussionQuestion"
+        }
+        self.imageViewIcon.image = UIImage(named: imageName)
+        self.textViewComment.text = comment
         self.labelAuthor.text = author
         
-        self.labelDetails.text = "\(dateString)     \(numberOfReplies) replies"
+        self.labelDetails.text = "\(dateString)"//"     \(numberOfReplies) replies"
     }
 }

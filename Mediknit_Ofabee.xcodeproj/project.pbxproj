@@ -114,6 +114,8 @@
 		84FEA9D31F6150B000D2D201 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FEA9D21F6150B000D2D201 /* GlobalVariables.swift */; };
 		CE20D4BE2153707300C851D0 /* OFAMyCourseDetailsCurriculumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20D4BD2153707200C851D0 /* OFAMyCourseDetailsCurriculumTableViewController.swift */; };
 		CE20D4C0215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20D4BF215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift */; };
+		CE249045219C4041008CC796 /* OFALectureQAndAContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE249044219C4041008CC796 /* OFALectureQAndAContainerViewController.swift */; };
+		CE249047219C4459008CC796 /* OFAMyQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE249046219C4459008CC796 /* OFAMyQuestionsTableViewController.swift */; };
 		CE712F4721958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE712F4621958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift */; };
 		CE712F492195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE712F482195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift */; };
 		CEBC66A4214BCA7900ADFA82 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEBC66A3214BCA7800ADFA82 /* credentials.plist */; };
@@ -293,6 +295,8 @@
 		B44A05F9B6D300B8A18467C4 /* Pods_Mediknit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mediknit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE20D4BD2153707200C851D0 /* OFAMyCourseDetailsCurriculumTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFAMyCourseDetailsCurriculumTableViewController.swift; sourceTree = "<group>"; };
 		CE20D4BF215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFAMyCourseDetailsCurriculumTableViewCell.swift; sourceTree = "<group>"; };
+		CE249044219C4041008CC796 /* OFALectureQAndAContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFALectureQAndAContainerViewController.swift; sourceTree = "<group>"; };
+		CE249046219C4459008CC796 /* OFAMyQuestionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAMyQuestionsTableViewController.swift; sourceTree = "<group>"; };
 		CE712F4621958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAInteractiveQuestionsTableViewController.swift; sourceTree = "<group>"; };
 		CE712F482195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAVideoInteractiveQuestionTableViewCell.swift; sourceTree = "<group>"; };
 		CEBC66A3214BCA7800ADFA82 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
@@ -976,8 +980,10 @@
 		84CF8EA41F581B2400CF93E8 /* Q&A */ = {
 			isa = PBXGroup;
 			children = (
-				845EA08D1F45635B002FED75 /* OFAMyCourseDetailsQandATableViewController.swift */,
+				CE24904A219C4557008CC796 /* Container Discussion */,
+				CE249048219C4543008CC796 /* Discussion */,
 				8498D8931F46BABA008732C6 /* OFAMyCourseDetailsDisussionRepliesTableViewController.swift */,
+				CE249049219C454A008CC796 /* My Question */,
 			);
 			name = "Q&A";
 			sourceTree = "<group>";
@@ -1023,6 +1029,30 @@
 				8400DEE11FD2A70B00D874AE /* HADropDown.swift */,
 			);
 			name = "Drop Down";
+			sourceTree = "<group>";
+		};
+		CE249048219C4543008CC796 /* Discussion */ = {
+			isa = PBXGroup;
+			children = (
+				845EA08D1F45635B002FED75 /* OFAMyCourseDetailsQandATableViewController.swift */,
+			);
+			name = Discussion;
+			sourceTree = "<group>";
+		};
+		CE249049219C454A008CC796 /* My Question */ = {
+			isa = PBXGroup;
+			children = (
+				CE249046219C4459008CC796 /* OFAMyQuestionsTableViewController.swift */,
+			);
+			name = "My Question";
+			sourceTree = "<group>";
+		};
+		CE24904A219C4557008CC796 /* Container Discussion */ = {
+			isa = PBXGroup;
+			children = (
+				CE249044219C4041008CC796 /* OFALectureQAndAContainerViewController.swift */,
+			);
+			name = "Container Discussion";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1148,6 +1178,7 @@
 				"${PODS_ROOT}/CitrusGraphics/Framework/graphics-sdk/CitrusGraphics.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/FAPanels/FAPanels.framework",
+				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
 				"${BUILT_PRODUCTS_DIR}/FontAwesomeKit.Swift/FontAwesomeKit_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -1167,6 +1198,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CitrusGraphics.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FAPanels.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesomeKit_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
@@ -1243,6 +1275,7 @@
 				8488FBD91F417C70000B5E11 /* OFABrowseCourseDetailsTableViewController.swift in Sources */,
 				847A82DA1F39740100AB3D32 /* AppDelegate.swift in Sources */,
 				847A83071F397CDE00AB3D32 /* JJMaterialTextfield.m in Sources */,
+				CE249045219C4041008CC796 /* OFALectureQAndAContainerViewController.swift in Sources */,
 				847FA3971F6AB1910040D097 /* VGVerticalVideoViewController.swift in Sources */,
 				8400CB231F3D92B9005B2086 /* OFALeftSideMenuTableViewController.swift in Sources */,
 				8488FBE81F41A69D000B5E11 /* OFACourseDetailsInstructorsTableViewCell.swift in Sources */,
@@ -1256,6 +1289,7 @@
 				8488FBE11F41A447000B5E11 /* OFACourseReviewsTableViewCell.swift in Sources */,
 				84B363DD1F95C795001F4252 /* OFAAssessmentScoreCardTableViewController.swift in Sources */,
 				84879F6E1F737C3B001724C3 /* OFADescriptiveTableViewController.swift in Sources */,
+				CE249047219C4459008CC796 /* OFAMyQuestionsTableViewController.swift in Sources */,
 				84DB72B41FBB1C8F003A5053 /* OFAForgotPasswordTableViewController.swift in Sources */,
 				8415BE701F66BA600075B7B5 /* OFAMyCourseResultsTableViewCell.swift in Sources */,
 				847796CA1FAC3DDA00A134D6 /* OFAChallengesAssessmentAnswerOptionsTableViewCell.swift in Sources */,

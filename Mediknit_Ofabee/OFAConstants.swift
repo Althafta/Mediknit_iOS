@@ -44,6 +44,8 @@ let EMAIL = "EMAIL"
 
 var COURSE_ID = ""
 
+var LECTURE_ID = ""
+
 var STATUS_CODE = 200
 
 var currencySymbol = "CURRENCY"

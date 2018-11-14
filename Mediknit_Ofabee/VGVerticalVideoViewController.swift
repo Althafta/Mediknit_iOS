@@ -85,7 +85,7 @@ class VGVerticalVideoViewController: UIViewController {
             make.edges.equalTo(strongSelf.viewVideoContent)
         }
         self.avVideoPlayerController.player = self.avPlayer
-
+        
         if self.percentage != 100.0{
             let totalPlayerTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.asset.duration)!)
             let currentTime = (self.percentage/100)*totalPlayerTime
@@ -97,12 +97,15 @@ class VGVerticalVideoViewController: UIViewController {
             self.seekedTime = cmtime
             self.timerStarted = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
         }else{
+            self.timerStarted = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
             self.avPlayer.play()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.didFinishedPlaying), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         
-        self.buttonQandA.isHidden = true
+        self.buttonQandA.isHidden = false
         self.buttonCurriculum.isHidden = true
+        
+//        self.present(self.avVideoPlayerController, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -123,7 +126,7 @@ class VGVerticalVideoViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         OFAUtils.lockOrientation(.portrait)
-        self.timerStarted.invalidate()
+//        self.timerStarted.invalidate()
         if !isSeeked {
             self.saveLectureProgress()
         }
@@ -152,13 +155,25 @@ class VGVerticalVideoViewController: UIViewController {
             interactiveQuestions.questionString = "\((arrayQuestionAtInterval[0] as! NSDictionary)["question"]!)"
             interactiveQuestions.explanationString = "\((arrayQuestionAtInterval[0] as! NSDictionary)["explanation"]!)"
             let nav = UINavigationController(rootViewController: interactiveQuestions)
-            if self.avVideoPlayerController.isBeingPresented{
+            if self.avVideoPlayerController.isTopVC(self){
                 self.presentedViewController?.dismiss(animated: true, completion: {
-                    self.present(nav, animated: true, completion: nil)
+//                    self.present(nav, animated: true, completion: nil)
                 })
+                self.present(nav, animated: true, completion: nil)
             }else{
                 self.present(nav, animated: true, completion: nil)
             }
+//            if self.avVideoPlayerController.isBeingPresented{
+//                self.presentedViewController?.dismiss(animated: true, completion: {
+//                    self.present(nav, animated: true, completion: nil)
+//                })
+//            }else{
+//                self.present(nav, animated: true, completion: nil)
+//            }
+//            self.avVideoPlayerController.dismiss(animated: true) {
+//                self.present(nav, animated: true, completion: nil)
+//            }
+//            self.avVideoPlayerController.present(nav, animated: true, completion: nil)
         }
     }
     
@@ -169,8 +184,8 @@ class VGVerticalVideoViewController: UIViewController {
             let currentTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.currentTime())!)
             let totalPlayerTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.asset.duration)!)
             self.percentage = (currentTime/totalPlayerTime)*100
+            self.time = Int(currentTime)
             self.getInteractiveQuestionsArray(at: "\(Int(currentTime))")
-            //            self.time = Int(currentTime)
             let intCurrentTime = Int(currentTime)
             if intCurrentTime > self.time{
                 //print("seeked to time")
@@ -195,7 +210,7 @@ class VGVerticalVideoViewController: UIViewController {
         let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
         let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-        let dicParameters = NSDictionary(objects: [self.lectureID,"\(self.percentage)",user_id,domainKey,accessToken], forKeys: ["lecture_id" as NSCopying,"percentage" as NSCopying,"user_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+        let dicParameters = NSDictionary(objects: [self.lectureID,"\(self.percentage)","\(self.time)",user_id,domainKey,accessToken], forKeys: ["lecture_id" as NSCopying,"percentage" as NSCopying,"seconds" as NSCopying,"user_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
         print(dicParameters)
         Alamofire.request(userBaseURL+"api/course/save_lecture_percentage", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let result = responseJSON.result.value{
@@ -225,12 +240,10 @@ class VGVerticalVideoViewController: UIViewController {
     }
     
     @IBAction func QandAPressed(_ sender: UIButton) {
-        let QandATabTVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCourseQandATVC") as! OFAMyCourseDetailsQandATableViewController
-        QandATabTVC.isPresented = false
-        //        avPlayer.pause()
-        //        let nav = UINavigationController(rootViewController: QandATabTVC)
-        //        self.present(nav, animated: true, completion: nil)
-        self.navigationController?.pushViewController(QandATabTVC, animated: true)
+        let QandATabCVC = self.storyboard?.instantiateViewController(withIdentifier: "QandAContainerVC") as! OFALectureQAndAContainerViewController
+        avPlayer.pause()
+        LECTURE_ID = self.lectureID
+        self.navigationController?.pushViewController(QandATabCVC, animated: true)
     }
     
     //MARK:- Helpers

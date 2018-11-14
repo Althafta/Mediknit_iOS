@@ -12,6 +12,9 @@ class OFAVideoInteractiveQuestionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var textViewOption: UITextView!
     @IBOutlet weak var imageViewStatus: UIImageView!
+    var optionIndex = ""
+    var cellSelected = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

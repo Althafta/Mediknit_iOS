@@ -8,8 +8,9 @@
 
 import UIKit
 import Alamofire
+import Floaty
 
-class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextViewDelegate {
+class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextViewDelegate,FloatyDelegate {
 
     var offset = 1
     var index = 0
@@ -18,6 +19,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     @IBOutlet var viewTableViewFooter: UIView!
     @IBOutlet var buttonPlus: UIButton!
     
+    @IBOutlet var floatyView: Floaty!
     @IBOutlet var viewAskQuestionPopUp: UIView!
     @IBOutlet var buttonCancel: UIButton!
     @IBOutlet var buttonPost: UIButton!
@@ -31,12 +33,14 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     
     var refreshController = UIRefreshControl()
     
+    //MARK:- Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.refreshController.addTarget(self, action: #selector(self.refreshInitiated), for: .valueChanged)
         self.refreshController.tintColor = OFAUtils.getColorFromHexString(barTintColor)
-        self.tableView.refreshControl = self.refreshController
+//        self.tableView.refreshControl = self.refreshController
         
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
@@ -57,7 +61,9 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         self.viewDropDown.layer.cornerRadius = self.viewDropDown.frame.height/2
         
         self.textViewAskQuestion.inputAccessoryView = OFAUtils.getDoneToolBarButton(tableView: self, target: #selector(self.dismissKeyboard))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.dismissAction))
+//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.dismissAction))
+        
+        self.showViewAtBottom()
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,7 +73,6 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
         self.arrayDiscussions.removeAllObjects()
         
         self.refreshInitiated()
@@ -93,6 +98,23 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         animateOut()
     }
     
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        self.showViewAtBottom()
+//        if self.arrayDiscussions.count<=0{
+//            self.floatyView.isHidden=true
+//        }else{
+//            self.floatyView.isHidden=false
+//        }
+//    }
+    
+    func showViewAtBottom(){
+        self.floatyView.fabDelegate = self
+        self.floatyView.sticky = true
+        //        self.floatyView.paddingX = self.view.frame.width/5 - self.floatyView.frame.width
+        self.tableView.addSubview(self.floatyView)
+    }
+    
     func loadDiscussion(userID:String,offset:Int,limit:String){
         if(index-1 >= self.arrayDiscussions.count ){
             return
@@ -100,7 +122,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
         let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
         
-        let dicParameteres = NSDictionary(objects: [userID,COURSE_ID,"\(offset)",limit,domainKey,accessToken], forKeys: ["user_id" as NSCopying,"course_id" as NSCopying,"offset" as NSCopying,"limit" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+        let dicParameteres = NSDictionary(objects: [userID,LECTURE_ID,"\(offset)",limit,domainKey,accessToken], forKeys: ["user_id" as NSCopying,"course_id" as NSCopying,"offset" as NSCopying,"limit" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
         OFAUtils.showLoadingViewWithTitle("Loading")
         Alamofire.request(userBaseURL+"api/course/get_discussions", method: .post, parameters: dicParameteres as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let dicResult = responseJSON.result.value as? NSDictionary{
@@ -147,13 +169,13 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
 
         let dicDiscussion = self.arrayDiscussions[indexPath.row] as! NSDictionary
         
-        let createTimeString = "\(dicDiscussion["created_date"]!)"
+        let createTimeString = "\(dicDiscussion["comment_date"]!)"
         let createdDate = OFAUtils.getDateFromString(createTimeString)
         let createTime = self.getTimeAgo(time:  UInt64(createdDate.millisecondsSince1970))
         
         var comment = ""
         
-        cell.labelComment.adjustsFontForContentSizeCategory = true
+//        cell.labelComment.adjustsFontForContentSizeCategory = true
         do {
             let attrStr = try NSAttributedString(data: "\(dicDiscussion["comment"]!)".data(using: String.Encoding.unicode, allowLossyConversion: true)!,
                                                  options: [ NSAttributedString.DocumentReadingOptionKey(rawValue: NSAttributedString.DocumentAttributeKey.documentType.rawValue): NSAttributedString.DocumentType.html],
@@ -163,18 +185,18 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
             comment = "No Comments"
         }
         
-        cell.customizeCellWithDetails(comment: comment, author: "\(dicDiscussion["us_name"]!)", dateString: createTime!, numberOfReplies: "\(dicDiscussion["children_count"]!)")
+        cell.customizeCellWithDetails(comment: comment, author: "\(dicDiscussion["username"]!)", dateString: createTime!, numberOfReplies: "", status: "\(dicDiscussion["question"]!)")//\(dicDiscussion["children_count"]!)")
 
         return cell
     }
  
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let discussionRepliesTVC = self.storyboard?.instantiateViewController(withIdentifier: "DiscussionRepliesTVC") as! OFAMyCourseDetailsDisussionRepliesTableViewController
-        if isPresented == false{
-            self.navigationController?.children[1].navigationItem.title = ""
-        }else{
-            self.navigationItem.title = ""
-        }
+//        if isPresented == false{
+//            self.navigationController?.children[1].navigationItem.title = ""
+//        }else{
+//            self.navigationItem.title = ""
+//        }
         let dicDiscussion = self.arrayDiscussions[indexPath.row] as! NSDictionary
         discussionRepliesTVC.discussion_id = "\(dicDiscussion["id"]!)"
         discussionRepliesTVC.dicQuestionDetails = dicDiscussion
@@ -196,14 +218,23 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 97
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        self.tableView.estimatedRowHeight = 170
+        self.tableView.rowHeight = UITableView.automaticDimension
+        return self.tableView.rowHeight
     }
 
     //MARK:- Button Actions
+    
+    func emptyFloatySelected(_ floaty: Floaty) {
+        self.textViewAskQuestion.text = "What's on your mind and where you are getting stuck?"
+        self.showAskQuestionPopUp()
+        blur()
+        animateIn()
+    }
     
     @IBAction func plusButtonPressed(_ sender: UIButton) {
         self.textViewAskQuestion.text = "What's on your mind and where you are getting stuck?"
