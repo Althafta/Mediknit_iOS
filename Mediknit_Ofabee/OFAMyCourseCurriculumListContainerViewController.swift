@@ -129,7 +129,7 @@ class OFAMyCourseCurriculumListContainerViewController: UIViewController {
                     }
                 }
             }
-            if self.dicLecture.count <= 0 {
+            if self.dicLecture.count <= 0  {
                 let dicTopic = self.arraySections[0] as! NSDictionary
                 let arrayLecture = dicTopic["lectures"] as! NSArray
                 self.dicLecture = arrayLecture[0] as! NSDictionary

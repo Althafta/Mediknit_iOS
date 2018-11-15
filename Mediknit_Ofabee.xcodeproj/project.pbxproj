@@ -116,6 +116,8 @@
 		CE20D4C0215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20D4BF215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift */; };
 		CE249045219C4041008CC796 /* OFALectureQAndAContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE249044219C4041008CC796 /* OFALectureQAndAContainerViewController.swift */; };
 		CE249047219C4459008CC796 /* OFAMyQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE249046219C4459008CC796 /* OFAMyQuestionsTableViewController.swift */; };
+		CE2EADB5219D30F20040CEBC /* UIImageView+Letters.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2EADB4219D30F20040CEBC /* UIImageView+Letters.m */; };
+		CE2EADB8219D9D640040CEBC /* OFALectureDiscussionMyQuestionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2EADB7219D9D640040CEBC /* OFALectureDiscussionMyQuestionsTableViewCell.swift */; };
 		CE712F4721958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE712F4621958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift */; };
 		CE712F492195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE712F482195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift */; };
 		CEBC66A4214BCA7900ADFA82 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEBC66A3214BCA7800ADFA82 /* credentials.plist */; };
@@ -297,6 +299,9 @@
 		CE20D4BF215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFAMyCourseDetailsCurriculumTableViewCell.swift; sourceTree = "<group>"; };
 		CE249044219C4041008CC796 /* OFALectureQAndAContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFALectureQAndAContainerViewController.swift; sourceTree = "<group>"; };
 		CE249046219C4459008CC796 /* OFAMyQuestionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAMyQuestionsTableViewController.swift; sourceTree = "<group>"; };
+		CE2EADB3219D30F10040CEBC /* UIImageView+Letters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Letters.h"; sourceTree = "<group>"; };
+		CE2EADB4219D30F20040CEBC /* UIImageView+Letters.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Letters.m"; sourceTree = "<group>"; };
+		CE2EADB7219D9D640040CEBC /* OFALectureDiscussionMyQuestionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFALectureDiscussionMyQuestionsTableViewCell.swift; sourceTree = "<group>"; };
 		CE712F4621958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAInteractiveQuestionsTableViewController.swift; sourceTree = "<group>"; };
 		CE712F482195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAVideoInteractiveQuestionTableViewCell.swift; sourceTree = "<group>"; };
 		CEBC66A3214BCA7800ADFA82 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
@@ -464,6 +469,7 @@
 			isa = PBXGroup;
 			children = (
 				840234E01F45A6D00035593D /* OFAMyCourseDetailsDiscussionTableViewCell.swift */,
+				CE2EADB7219D9D640040CEBC /* OFALectureDiscussionMyQuestionsTableViewCell.swift */,
 				849B69F91F629D0D00EFD167 /* OFAQuestionDetailsRepliesTableViewCell.swift */,
 			);
 			name = "Q&A";
@@ -653,6 +659,7 @@
 		847A82F01F39744100AB3D32 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CE2EADB6219D31120040CEBC /* ImageView+Letters */,
 				84AD5CC62036CA6F003DB93B /* Font Awesome */,
 				8419F1541F7241A9003758C8 /* UITextfield ScrollableVC */,
 				8419F1551F7241B6003758C8 /* Subtle Volume */,
@@ -1055,6 +1062,15 @@
 			name = "Container Discussion";
 			sourceTree = "<group>";
 		};
+		CE2EADB6219D31120040CEBC /* ImageView+Letters */ = {
+			isa = PBXGroup;
+			children = (
+				CE2EADB3219D30F10040CEBC /* UIImageView+Letters.h */,
+				CE2EADB4219D30F20040CEBC /* UIImageView+Letters.m */,
+			);
+			name = "ImageView+Letters";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1258,6 +1274,7 @@
 				8400CB211F3D79F1005B2086 /* OFAPreLoginTableViewController.swift in Sources */,
 				84D25F8D1F39E3D9006D488A /* OFABrowserCourseTableViewCell.swift in Sources */,
 				CE20D4C0215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift in Sources */,
+				CE2EADB5219D30F20040CEBC /* UIImageView+Letters.m in Sources */,
 				8400CB3E1F3DB483005B2086 /* MHProgressButton.swift in Sources */,
 				846D09FA1F3AE98F00AADB82 /* HandleNullValues.m in Sources */,
 				CE712F492195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift in Sources */,
@@ -1275,6 +1292,7 @@
 				8488FBD91F417C70000B5E11 /* OFABrowseCourseDetailsTableViewController.swift in Sources */,
 				847A82DA1F39740100AB3D32 /* AppDelegate.swift in Sources */,
 				847A83071F397CDE00AB3D32 /* JJMaterialTextfield.m in Sources */,
+				CE2EADB8219D9D640040CEBC /* OFALectureDiscussionMyQuestionsTableViewCell.swift in Sources */,
 				CE249045219C4041008CC796 /* OFALectureQAndAContainerViewController.swift in Sources */,
 				847FA3971F6AB1910040D097 /* VGVerticalVideoViewController.swift in Sources */,
 				8400CB231F3D92B9005B2086 /* OFALeftSideMenuTableViewController.swift in Sources */,

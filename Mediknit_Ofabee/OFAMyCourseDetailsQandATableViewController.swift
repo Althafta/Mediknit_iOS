@@ -16,13 +16,11 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     var index = 0
     var arrayDiscussions = NSMutableArray()
     
-    @IBOutlet var viewTableViewFooter: UIView!
-    @IBOutlet var buttonPlus: UIButton!
-    
     @IBOutlet var floatyView: Floaty!
     @IBOutlet var viewAskQuestionPopUp: UIView!
     @IBOutlet var buttonCancel: UIButton!
-    @IBOutlet var buttonPost: UIButton!
+    @IBOutlet var buttonPublicComment: UIButton!
+    @IBOutlet weak var buttonQuestion: UIButton!
     @IBOutlet var textViewAskQuestion: UITextView!
     @IBOutlet var viewDropDown: HADropDown!
     
@@ -32,6 +30,10 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     var blurEffectView = UIVisualEffectView()
     
     var refreshController = UIRefreshControl()
+    
+    let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
+    let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
+    let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
     
     //MARK:- Life Cycle
     
@@ -48,12 +50,11 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         
         self.tableView.backgroundColor = OFAUtils.getColorFromHexString(sectionBackgroundColor)
 
-        self.buttonPlus.clipsToBounds = true
-        self.buttonPlus.layer.cornerRadius = self.buttonPlus.frame.width/2
-        self.buttonPlus.dropShadow()
+       
         
         self.buttonCancel.layer.cornerRadius = self.buttonCancel.frame.height/2
-        self.buttonPost.layer.cornerRadius = self.buttonCancel.frame.height/2
+        self.buttonPublicComment.layer.cornerRadius = self.buttonPublicComment.frame.height/2
+        self.buttonQuestion.layer.cornerRadius = self.buttonQuestion.frame.height/2
         
         self.textViewAskQuestion.layer.borderColor = UIColor.lightGray.cgColor
         self.textViewAskQuestion.layer.borderWidth = 1.0
@@ -83,7 +84,6 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         self.offset=1
         
         self.arrayDiscussions.removeAllObjects()
-        let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
         self.loadDiscussion(userID: user_id, offset: 1, limit: "10")
     }
      
@@ -119,9 +119,6 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         if(index-1 >= self.arrayDiscussions.count ){
             return
         }
-        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-        let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
-        
         let dicParameteres = NSDictionary(objects: [userID,LECTURE_ID,"\(offset)",limit,domainKey,accessToken], forKeys: ["user_id" as NSCopying,"course_id" as NSCopying,"offset" as NSCopying,"limit" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
         OFAUtils.showLoadingViewWithTitle("Loading")
         Alamofire.request(userBaseURL+"api/course/get_discussions", method: .post, parameters: dicParameteres as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
@@ -193,13 +190,18 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let discussionRepliesTVC = self.storyboard?.instantiateViewController(withIdentifier: "DiscussionRepliesTVC") as! OFAMyCourseDetailsDisussionRepliesTableViewController
 //        if isPresented == false{
-//            self.navigationController?.children[1].navigationItem.title = ""
+        self.navigationController?.children.last?.navigationItem.title = ""
 //        }else{
 //            self.navigationItem.title = ""
 //        }
         let dicDiscussion = self.arrayDiscussions[indexPath.row] as! NSDictionary
         discussionRepliesTVC.discussion_id = "\(dicDiscussion["id"]!)"
         discussionRepliesTVC.dicQuestionDetails = dicDiscussion
+        if "\(dicDiscussion["question"]!)" == "1"{
+            discussionRepliesTVC.isQuestion = true
+        }else{
+            discussionRepliesTVC.isQuestion = false
+        }
         self.navigationController?.pushViewController(discussionRepliesTVC, animated: true)
     }
     
@@ -213,24 +215,16 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         }
     }
     
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return self.viewTableViewFooter
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
-    }
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         self.tableView.estimatedRowHeight = 170
         self.tableView.rowHeight = UITableView.automaticDimension
         return self.tableView.rowHeight
     }
-
+    
     //MARK:- Button Actions
     
     func emptyFloatySelected(_ floaty: Floaty) {
-        self.textViewAskQuestion.text = "What's on your mind and where you are getting stuck?"
+        self.textViewAskQuestion.text = "Type here"
         self.showAskQuestionPopUp()
         blur()
         animateIn()
@@ -248,10 +242,35 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         animateOut()
     }
     
-    @IBAction func postQuestionPressed(_ sender: UIButton) {
-        if self.textViewAskQuestion.text == "What's on your mind and where you are getting stuck?" || OFAUtils.isWhiteSpace(self.textViewAskQuestion.text!){
+    @IBAction func postPublicCommentPressed(_ sender: UIButton) {
+        let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
+        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
+        let access_token = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
+        if self.textViewAskQuestion.text == "Type here" || OFAUtils.isWhiteSpace(self.textViewAskQuestion.text!){
             self.viewAskQuestionPopUp.endEditing(true)
             OFAUtils.showToastWithTitle("Enter your comment")
+            return
+        }
+        let dicParameters = NSDictionary(objects: [user_id,LECTURE_ID,"",self.textViewAskQuestion.text!,domainKey,access_token], forKeys: ["user_id" as NSCopying,"course_id" as NSCopying,"comment_title" as NSCopying,"comment" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+        Alamofire.request(userBaseURL+"api/course/create_new_discussion", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
+            if let dicRespose = responseJSON.result.value as? NSDictionary{
+                self.removeBlur()
+                self.animateOut()
+                OFAUtils.showToastWithTitle("\(dicRespose["message"]!)")
+                //                self.index = self.arrayDiscussions.count-1
+                self.arrayDiscussions.removeAllObjects()
+                self.refreshInitiated()
+                self.tableView.reloadData()
+            }else{
+                OFAUtils.showAlertViewControllerWithTitle("Some Error Occured", message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+            }
+        }
+    }
+    
+    @IBAction func postQuestionPressed(_ sender: UIButton) {
+        if self.textViewAskQuestion.text == "Type here" || OFAUtils.isWhiteSpace(self.textViewAskQuestion.text!){
+            self.viewAskQuestionPopUp.endEditing(true)
+            OFAUtils.showToastWithTitle("Enter your Question")
             return
         }
         let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
@@ -276,14 +295,14 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     //MARK:- TextView Delegate
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textViewAskQuestion.text == "What's on your mind and where you are getting stuck?" {
+        if textViewAskQuestion.text == "Type here" {
             textViewAskQuestion.text = ""
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textViewAskQuestion.text == "" {
-            textViewAskQuestion.text = "What's on your mind and where you are getting stuck?"
+            textViewAskQuestion.text = "Type here"
         }
     }
     

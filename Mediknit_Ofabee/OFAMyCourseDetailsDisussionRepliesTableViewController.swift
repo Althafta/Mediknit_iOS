@@ -48,6 +48,8 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
     let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
     let access_token = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
     
+    var isQuestion = false
+    
     //MARK:- Life Cycle
     
     override func viewDidLoad() {
@@ -73,9 +75,9 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
         self.imageViewUser.clipsToBounds = true
         self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.width/2
         
-        self.imageViewUser.sd_setImage(with: URL(string: "\(self.dicQuestionDetails["user_image"]!)"), placeholderImage: #imageLiteral(resourceName: "Default image"), options: .progressiveDownload)
-        self.labelCommentOwner.text = "\(self.dicQuestionDetails["us_name"]!)"
-        let createTimeString = "\(self.dicQuestionDetails["created_date"]!)"
+        self.imageViewUser.setImageWith("\(self.dicQuestionDetails["username"]!)", color: OFAUtils.getRandomColor(), circular: true)
+        self.labelCommentOwner.text = "\(self.dicQuestionDetails["username"]!)"
+        let createTimeString = "\(self.dicQuestionDetails["comment_date"]!)"
         let createdDate = OFAUtils.getDateFromString(createTimeString)
         let createTime = self.getTimeAgo(time:  UInt64(createdDate.millisecondsSince1970))
         
@@ -120,7 +122,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
         let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
         
-        let dicParameteres = NSDictionary(objects: [userID,COURSE_ID,self.discussion_id,"\(offset)",limit,domainKey,accessToken], forKeys: ["user_id" as NSCopying,"course_id" as NSCopying,"discussion_id" as NSCopying,"offset" as NSCopying,"limit" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+        let dicParameteres = NSDictionary(objects: [userID,LECTURE_ID,self.discussion_id,"\(offset)",limit,domainKey,accessToken], forKeys: ["user_id" as NSCopying,"course_id" as NSCopying,"discussion_id" as NSCopying,"offset" as NSCopying,"limit" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
         OFAUtils.showLoadingViewWithTitle("Loading")
         Alamofire.request(userBaseURL+"api/course/load_child_comments", method: .post, parameters: dicParameteres as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let dicResult = responseJSON.result.value as? NSDictionary{
@@ -172,7 +174,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
         let dicReply = self.arrayReplies[indexPath.row] as! NSDictionary
         
         cell.buttonOptions.tag = indexPath.row
-        let createTimeString = "\(dicReply["created_date"]!)"
+        let createTimeString = "\(dicReply["comment_date"]!)"
         let createdDate = OFAUtils.getDateFromString(createTimeString)
         let createTime = self.getTimeAgo(time:  UInt64(createdDate.millisecondsSince1970))
         
@@ -188,7 +190,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
             comment = "No Comments"
         }
         
-        cell.customizeCellWithDetails(imageURLString: "\(dicReply["user_image"]!)", fullName: "\(dicReply["us_name"]!)", commentDate: createTime!, comments: comment)
+        cell.customizeCellWithDetails(imageURLString: "\(dicReply["username"]!)", fullName: "\(dicReply["username"]!)", commentDate: createTime!, comments: comment)
         
         let stringVar = String()
         let fontVar = UIFont(fa_fontSize: 15)
@@ -209,7 +211,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 106
+        return !self.isQuestion ? 106 : 0
     }
     
 //    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -237,13 +239,17 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
     
     //MARK:- Button Actions
     @IBAction func sendReplyPressed(_ sender: UIButton) {
-        let dicParameters = NSDictionary(objects: [user_id,COURSE_ID,self.discussion_id,self.textReply.text!,domainKey,access_token], forKeys: ["user_id" as NSCopying,"course_id" as NSCopying,"comment_id" as NSCopying,"comment" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+        if OFAUtils.isWhiteSpace(self.textReply.text!){
+            OFAUtils.showToastWithTitle("Enter your reply")
+            return
+        }
+        let dicParameters = NSDictionary(objects: [user_id,LECTURE_ID,self.discussion_id,self.textReply.text!,domainKey,access_token], forKeys: ["user_id" as NSCopying,"course_id" as NSCopying,"comment_id" as NSCopying,"comment" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
         Alamofire.request(userBaseURL+"api/course/post_user_comment", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let dicResponse = responseJSON.result.value as? NSDictionary{
                 self.view.endEditing(true)
                 self.textReply.text = ""
                 print(dicResponse["message"]!)
-                OFAUtils.showToastWithTitle("Comment added successfully")
+                OFAUtils.showToastWithTitle("\(dicResponse["message"]!)")
                 self.index = self.arrayReplies.count-1
                 self.loadReplies(userID: self.user_id, offset: 1, limit: "10")
             }else{
