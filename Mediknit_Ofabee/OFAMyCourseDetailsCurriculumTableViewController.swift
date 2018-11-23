@@ -546,7 +546,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                         videoPlayer.dicInteractiveQuestion = dicInteractiveQuestion
                     }
                     videoPlayer.arrayQuestionTimes = dicBody["intractive_questions_time"] as! NSArray
-                    
+                    print(dicBody["intractive_questions_time"] as! NSArray)
                     videoPlayer.videoURLString = urlString
                     videoPlayer.videoTitle = videoTitle
                     videoPlayer.lectureID = lectureId

@@ -230,13 +230,6 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         animateIn()
     }
     
-    @IBAction func plusButtonPressed(_ sender: UIButton) {
-        self.textViewAskQuestion.text = "What's on your mind and where you are getting stuck?"
-        self.showAskQuestionPopUp()
-        blur()
-        animateIn()
-    }
-    
     @IBAction func cancelPressed(_ sender: UIButton) {
         removeBlur()
         animateOut()

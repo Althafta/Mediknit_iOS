@@ -36,5 +36,6 @@ class OFAQuestionDetailsRepliesTableViewCell: UITableViewCell {
         self.labelDate.text = commentDate
         self.labelFullName.text = fullName
         self.textViewComments.text = comments
+        self.buttonOptions.isHidden = true
     }
 }

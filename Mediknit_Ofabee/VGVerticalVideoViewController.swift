@@ -58,9 +58,9 @@ class VGVerticalVideoViewController: UIViewController {
         
         //        self.navigationController?.hidesBarsOnTap = true
         
-        self.buttonCurriculum.layer.cornerRadius = self.buttonCurriculum.frame.height/2
-        self.buttonCurriculum.layer.borderColor = OFAUtils.getColorFromHexString(barTintColor).cgColor
-        self.buttonCurriculum.layer.borderWidth = 1.0
+//        self.buttonCurriculum.layer.cornerRadius = self.buttonCurriculum.frame.height/2
+//        self.buttonCurriculum.layer.borderColor = OFAUtils.getColorFromHexString(barTintColor).cgColor
+//        self.buttonCurriculum.layer.borderWidth = 1.0
         
         self.buttonQandA.layer.cornerRadius = self.buttonQandA.frame.height/2
         self.buttonQandA.layer.borderColor = OFAUtils.getColorFromHexString(barTintColor).cgColor
@@ -103,7 +103,7 @@ class VGVerticalVideoViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.didFinishedPlaying), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         
         self.buttonQandA.isHidden = false
-        self.buttonCurriculum.isHidden = true
+//        self.buttonCurriculum.isHidden = true
         
 //        self.present(self.avVideoPlayerController, animated: true, completion: nil)
     }
@@ -143,11 +143,11 @@ class VGVerticalVideoViewController: UIViewController {
     
     func getInteractiveQuestionsArray(at timeInterval:String){
         guard let questionInterval = NumberFormatter().number(from: timeInterval) else { return }
+        print(questionInterval)
         if self.arrayQuestionTimes.contains(questionInterval){
-            self.avPlayer.pause()
             self.avVideoPlayerController.dismiss(animated: true, completion: nil)
             let arrayQuestionAtInterval = self.dicInteractiveQuestion[timeInterval] as! NSArray
-            print(arrayQuestionAtInterval)
+//            print(arrayQuestionAtInterval)
             let interactiveQuestions = self.storyboard?.instantiateViewController(withIdentifier: "InteractiveQuestionsTVC") as! OFAInteractiveQuestionsTableViewController
             UserDefaults.standard.setValue(arrayQuestionAtInterval, forKey: "QuestionArray")
             UserDefaults.standard.setValue(0, forKey: "PageIndex")
@@ -163,6 +163,7 @@ class VGVerticalVideoViewController: UIViewController {
             }else{
                 self.present(nav, animated: true, completion: nil)
             }
+            self.avPlayer.pause()
 //            if self.avVideoPlayerController.isBeingPresented{
 //                self.presentedViewController?.dismiss(animated: true, completion: {
 //                    self.present(nav, animated: true, completion: nil)

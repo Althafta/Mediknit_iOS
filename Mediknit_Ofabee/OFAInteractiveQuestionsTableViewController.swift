@@ -49,6 +49,11 @@ class OFAInteractiveQuestionsTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        OFAUtils.lockOrientation(.portrait)
+    }
+    
     @objc func continuePressed(){
         if self.pageIndex+1 >= self.arrayQuestions.count{
             self.dismiss(animated: true, completion: nil)
@@ -100,8 +105,10 @@ class OFAInteractiveQuestionsTableViewController: UITableViewController {
         self.questionID = "\((self.arrayQuestions[self.pageIndex] as! NSDictionary)["id"]!)"
         self.lectureID = "\((self.arrayQuestions[self.pageIndex] as! NSDictionary)["lecture_id"]!)"
         if correctAnser == selectedIndex{
+            cell.imageViewStatus.tintColor = UIColor.green
             cell.imageViewStatus.image = UIImage(named: "Right_Answer")//right
         }else{
+            cell.imageViewStatus.tintColor = UIColor.red
             cell.imageViewStatus.image = UIImage(named: "Wrong_Answer")//wrong
         }
         self.textViewAnswerDescription.isHidden = false

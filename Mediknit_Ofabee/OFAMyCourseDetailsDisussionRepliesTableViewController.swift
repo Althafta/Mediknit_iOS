@@ -63,11 +63,12 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
         self.textViewEnterReason.dropShadow()
         
         let stringVar = String()
-        let fontVar = UIFont(fa_fontSize: 15)
-
+//        let fontVar = UIFont(fa_fontSize: 15)
+        let fontVar = UIFont.fa?.fontSize(15)
         let faType = stringVar.fa.fontAwesome(.fa_ellipsis_v)
         self.buttonOptions.titleLabel?.font = fontVar
         self.buttonOptions.setTitle(faType, for: .normal)
+        self.buttonOptions.isHidden = true
         
         self.buttonSendReply.clipsToBounds = true
         self.buttonSendReply.layer.cornerRadius = self.buttonSendReply.frame.width/2
@@ -193,7 +194,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
         cell.customizeCellWithDetails(imageURLString: "\(dicReply["username"]!)", fullName: "\(dicReply["username"]!)", commentDate: createTime!, comments: comment)
         
         let stringVar = String()
-        let fontVar = UIFont(fa_fontSize: 15)
+        let fontVar = UIFont.fa?.fontSize(15)
 
         let faType = stringVar.fa.fontAwesome(.fa_ellipsis_v)
         
@@ -253,7 +254,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
                 self.index = self.arrayReplies.count-1
                 self.loadReplies(userID: self.user_id, offset: 1, limit: "10")
             }else{
-                OFAUtils.showAlertViewControllerWithTitle("Some Error Occured", message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+//                OFAUtils.showAlertViewControllerWithTitle("Some Error Occured", message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
             }
         }
     }
