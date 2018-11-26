@@ -34,6 +34,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
     let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
     let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
+    var isAnonymous = "0"
     
     //MARK:- Life Cycle
     
@@ -207,7 +208,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row  == self.arrayDiscussions.count-1 {
-            self.index = index + 10
+            self.index = index + 5
             print("New data loaded")
             self.offset += 1
             let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
@@ -236,15 +237,53 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     }
     
     @IBAction func postPublicCommentPressed(_ sender: UIButton) {
-        let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
-        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-        let access_token = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
+//        let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
+//        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
+//        let access_token = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
         if self.textViewAskQuestion.text == "Type here" || OFAUtils.isWhiteSpace(self.textViewAskQuestion.text!){
             self.viewAskQuestionPopUp.endEditing(true)
             OFAUtils.showToastWithTitle("Enter your comment")
             return
         }
-        let dicParameters = NSDictionary(objects: [user_id,LECTURE_ID,"",self.textViewAskQuestion.text!,domainKey,access_token], forKeys: ["user_id" as NSCopying,"course_id" as NSCopying,"comment_title" as NSCopying,"comment" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+        self.callAPIForPostDiscussion(isAnonymous: "0", type: "1")
+//        let dicParameters = NSDictionary(objects: [user_id,LECTURE_ID,"",self.textViewAskQuestion.text!,"1","0",domainKey,access_token], forKeys: ["user_id" as NSCopying,"lecture_id" as NSCopying,"comment_title" as NSCopying,"comment" as NSCopying,"type" as NSCopying,"is_anonymous" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+//        Alamofire.request(userBaseURL+"api/course/create_new_discussion", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
+//            if let dicRespose = responseJSON.result.value as? NSDictionary{
+//                self.removeBlur()
+//                self.animateOut()
+//                OFAUtils.showToastWithTitle("\(dicRespose["message"]!)")
+//                //                self.index = self.arrayDiscussions.count-1
+//                self.arrayDiscussions.removeAllObjects()
+//                self.refreshInitiated()
+//                self.tableView.reloadData()
+//            }else{
+//                OFAUtils.showAlertViewControllerWithTitle("Some Error Occured", message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+//            }
+//        }
+    }
+    
+    @IBAction func postQuestionPressed(_ sender: UIButton) {
+        if self.textViewAskQuestion.text == "Type here" || OFAUtils.isWhiteSpace(self.textViewAskQuestion.text!){
+            self.viewAskQuestionPopUp.endEditing(true)
+            OFAUtils.showToastWithTitle("Enter your Question")
+            return
+        }
+        
+        let anonymousAlert = UIAlertController(title: "Do you want show your name?", message: nil, preferredStyle: .alert)
+        anonymousAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+            self.callAPIForPostDiscussion(isAnonymous: "0", type: "2")
+        }))
+        anonymousAlert.addAction(UIAlertAction(title: "No", style: .default, handler: { (action) in
+            self.callAPIForPostDiscussion(isAnonymous: "1", type: "2")
+        }))
+        self.present(anonymousAlert, animated: true, completion: nil)
+    }
+    
+    func callAPIForPostDiscussion(isAnonymous:String,type:String){
+        let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
+        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
+        let access_token = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
+        let dicParameters = NSDictionary(objects: [user_id,LECTURE_ID,"",self.textViewAskQuestion.text!,type,isAnonymous,domainKey,access_token], forKeys: ["user_id" as NSCopying,"lecture_id" as NSCopying,"comment_title" as NSCopying,"comment" as NSCopying,"type" as NSCopying,"is_anonymous" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
         Alamofire.request(userBaseURL+"api/course/create_new_discussion", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let dicRespose = responseJSON.result.value as? NSDictionary{
                 self.removeBlur()
@@ -259,32 +298,6 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
             }
         }
     }
-    
-    @IBAction func postQuestionPressed(_ sender: UIButton) {
-        if self.textViewAskQuestion.text == "Type here" || OFAUtils.isWhiteSpace(self.textViewAskQuestion.text!){
-            self.viewAskQuestionPopUp.endEditing(true)
-            OFAUtils.showToastWithTitle("Enter your Question")
-            return
-        }
-        let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
-        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-        let access_token = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
-        let dicParameters = NSDictionary(objects: [user_id,COURSE_ID,"",self.textViewAskQuestion.text!,domainKey,access_token], forKeys: ["user_id" as NSCopying,"course_id" as NSCopying,"comment_title" as NSCopying,"comment" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
-        Alamofire.request(userBaseURL+"api/course/create_new_discussion", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
-            if let dicRespose = responseJSON.result.value as? NSDictionary{
-                self.removeBlur()
-                self.animateOut()
-                OFAUtils.showToastWithTitle("\(dicRespose["message"]!)")
-//                self.index = self.arrayDiscussions.count-1
-                self.arrayDiscussions.removeAllObjects()
-                self.refreshInitiated()
-                self.tableView.reloadData()
-            }else{
-                OFAUtils.showAlertViewControllerWithTitle("Some Error Occured", message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
-            }
-        }
-    }
-    
     //MARK:- TextView Delegate
     
     func textViewDidBeginEditing(_ textView: UITextView) {

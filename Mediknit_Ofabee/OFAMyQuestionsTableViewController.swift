@@ -80,7 +80,7 @@ class OFAMyQuestionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DiscussionMyQuestionCell", for: indexPath) as! OFALectureDiscussionMyQuestionsTableViewCell
 
-        let dicQuestion = self.arrayMyQuestions[indexPath.row] as! NSDictionary
+        let dicQuestion = self.arrayMyQuestions[indexPath.row] as! NSDictionary 
         
         let createTimeString = "\(dicQuestion["comment_date"]!)"
         let createdDate = OFAUtils.getDateFromString(createTimeString)
