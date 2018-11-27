@@ -28,6 +28,9 @@ class OFAMyQuestionsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.offset = 1
+        self.index = 0
+        self.arrayMyQuestions.removeAllObjects()
         self.loadQuestions(userID: user_id, offset: offset, limit: "10")
     }
 
@@ -93,7 +96,7 @@ class OFAMyQuestionsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row  == self.arrayMyQuestions.count-1 {
-            self.index = index + 10
+            self.index = index + 5
             print("New data loaded")
             self.offset += 1
             let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String

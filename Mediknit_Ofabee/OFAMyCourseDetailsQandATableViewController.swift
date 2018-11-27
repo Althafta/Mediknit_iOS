@@ -303,11 +303,13 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textViewAskQuestion.text == "Type here" {
             textViewAskQuestion.text = ""
+            self.textViewAskQuestion.textColor = UIColor.black
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textViewAskQuestion.text == "" {
+        if OFAUtils.isWhiteSpace(self.textViewAskQuestion.text!) {
+            self.textViewAskQuestion.textColor = UIColor.lightGray
             textViewAskQuestion.text = "Type here"
         }
     }
