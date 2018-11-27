@@ -1391,7 +1391,7 @@
                                                     <rect key="frame" x="0.0" y="28" width="355" height="118"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qIG-5w-MGO" id="2JR-BE-TWw">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="118"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="117.5"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="497-Um-SRB">
@@ -1590,7 +1590,7 @@
                                                     <rect key="frame" x="0.0" y="28" width="355" height="90"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2FA-eo-HfX" id="439-kk-kWg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="89.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bz-39-Nk4">
@@ -2292,10 +2292,52 @@
                     <navigationItem key="navigationItem" id="a1a-TI-797"/>
                     <connections>
                         <outlet property="buttonQandA" destination="ULd-zV-Uq0" id="PY1-9C-jJF"/>
+                        <outlet property="ratingView" destination="wy5-oZ-l72" id="0pb-71-Hpp"/>
+                        <outlet property="viewRatingPopup" destination="QH0-gC-ayU" id="iM0-IQ-NPV"/>
                         <outlet property="viewVideoContent" destination="01J-r3-Udt" id="lau-wE-dJu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvF-Vy-s1H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="QH0-gC-ayU">
+                    <rect key="frame" x="0.0" y="0.0" width="365" height="146"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="wy5-oZ-l72" customClass="STRatingControl" customModule="STRatingControl">
+                            <rect key="frame" x="56" y="63" width="253" height="52"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.24052932860000001" green="0.71346527339999999" blue="0.96319597960000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="253" id="bEU-ic-HBc"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="image" keyPath="filledStarImage" value="star_filled"/>
+                                <userDefinedRuntimeAttribute type="image" keyPath="emptyStarImage" value="star_empty"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                    <integer key="value" value="0"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                    <integer key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                                    <integer key="value" value="0"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Submit a Review" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSh-XT-qMZ">
+                            <rect key="frame" x="117.5" y="31" width="130" height="24"/>
+                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="hSh-XT-qMZ" firstAttribute="centerX" secondItem="wy5-oZ-l72" secondAttribute="centerX" id="JJ4-5f-jzO"/>
+                        <constraint firstItem="hSh-XT-qMZ" firstAttribute="top" secondItem="QH0-gC-ayU" secondAttribute="top" constant="31" id="VZL-wk-N6Q"/>
+                        <constraint firstItem="wy5-oZ-l72" firstAttribute="top" secondItem="hSh-XT-qMZ" secondAttribute="bottom" constant="8" symbolic="YES" id="k0X-ZJ-8sI"/>
+                        <constraint firstItem="hSh-XT-qMZ" firstAttribute="centerX" secondItem="QH0-gC-ayU" secondAttribute="centerX" id="kEM-Xj-Ws2"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="-3258" y="3777"/>
         </scene>

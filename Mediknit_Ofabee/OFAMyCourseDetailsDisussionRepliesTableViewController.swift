@@ -244,7 +244,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
             OFAUtils.showToastWithTitle("Enter your reply")
             return
         }
-        let dicParameters = NSDictionary(objects: [user_id,LECTURE_ID,self.discussion_id,self.textReply.text!,domainKey,access_token], forKeys: ["user_id" as NSCopying,"course_id" as NSCopying,"comment_id" as NSCopying,"comment" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+        let dicParameters = NSDictionary(objects: [user_id,LECTURE_ID,self.discussion_id,self.textReply.text!,domainKey,access_token], forKeys: ["user_id" as NSCopying,"lecture_id" as NSCopying,"comment_id" as NSCopying,"comment" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
         Alamofire.request(userBaseURL+"api/course/post_user_comment", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let dicResponse = responseJSON.result.value as? NSDictionary{
                 self.view.endEditing(true)
