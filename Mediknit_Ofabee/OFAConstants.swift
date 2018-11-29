@@ -73,3 +73,4 @@ let URL_USER_GENERATED_TEST = "http://onlineprofesor.com/assesment_report/user_g
 //live
 let userBaseURL = "https://api.mediknit.org/index.php/"//"https://elearn.maven-silicon.com/"
 
+var videoIOSUrl = "https://elearn.maven-silicon.com/maven_ios_app/"

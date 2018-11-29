@@ -238,29 +238,12 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     }
     
     @IBAction func postPublicCommentPressed(_ sender: UIButton) {
-//        let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
-//        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-//        let access_token = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
         if self.textViewAskQuestion.text == "Type here" || OFAUtils.isWhiteSpace(self.textViewAskQuestion.text!){
             self.viewAskQuestionPopUp.endEditing(true)
             OFAUtils.showToastWithTitle("Enter your comment")
             return
         }
         self.callAPIForPostDiscussion(isAnonymous: "0", type: "1")
-//        let dicParameters = NSDictionary(objects: [user_id,LECTURE_ID,"",self.textViewAskQuestion.text!,"1","0",domainKey,access_token], forKeys: ["user_id" as NSCopying,"lecture_id" as NSCopying,"comment_title" as NSCopying,"comment" as NSCopying,"type" as NSCopying,"is_anonymous" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
-//        Alamofire.request(userBaseURL+"api/course/create_new_discussion", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
-//            if let dicRespose = responseJSON.result.value as? NSDictionary{
-//                self.removeBlur()
-//                self.animateOut()
-//                OFAUtils.showToastWithTitle("\(dicRespose["message"]!)")
-//                //                self.index = self.arrayDiscussions.count-1
-//                self.arrayDiscussions.removeAllObjects()
-//                self.refreshInitiated()
-//                self.tableView.reloadData()
-//            }else{
-//                OFAUtils.showAlertViewControllerWithTitle("Some Error Occured", message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
-//            }
-//        }
     }
     
     @IBAction func postQuestionPressed(_ sender: UIButton) {
@@ -280,7 +263,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         self.present(anonymousAlert, animated: true, completion: nil)
     }
     
-    func callAPIForPostDiscussion(isAnonymous:String,type:String){
+    func callAPIForPostDiscussion(isAnonymous:String,type:String){//-------------> type=1(public comment),type=2(question)
         let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
         let access_token = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
@@ -290,7 +273,6 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
                 self.removeBlur()
                 self.animateOut()
                 OFAUtils.showToastWithTitle("\(dicRespose["message"]!)")
-                //                self.index = self.arrayDiscussions.count-1
                 self.arrayDiscussions.removeAllObjects()
                 self.refreshInitiated()
                 self.tableView.reloadData()
@@ -299,6 +281,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
             }
         }
     }
+    
     //MARK:- TextView Delegate
     
     func textViewDidBeginEditing(_ textView: UITextView) {

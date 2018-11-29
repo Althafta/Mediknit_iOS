@@ -48,7 +48,7 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
     var tsDataFiles = NSMutableData()
     var arrayTSURLs = [String]()
     var index = 0
-//    var videoIOSUrl = "https://elearn.maven-silicon.com/maven_ios_app/"
+
     var seekedTime = CMTime()
     
     //Interactive question's variables
