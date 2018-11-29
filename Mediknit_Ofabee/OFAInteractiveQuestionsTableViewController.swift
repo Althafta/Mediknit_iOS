@@ -132,10 +132,10 @@ class OFAInteractiveQuestionsTableViewController: UITableViewController {
         let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
         let dicParameters = NSDictionary(objects: [userID,domainKey,accessToken,self.questionID,self.selectedChoice,self.lectureID], forKeys: ["user_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying,"question_id" as NSCopying,"selected_choice" as NSCopying,"lecture_id" as NSCopying])
         Alamofire.request(userBaseURL+"api/course/save_lecture_percentage", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
-            if let dicResult = responseJSON.result.value as? NSDictionary{
-                print(dicResult)
+            if responseJSON.result.value != nil{
+//                print(dicResult)
             }else{
-                print(responseJSON.error?.localizedDescription)
+                print(responseJSON.error?.localizedDescription ?? "")
             }
         }
     }

@@ -551,6 +551,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     videoPlayer.videoTitle = videoTitle
                     videoPlayer.lectureID = lectureId
                     videoPlayer.percentage = Float64(percentage)!
+                    videoPlayer.rating = Int("\(dicBody["rating"]!)")!
                     self.navigationController?.children[1].navigationItem.title = ""
                     self.navigationController?.pushViewController(videoPlayer, animated: true)
                 }else{

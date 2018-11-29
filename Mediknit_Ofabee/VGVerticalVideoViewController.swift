@@ -22,6 +22,7 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
     var lectureID = ""
     
     var percentage = Float64()
+    var rating = 0
     
     var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
     var blurEffectView = UIVisualEffectView()
@@ -62,6 +63,7 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.ratingView.delegate = self
+        self.ratingView.rating = self.rating
         //        self.navigationController?.hidesBarsOnTap = true
         
 //        self.buttonCurriculum.layer.cornerRadius = self.buttonCurriculum.frame.height/2

@@ -225,6 +225,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
     //MARK:- Button Actions
     
     func emptyFloatySelected(_ floaty: Floaty) {
+        self.textViewAskQuestion.textColor = UIColor.lightGray
         self.textViewAskQuestion.text = "Type here"
         self.showAskQuestionPopUp()
         blur()
