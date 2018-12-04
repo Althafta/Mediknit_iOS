@@ -51,7 +51,7 @@ class OFAForgotPasswordTableViewController: UITableViewController,UITextFieldDel
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
         let dicParameters = NSDictionary(objects: [emailString,domainKey], forKeys: ["email" as NSCopying,"domain_key" as NSCopying])
         Alamofire.request(userBaseURL+"api/authenticate/forgot", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
-            if let dicResult = responseJSON.result.value as? NSDictionary{
+            if let dicResult = responseJSON.result.value as? NSDictionary{ 
                 OFAUtils.removeLoadingView(nil)
                 OFAUtils.showToastWithTitle("\(dicResult["message"]!)")
             }else{

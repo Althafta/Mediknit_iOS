@@ -132,12 +132,13 @@ class OFAMyCourseCurriculumListContainerViewController: UIViewController {
             if self.dicLecture.count <= 0  {
                 let dicTopic = self.arraySections[0] as! NSDictionary
                 let arrayLecture = dicTopic["lectures"] as! NSArray
-                self.dicLecture = arrayLecture[0] as! NSDictionary
-                
-                self.labelLectureTitle.text = "\(self.dicLecture["cl_lecture_name"]!)"
-                let percentage = "\(dicLecture["ll_percentage"]!)"
-                guard let floatPercentage = NumberFormatter().number(from: percentage) else { return }
-                self.buttonProgressBar.linearLoadingWith(progress: CGFloat(truncating: floatPercentage))
+                if arrayLecture.count > 0{
+                    self.dicLecture = arrayLecture[0] as! NSDictionary
+                    self.labelLectureTitle.text = "\(self.dicLecture["cl_lecture_name"]!)"
+                    let percentage = "\(dicLecture["ll_percentage"]!)"
+                    guard let floatPercentage = NumberFormatter().number(from: percentage) else { return }
+                    self.buttonProgressBar.linearLoadingWith(progress: CGFloat(truncating: floatPercentage))
+                }
             }else{
                 self.labelLectureTitle.text = "\(self.dicLecture["cl_lecture_name"]!)"
                 let percentage = "\(dicLecture["ll_percentage"]!)"

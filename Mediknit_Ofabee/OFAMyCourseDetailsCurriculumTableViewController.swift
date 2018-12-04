@@ -453,33 +453,37 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
     
     func lastPlayedLecture(dicLecture: NSDictionary) {
         print(dicLecture)
-        var curriculumType = ""
-        curriculumType = "\(dicLecture["cl_lecture_type"]!)"
-        if curriculumType == "1"{
-            self.getVideoDetails(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
-        }else if curriculumType == "2"{
-            self.getPDFViewControllerWithLectureId(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
-        }else if curriculumType == "7"{
-            let dicAssessment = dicLecture["assesment"] as! NSDictionary
-            self.getAssessment(lectureId: "\(dicLecture["id"]!)", lectureTitle: "\(dicLecture["cl_lecture_name"]!)",duration:"\(dicAssessment["a_duration"]!)",assessmentID: "\(dicLecture["assessment_id"]!)")
-        }else if curriculumType == "4"{
-            self.getYoutubeDetails(lectureId: "\(dicLecture["id"]!)")
-        }else if curriculumType == "5"{
-            self.getTextDetails(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
-        }else if curriculumType == "3"{//live
-            self.getVideoDetails(lectureId: "\(dicLecture["id"]!)", percentage: "")
-        }else if curriculumType == "8"{
-            let dicDescriptive = dicLecture["descriptive"] as! NSDictionary
-            let arrayComments = dicDescriptive["comments"] as! NSArray
-            //                self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments)
-            if let dicDescriptive = dicLecture["descriptive"] as? NSDictionary {
-                self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments, marks: "\(dicDescriptive["marks"]!)", totalMarks: "\(dicDescriptive["dt_total_mark"]!)")
-            }else{
-                OFAUtils.showToastWithTitle("Invalid Test")
+        if dicLecture.count > 0{
+            var curriculumType = ""
+            curriculumType = "\(dicLecture["cl_lecture_type"]!)"
+            if curriculumType == "1"{
+                self.getVideoDetails(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
+            }else if curriculumType == "2"{
+                self.getPDFViewControllerWithLectureId(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
+            }else if curriculumType == "7"{
+                let dicAssessment = dicLecture["assesment"] as! NSDictionary
+                self.getAssessment(lectureId: "\(dicLecture["id"]!)", lectureTitle: "\(dicLecture["cl_lecture_name"]!)",duration:"\(dicAssessment["a_duration"]!)",assessmentID: "\(dicLecture["assessment_id"]!)")
+            }else if curriculumType == "4"{
+                self.getYoutubeDetails(lectureId: "\(dicLecture["id"]!)")
+            }else if curriculumType == "5"{
+                self.getTextDetails(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
+            }else if curriculumType == "3"{//live
+                self.getVideoDetails(lectureId: "\(dicLecture["id"]!)", percentage: "")
+            }else if curriculumType == "8"{
+                let dicDescriptive = dicLecture["descriptive"] as! NSDictionary
+                let arrayComments = dicDescriptive["comments"] as! NSArray
+                //                self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments)
+                if let dicDescriptive = dicLecture["descriptive"] as? NSDictionary {
+                    self.getDescriptiveDetails(lectureId: "\(dicLecture["id"]!)", commentsArray: arrayComments, marks: "\(dicDescriptive["marks"]!)", totalMarks: "\(dicDescriptive["dt_total_mark"]!)")
+                }else{
+                    OFAUtils.showToastWithTitle("Invalid Test")
+                }
             }
-        }
-        else{
-            OFAUtils.showToastWithTitle("under development")
+            else{
+                OFAUtils.showToastWithTitle("under development")
+            }
+        }else{
+            OFAUtils.showToastWithTitle("No Lectures to play")
         }
     }
     
@@ -551,7 +555,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     videoPlayer.videoTitle = videoTitle
                     videoPlayer.lectureID = lectureId
                     videoPlayer.percentage = Float64(percentage)!
-                    videoPlayer.rating = Int("\(dicBody["rating"]!)")!
+                    videoPlayer.rating = ("\(dicBody["rating"]!)" == "<null>" || "\(dicBody["rating"]!)" == "") ? 0 : Int("\(dicBody["rating"]!)")!
                     self.navigationController?.children[1].navigationItem.title = ""
                     self.navigationController?.pushViewController(videoPlayer, animated: true)
                 }else{
