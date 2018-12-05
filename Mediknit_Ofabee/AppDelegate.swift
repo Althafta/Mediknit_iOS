@@ -11,6 +11,7 @@ import CoreData
 import SlideMenuControllerSwift
 import FAPanels
 import GoogleSignIn
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -43,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if userId != nil {
             self.autoLogin(userId: userId!)
         }
-        
+        self.checkAppVersion()
         return true
     }
     
@@ -69,6 +70,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+    }
+    
+    func checkAppVersion(){
+        let dicParameters = NSDictionary(object: "ios", forKey: "os" as NSCopying)
+        Alamofire.request(userBaseURL+"api/authenticate/version_check", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
+            if let dicResult = responseJSON.result.value as? NSDictionary{
+                let nsObject: AnyObject? = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as AnyObject
+                let version = nsObject as! String
+                let dicBody = dicResult["body"] as! NSDictionary
+                if "\(dicBody["version"]!)" != version{
+                    let updateAlert = UIAlertController(title: "Update Available", message: OFAUtils.getHTMLAttributedString(htmlString: "\(dicBody["description"]!)"), preferredStyle: .alert)
+                    let updateAction = UIAlertAction(title: "Update Now", style: .default, handler: { (action) in
+                        UIApplication.shared.open(URL(string: "\(dicBody["app_url"]!)")!, options: self.convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                    })
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+                        
+                    })
+                    updateAlert.addAction(updateAction)
+                    if "\(dicBody["is_mandatory"]!)" == "0" {
+                        updateAlert.addAction(cancelAction)
+                    }else{
+                        
+                    }
+                    self.window?.rootViewController?.present(updateAlert, animated: true, completion: nil)
+                }else{
+                    print("App is Up-to-Date")
+                }
+            }else{
+                print("API failure")
+            }
+        }
+    }
+    
+    // Helper function inserted by Swift 4.2 migrator.
+    fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+        return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
     }
     
     func autoLogin(userId:String){
