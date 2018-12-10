@@ -101,6 +101,10 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
         
         self.buttonCancel.layer.cornerRadius = self.buttonCancel.frame.height/2
         self.buttonReport.layer.cornerRadius = self.buttonReport.frame.height/2
+        
+        if self.isQuestion{
+           self.tableViewFooter.isHidden = true
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -211,16 +215,16 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
         return self.tableView.rowHeight
     }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return !self.isQuestion ? 106 : 0
-    }
-    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return self.textViewQuestion.contentSize.height + 77
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return self.tableViewHeader
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return !self.isQuestion ? 106 : 0
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
