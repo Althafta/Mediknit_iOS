@@ -127,7 +127,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
         let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
         
-        let dicParameteres = NSDictionary(objects: [userID,LECTURE_ID,self.discussion_id,"\(offset)",limit,domainKey,accessToken], forKeys: ["user_id" as NSCopying,"course_id" as NSCopying,"discussion_id" as NSCopying,"offset" as NSCopying,"limit" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+        let dicParameteres = NSDictionary(objects: [userID,LECTURE_ID,self.discussion_id,"\(offset)",limit,domainKey,accessToken], forKeys: ["user_id" as NSCopying,"lecture_id" as NSCopying,"discussion_id" as NSCopying,"offset" as NSCopying,"limit" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
         OFAUtils.showLoadingViewWithTitle("Loading")
         Alamofire.request(userBaseURL+"api/course/load_child_comments", method: .post, parameters: dicParameteres as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let dicResult = responseJSON.result.value as? NSDictionary{

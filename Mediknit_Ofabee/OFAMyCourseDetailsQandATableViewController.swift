@@ -120,7 +120,7 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         if(index-1 >= self.arrayDiscussions.count ){
             return
         }
-        let dicParameteres = NSDictionary(objects: [userID,LECTURE_ID,"\(offset)",limit,domainKey,accessToken], forKeys: ["user_id" as NSCopying,"course_id" as NSCopying,"offset" as NSCopying,"limit" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+        let dicParameteres = NSDictionary(objects: [userID,LECTURE_ID,"\(offset)",limit,domainKey,accessToken], forKeys: ["user_id" as NSCopying,"lecture_id" as NSCopying,"offset" as NSCopying,"limit" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
         OFAUtils.showLoadingViewWithTitle("Loading")
         Alamofire.request(userBaseURL+"api/course/get_discussions", method: .post, parameters: dicParameteres as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let dicResult = responseJSON.result.value as? NSDictionary{
