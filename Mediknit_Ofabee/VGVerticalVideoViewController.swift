@@ -94,6 +94,7 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         }
         self.avVideoPlayerController.player = self.avPlayer
         
+        try! AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
         if self.percentage != 100.0{
             let totalPlayerTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.asset.duration)!)
             let currentTime = (self.percentage/100)*totalPlayerTime
@@ -110,6 +111,9 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.didFinishedPlaying), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didFinishedInterativeQuestion), name: NSNotification.Name(rawValue: "InteractiveQuestionCompleted"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.willResignActiveDelegate), name: NSNotification.Name.init(rawValue: "WillRisignActiveDelegate"), object: nil)
         self.buttonQandA.isHidden = false
 //        self.buttonCurriculum.isHidden = true
         
@@ -252,11 +256,6 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         }
     }
     
-    @objc func didFinishedPlaying(){
-        self.isFullyViewed = true
-    }
-    
-    
     func saveLectureProgress(){
         if self.isFullyViewed{
             self.percentage = 100
@@ -285,6 +284,21 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
                 OFAUtils.showAlertViewControllerWithTitle(nil, message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
             }
         }
+    }
+    
+    //MARK:- NotoficationCenter Functions
+    
+    @objc func willResignActiveDelegate(){
+        self.avPlayer.pause()
+    }
+    
+    @objc func didFinishedPlaying(){
+        self.isFullyViewed = true
+    }
+    
+    @objc func didFinishedInterativeQuestion(){
+        self.avPlayer.seek(to: CMTime(seconds: Double(self.time + 1), preferredTimescale: 1))
+        self.avPlayer.play()
     }
     
     //MARK:- Button Actions

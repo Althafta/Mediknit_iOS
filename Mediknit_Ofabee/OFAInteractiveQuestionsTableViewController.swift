@@ -13,6 +13,7 @@ class OFAInteractiveQuestionsTableViewController: UITableViewController {
 
     @IBOutlet weak var textViewQuestionHeader: UITextView!
     @IBOutlet weak var textViewAnswerDescription: UITextView!
+    @IBOutlet weak var labelSolution: UILabel!
     
     var questionString = ""
     var explanationString = ""
@@ -44,6 +45,10 @@ class OFAInteractiveQuestionsTableViewController: UITableViewController {
         self.textViewQuestionHeader.text = OFAUtils.getHTMLAttributedString(htmlString: self.questionString)
         self.textViewAnswerDescription.text = OFAUtils.getHTMLAttributedString(htmlString: self.explanationString)
         self.textViewAnswerDescription.isHidden = true
+        self.labelSolution.isHidden = true
+        self.textViewAnswerDescription.layer.borderColor = UIColor.lightGray.cgColor
+        self.textViewAnswerDescription.layer.borderWidth = 1.0
+        self.textViewAnswerDescription.layer.cornerRadius = 10.0
         
         self.dicOptions = (self.arrayQuestions[self.pageIndex] as! NSDictionary)["options"] as! NSDictionary
         self.tableView.reloadData()
@@ -56,6 +61,7 @@ class OFAInteractiveQuestionsTableViewController: UITableViewController {
     
     @objc func continuePressed(){
         if self.pageIndex+1 >= self.arrayQuestions.count{
+            NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "InteractiveQuestionCompleted")))
             self.dismiss(animated: true, completion: nil)
             return
         }
@@ -112,6 +118,7 @@ class OFAInteractiveQuestionsTableViewController: UITableViewController {
             cell.imageViewStatus.image = UIImage(named: "Wrong_Answer")//wrong
         }
         self.textViewAnswerDescription.isHidden = false
+        self.labelSolution.isHidden = false
         self.continueBarButton.isEnabled = true
         self.tableView.allowsSelection = false
         self.saveInteractiveQuestion()
