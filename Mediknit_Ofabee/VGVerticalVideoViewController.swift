@@ -39,9 +39,11 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
     var avPlayer = AVPlayer()
     
     var isSeeked = false
+    var isFirstTime = Bool()
     var isPercentageSaved = false
     var timerStarted = Timer()       //timer for normal video lectures
     var time = 0
+    var originalTime = 0
     var isFullyViewed = false
     
     var arrayQueuedTSFiles = [AVPlayerItem]()
@@ -98,6 +100,7 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         if self.percentage != 100.0{
             let totalPlayerTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.asset.duration)!)
             let currentTime = (self.percentage/100)*totalPlayerTime
+            self.originalTime = currentTime.toInt()!
             let cmtime = CMTime(seconds: currentTime, preferredTimescale: 1)
             self.avPlayer.play()
 //            self.avVideoPlayerController.showsPlaybackControls = false
@@ -221,6 +224,7 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
                 self.present(nav, animated: true, completion: nil)
             }
             self.avPlayer.pause()
+            
 //            if self.avVideoPlayerController.isBeingPresented{
 //                self.presentedViewController?.dismiss(animated: true, completion: {
 //                    self.present(nav, animated: true, completion: nil)
@@ -252,6 +256,13 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
             }else{
                 self.isSeeked = false
             }
+            if intCurrentTime > self.originalTime{
+                if self.isFirstTime{
+                    self.avPlayer.seek(to: CMTime(seconds: Double(self.originalTime), preferredTimescale: 1))
+//                    self.originalTime = intCurrentTime
+                }
+            }
+            self.originalTime += 1
             self.time += 1
         }
     }
