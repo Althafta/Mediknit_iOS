@@ -56,7 +56,8 @@ class OFAInteractiveQuestionsTableViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        OFAUtils.lockOrientation(.portrait)
+//        OFAUtils.lockOrientation(.portrait)
+        OFAUtils.lockOrientation(.portrait, andRotateTo: .portrait)
     }
     
     @objc func continuePressed(){

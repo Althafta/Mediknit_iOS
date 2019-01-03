@@ -461,8 +461,13 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
             }else if curriculumType == "2"{
                 self.getPDFViewControllerWithLectureId(lectureId: "\(dicLecture["id"]!)", percentage: "\(dicLecture["ll_percentage"]!)")
             }else if curriculumType == "7"{
-                let dicAssessment = dicLecture["assesment"] as! NSDictionary
-                self.getAssessment(lectureId: "\(dicLecture["id"]!)", lectureTitle: "\(dicLecture["cl_lecture_name"]!)",duration:"\(dicAssessment["a_duration"]!)",assessmentID: "\(dicLecture["assessment_id"]!)")
+//                let dicAssessment = dicLecture["assesment"] as! NSDictionary
+//                self.getAssessment(lectureId: "\(dicLecture["id"]!)", lectureTitle: "\(dicLecture["cl_lecture_name"]!)",duration:"\(dicAssessment["a_duration"]!)",assessmentID: "\(dicLecture["assessment_id"]!)")
+                let assessmentAlert = UIAlertController(title: nil, message: "Assessments can be attended in PC/Laptop", preferredStyle: .alert)
+                assessmentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    assessmentAlert.dismiss(animated: true, completion: nil)
+                }))
+                self.present(assessmentAlert, animated: true, completion: nil)
             }else if curriculumType == "4"{
                 self.getYoutubeDetails(lectureId: "\(dicLecture["id"]!)")
             }else if curriculumType == "5"{
@@ -556,7 +561,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     videoPlayer.lectureID = lectureId
                     videoPlayer.percentage = Float64(percentage)!
                     videoPlayer.rating = ("\(dicBody["rating"]!)" == "<null>" || "\(dicBody["rating"]!)" == "") ? 0 : Int("\(dicBody["rating"]!)")!
-                    videoPlayer.isFirstTime = true
+                    videoPlayer.isFirstTime = "\(dicBody["is_first_time"]!)" == "1" ? true : false 
                     self.navigationController?.children[1].navigationItem.title = ""
                     self.navigationController?.pushViewController(videoPlayer, animated: true)
                 }else{
