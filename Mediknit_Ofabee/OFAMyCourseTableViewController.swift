@@ -155,6 +155,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         self.navigationItem.title = ""
         let dicDetails = self.filteredArray[indexPath.row] as! NSDictionary
         myCourseDetails.courseTitle = "\(dicDetails["cb_title"]!)"
+        myCourseDetails.promoImageURLString = "\(dicDetails["cb_image"]!)"
         COURSE_ID = "\(dicDetails["id"]!)"
         
         if "\(dicDetails["cs_approved"]!)" == "0" {

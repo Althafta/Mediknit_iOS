@@ -16,9 +16,14 @@ class OFAMyCourseDetailsViewController: UIViewController {
         case DiscussionTab = 1
     }
     
+    @IBOutlet weak var viewPromo: UIView!
+    @IBOutlet weak var imageViewPromo: UIImageView!
+    @IBOutlet weak var buttonPromoPlay: UIButton!
+    
     @IBOutlet var segmentControlMyCourse: TabySegmentedControl!
     @IBOutlet var contentView: UIView!
     var courseTitle = ""
+    var promoImageURLString = ""
     
     var currentViewController: UIViewController?
     lazy var curriculumVC: UIViewController? = {
@@ -31,9 +36,13 @@ class OFAMyCourseDetailsViewController: UIViewController {
         return DiscussionTabTVC
     }()
     
+    //MARK:- Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.imageViewPromo.sd_setImage(with: URL(string: self.promoImageURLString)!, placeholderImage: UIImage(named: "AppLogo_horizontal"), options: .progressiveDownload)
+        self.buttonPromoPlay.isHidden = true
         self.contentView.backgroundColor = OFAUtils.getColorFromHexString(ofabeeCellBackground)
         segmentControlMyCourse.initUI()
         segmentControlMyCourse.selectedSegmentIndex = TabIndex.curriculumTab.rawValue
@@ -56,6 +65,21 @@ class OFAMyCourseDetailsViewController: UIViewController {
         self.navigationItem.title = self.courseTitle
     }
     
+    //MARK:- Button Actions
+    
+    @IBAction func promoPlayPressed(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func segmentControlSelected(_ sender: TabySegmentedControl) {
+        self.currentViewController!.view.removeFromSuperview()
+        self.currentViewController!.removeFromParent()
+        
+        displayCurrentTab(sender.selectedSegmentIndex)
+    }
+    
+    //MARK:- Content view helpers
+    
     func displayCurrentTab(_ tabIndex: Int){
         if let vc = viewControllerForSelectedSegmentIndex(tabIndex) {
             
@@ -66,13 +90,6 @@ class OFAMyCourseDetailsViewController: UIViewController {
             self.contentView.addSubview(vc.view)
             self.currentViewController = vc
         }
-    }
-    
-    @IBAction func segmentControlSelected(_ sender: TabySegmentedControl) {
-        self.currentViewController!.view.removeFromSuperview()
-        self.currentViewController!.removeFromParent()
-        
-        displayCurrentTab(sender.selectedSegmentIndex)
     }
     
     func viewControllerForSelectedSegmentIndex(_ index: Int) -> UIViewController? {
