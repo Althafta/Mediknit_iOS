@@ -112,6 +112,7 @@
 		84D25F8D1F39E3D9006D488A /* OFABrowserCourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D25F8C1F39E3D9006D488A /* OFABrowserCourseTableViewCell.swift */; };
 		84DB72B41FBB1C8F003A5053 /* OFAForgotPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB72B31FBB1C8F003A5053 /* OFAForgotPasswordTableViewController.swift */; };
 		84FEA9D31F6150B000D2D201 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FEA9D21F6150B000D2D201 /* GlobalVariables.swift */; };
+		CE1152AC21FF2C8100D4D362 /* OFALoginPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1152AB21FF2C8100D4D362 /* OFALoginPasswordTableViewController.swift */; };
 		CE20D4BE2153707300C851D0 /* OFAMyCourseDetailsCurriculumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20D4BD2153707200C851D0 /* OFAMyCourseDetailsCurriculumTableViewController.swift */; };
 		CE20D4C0215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20D4BF215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift */; };
 		CE249045219C4041008CC796 /* OFALectureQAndAContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE249044219C4041008CC796 /* OFALectureQAndAContainerViewController.swift */; };
@@ -295,6 +296,7 @@
 		84E0D8682037212600395A9C /* FontAwesome_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FontAwesome_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84FEA9D21F6150B000D2D201 /* GlobalVariables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		B44A05F9B6D300B8A18467C4 /* Pods_Mediknit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mediknit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE1152AB21FF2C8100D4D362 /* OFALoginPasswordTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFALoginPasswordTableViewController.swift; sourceTree = "<group>"; };
 		CE20D4BD2153707200C851D0 /* OFAMyCourseDetailsCurriculumTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFAMyCourseDetailsCurriculumTableViewController.swift; sourceTree = "<group>"; };
 		CE20D4BF215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFAMyCourseDetailsCurriculumTableViewCell.swift; sourceTree = "<group>"; };
 		CE249044219C4041008CC796 /* OFALectureQAndAContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFALectureQAndAContainerViewController.swift; sourceTree = "<group>"; };
@@ -1007,6 +1009,7 @@
 			isa = PBXGroup;
 			children = (
 				847A82F41F3974F300AB3D32 /* OFALoginTableTableViewController.swift */,
+				CE1152AB21FF2C8100D4D362 /* OFALoginPasswordTableViewController.swift */,
 				84DB72B31FBB1C8F003A5053 /* OFAForgotPasswordTableViewController.swift */,
 				847A82F61F39750000AB3D32 /* OFARegisterTableViewController.swift */,
 				847A82F81F39752200AB3D32 /* OFAOTPTableViewController.swift */,
@@ -1314,6 +1317,7 @@
 				840234E11F45A6D00035593D /* OFAMyCourseDetailsDiscussionTableViewCell.swift in Sources */,
 				8400CB3A1F3DB0CC005B2086 /* OFAMyCourseTableViewCell.swift in Sources */,
 				8498D8941F46BABA008732C6 /* OFAMyCourseDetailsDisussionRepliesTableViewController.swift in Sources */,
+				CE1152AC21FF2C8100D4D362 /* OFALoginPasswordTableViewController.swift in Sources */,
 				84620D521F6FBE6A008A6D71 /* SubtleVolume.swift in Sources */,
 				847A83451F398B3500AB3D32 /* SDWebImageManager.m in Sources */,
 				847A83101F39889400AB3D32 /* OFADomainTableViewController.swift in Sources */,

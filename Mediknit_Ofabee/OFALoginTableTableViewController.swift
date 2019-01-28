@@ -40,6 +40,17 @@ class OFALoginTableTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent=true
+        self.navigationController?.view.backgroundColor = UIColor.clear
+        self.navigationController?.navigationBar.tintColor = OFAUtils.getColorFromHexString(barTintColor)
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
     @objc func tapAction(){
         self.view.endEditing(true)
     }
@@ -65,22 +76,16 @@ class OFALoginTableTableViewController: UITableViewController {
     }
     
     //MARK:- Button Actions
-    
-    @IBAction func forgotButtonPressed(_ sender: UIButton) {
-        let forgotPasswordTVC = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordTVC") as! OFAForgotPasswordTableViewController
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(forgotPasswordTVC, animated: true)
-    }
-    
+
     @IBAction func signInPressed(_ sender: UIButton) {
         self.view.endEditing(true)
         if OFAUtils.isWhiteSpace(textEmail.text!) || !OFAUtils.checkEmailValidation(textEmail.text!){
             OFAUtils.showToastWithTitle("Please enter a valid email")
-        }
-        else if OFAUtils.isWhiteSpace(textPassword.text!){
-            OFAUtils.showToastWithTitle("Please enter password")
         }else{
-            checkUserLoginDetails()
+//            checkUserLoginDetails()
+            let loginPasswordTVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginPasswordTVC") as! OFALoginPasswordTableViewController
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(loginPasswordTVC, animated: true)
         }
     }
     
