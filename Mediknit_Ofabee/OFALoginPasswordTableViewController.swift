@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import Alamofire
 
 class OFALoginPasswordTableViewController: UITableViewController {
 
     @IBOutlet weak var textPassword: JJMaterialTextfield!
     @IBOutlet weak var buttonSignIn: UIButton!
     @IBOutlet weak var buttonGenerateOTP: UIButton!
+    
+    var emailID = ""
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var userDetails: [User] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,15 +70,89 @@ class OFALoginPasswordTableViewController: UITableViewController {
     }
     
     @IBAction func signInPressed(_ sender: UIButton) {
-        if OFAUtils.isWhiteSpace(textPassword.text!){
-            OFAUtils.showToastWithTitle("Please enter password")
-        }else{
-            //Login using password from medknit server
+        if OFAUtils.isWhiteSpace(self.textPassword.text!){
+            OFAUtils.showToastWithTitle("Enter password")
+            return
+        }
+        OFAUtils.showLoadingViewWithTitle("Loading")
+        
+        let dicParameters = NSDictionary(objects: [self.textPassword.text!,self.emailID], forKeys: ["password" as NSCopying,"email" as NSCopying])
+        
+        let jsonData = try! JSONSerialization.data(withJSONObject: dicParameters, options: .sortedKeys)
+        let jsonString = String(data: jsonData, encoding: .utf8)
+        
+        let timeStamp = "\(OFAUtils.getTimeStamp())"
+        let secretString = "POST+\(jsonString!)+\(timeStamp)"
+        let base64EncodedJSONString = secretString.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
+        let sha256EncodedSecretString = base64EncodedJSONString?.hmac(algorithm: .SHA256, key: loginSecretKey)//.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
+        
+        var request = URLRequest(url: URL(string: loginBaseURL + "login-using-password")!)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(loginKey, forHTTPHeaderField: "KEY")
+        request.setValue(loginUserName, forHTTPHeaderField: "USERNAME")
+        request.setValue(timeStamp, forHTTPHeaderField: "TIMESTAMP")
+        request.setValue(sha256EncodedSecretString!, forHTTPHeaderField: "SECRET")
+        
+        let parameterJsonData = jsonString?.data(using: .utf8)
+        
+        request.httpBody = parameterJsonData
+        Alamofire.request(request).responseJSON { (responseJSON) in
+            if let dicResponse = responseJSON.result.value as? NSDictionary{
+                print(dicResponse)
+                OFAUtils.removeLoadingView(nil)
+                //call API to our server and get User details
+            }else{
+                OFAUtils.removeLoadingView(nil)
+                OFAUtils.showAlertViewControllerWithTitle(nil, message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+            }
         }
     }
 
     @IBAction func generateOTPPressed(_ sender: UIButton) {
+        OFAUtils.showLoadingViewWithTitle("Loading")
         
+        let dicParameters = NSDictionary(objects: [self.emailID], forKeys: ["email" as NSCopying])
+        
+        let jsonData = try! JSONSerialization.data(withJSONObject: dicParameters, options: .sortedKeys)
+        let jsonString = String(data: jsonData, encoding: .utf8)
+        
+        let timeStamp = "\(OFAUtils.getTimeStamp())"
+        let secretString = "POST+\(jsonString!)+\(timeStamp)"
+        let base64EncodedJSONString = secretString.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
+        let sha256EncodedSecretString = base64EncodedJSONString?.hmac(algorithm: .SHA256, key: loginSecretKey)//.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
+        
+        var request = URLRequest(url: URL(string: loginBaseURL + "generate-otp-for-login")!)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(loginKey, forHTTPHeaderField: "KEY")
+        request.setValue(loginUserName, forHTTPHeaderField: "USERNAME")
+        request.setValue(timeStamp, forHTTPHeaderField: "TIMESTAMP")
+        request.setValue(sha256EncodedSecretString!, forHTTPHeaderField: "SECRET")
+        
+        let parameterJsonData = jsonString?.data(using: .utf8)
+        
+        request.httpBody = parameterJsonData
+        Alamofire.request(request).responseJSON { (responseJSON) in
+            if let dicResponse = responseJSON.result.value as? NSDictionary{
+                print(dicResponse)
+                OFAUtils.removeLoadingView(nil)
+                if let _ = dicResponse["data"] as? NSDictionary{
+                    let OTPPage = self.storyboard?.instantiateViewController(withIdentifier: "RegisterOTPTVC") as! OFAOTPTableViewController
+                    OTPPage.isBookSelection = false
+                    OTPPage.isFromLogin = false
+                    OTPPage.isFromLoginPassword = true
+                    OTPPage.emailID = self.emailID
+                    self.navigationItem.title = ""
+                    self.navigationController?.pushViewController(OTPPage, animated: true)
+                }else{
+                    OFAUtils.showToastWithTitle("\(dicResponse["messages"]!)")
+                }
+            }else{
+                OFAUtils.removeLoadingView(nil)
+                OFAUtils.showAlertViewControllerWithTitle(nil, message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+            }
+        }
     }
     
     //MARK:- Textfield Delegate

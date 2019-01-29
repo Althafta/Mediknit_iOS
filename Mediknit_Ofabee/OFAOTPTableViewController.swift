@@ -16,7 +16,15 @@ class OFAOTPTableViewController: UITableViewController {
     @IBOutlet var buttonResendOTP: UIButton!
     @IBOutlet weak var buttonDone: UIButton!
     
-    var userEmail = ""
+    var isBookSelection = Bool()
+    var isForgotPassword = false
+    var isFromLogin = false
+    var isFromLoginPassword = false
+    
+    var isRegistrationComplete = Bool()
+    var isPasswordPresent = Bool()
+    
+    var emailID = ""
     var seconds = 60
     var timer = Timer()
     
@@ -87,35 +95,133 @@ class OFAOTPTableViewController: UITableViewController {
     }
     
     @IBAction func resendOTPPressed(_ sender: UIButton) {
-        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-        let dicParameters = NSDictionary(objects:[userEmail,domainKey], forKeys:["email" as NSCopying,"domain_key" as NSCopying])
-        Alamofire.request(userBaseURL+"api/authenticate/send_otp", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
-            self.labelCountDown.isHidden = false
-            self.buttonResendOTP.isHidden = true
-            self.buttonDone.isHidden = false
-            self.textOTP.isEnabled = true
-            self.seconds = 60
-            self.runTimer()
-        }
+            OFAUtils.showLoadingViewWithTitle("Resending")
+            let dicParameters = NSDictionary(objects: [self.emailID], forKeys: ["email" as NSCopying])
+            
+            let jsonData = try! JSONSerialization.data(withJSONObject: dicParameters, options: .sortedKeys)
+            let jsonString = String(data: jsonData, encoding: .utf8)
+            
+            let timeStamp = "\(OFAUtils.getTimeStamp())"
+            let secretString = "POST+\(jsonString!)+\(timeStamp)"
+            let base64EncodedJSONString = secretString.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
+            let sha256EncodedSecretString = base64EncodedJSONString?.hmac(algorithm: .SHA256, key: loginSecretKey)//.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
+            
+            let apiString = self.isFromLoginPassword ? "generate-otp-for-login" : "otp-generate-email-verification"
+            var request = URLRequest(url: URL(string: loginBaseURL + apiString)!)
+            request.httpMethod = HTTPMethod.post.rawValue
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(loginKey, forHTTPHeaderField: "KEY")
+            request.setValue(loginUserName, forHTTPHeaderField: "USERNAME")
+            request.setValue(timeStamp, forHTTPHeaderField: "TIMESTAMP")
+            request.setValue(sha256EncodedSecretString!, forHTTPHeaderField: "SECRET")
+            
+            let parameterJsonData = jsonString?.data(using: .utf8)
+            request.httpBody = parameterJsonData
+            
+            Alamofire.request(request).responseJSON { (responseJSON) in
+                if let dicResult = responseJSON.result.value as? NSDictionary{
+                    print(dicResult)
+                    OFAUtils.removeLoadingView(nil)
+                    self.labelCountDown.isHidden = false
+                    self.buttonResendOTP.isHidden = true
+                    self.buttonDone.isHidden = false
+                    self.textOTP.isEnabled = true
+                    self.seconds = 60
+                    self.runTimer()
+                }else{
+                    OFAUtils.removeLoadingView(nil)
+                    OFAUtils.showAlertViewControllerWithTitle(nil, message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+                }
+            }
+//        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
+//        let dicParameters = NSDictionary(objects:[self.emailID,domainKey], forKeys:["email" as NSCopying,"domain_key" as NSCopying])
+//        Alamofire.request(userBaseURL+"api/authenticate/send_otp", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
+//            self.labelCountDown.isHidden = false
+//            self.buttonResendOTP.isHidden = true
+//            self.buttonDone.isHidden = false
+//            self.textOTP.isEnabled = true
+//            self.seconds = 60
+//            self.runTimer()
+//        }
     }
     
     @IBAction func doneButtonPressed(_ sender: UIButton) {
-        self.view.endEditing(true)
         if OFAUtils.isWhiteSpace(self.textOTP.text!){
-            OFAUtils.showToastWithTitle("Enter OTP you recieved")
+            OFAUtils.showToastWithTitle("OTP field missing")
             return
         }
         OFAUtils.showLoadingViewWithTitle("Verifying")
-        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-        let dicParameters = NSDictionary(objects:[self.textOTP.text!,userEmail,domainKey], forKeys:["otp_number" as NSCopying,"email" as NSCopying,"domain_key" as NSCopying])
-        Alamofire.request(userBaseURL+"api/authenticate/verify_otp", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
+        
+        let dicParameters = NSDictionary(objects: [self.emailID,self.textOTP.text!], forKeys: ["email" as NSCopying,"otp" as NSCopying])
+        
+        let jsonData = try! JSONSerialization.data(withJSONObject: dicParameters, options: .sortedKeys)
+        let jsonString = String(data: jsonData, encoding: .utf8)
+        
+        let timeStamp = "\(OFAUtils.getTimeStamp())"
+        let secretString = "POST+\(jsonString!)+\(timeStamp)"
+        let base64EncodedJSONString = secretString.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
+        let sha256EncodedSecretString = base64EncodedJSONString?.hmac(algorithm: .SHA256, key: loginSecretKey)//.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
+        
+        let apiString = self.isFromLoginPassword ? "login-using-otp" : "verify-email-otp"
+        var request = URLRequest(url: URL(string: loginBaseURL + apiString)!)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(loginKey, forHTTPHeaderField: "KEY")
+        request.setValue(loginUserName, forHTTPHeaderField: "USERNAME")
+        request.setValue(timeStamp, forHTTPHeaderField: "TIMESTAMP")
+        request.setValue(sha256EncodedSecretString!, forHTTPHeaderField: "SECRET")
+        
+        let parameterJsonData = jsonString?.data(using: .utf8)
+        request.httpBody = parameterJsonData
+        
+        Alamofire.request(request).responseJSON { (responseJSON) in
             if let dicResult = responseJSON.result.value as? NSDictionary{
+                print(dicResult)
                 OFAUtils.removeLoadingView(nil)
-                let delegate = UIApplication.shared.delegate as! AppDelegate
-                delegate.initializeLoginPage()
+                if let dicData = dicResult["data"] as? NSDictionary {
+                    UserDefaults.standard.setValue("\(dicData["user_id"]!)", forKey: USER_ID)
+                    if self.isForgotPassword{
+                        //go to create password
+                        let passwordTVC = self.storyboard?.instantiateViewController(withIdentifier: "CreatePasswordTVC") as! OFACreatePasswordTableViewController
+                        self.navigationItem.title = ""
+                        passwordTVC.emailID = self.emailID
+                        self.navigationController?.pushViewController(passwordTVC, animated: true)
+                    }else if self.isFromLogin{
+                        //goto basic details
+                        if self.isRegistrationComplete == false{
+                            let registerUser = self.storyboard?.instantiateViewController(withIdentifier: "RegisterTVC") as! OFARegisterTableViewController
+                            registerUser.emailID = self.emailID
+                            registerUser.isSocialLogin = false
+                            self.navigationItem.title = ""
+                            self.navigationController?.pushViewController(registerUser, animated: true)
+                        }else{
+                            if self.isPasswordPresent == true{
+                                //password entry
+                                let passwordEntry = self.storyboard?.instantiateViewController(withIdentifier: "LoginPasswordTVC") as! OFALoginPasswordTableViewController
+                                passwordEntry.emailID = self.emailID
+                                self.navigationItem.title = ""
+                                self.navigationController?.pushViewController(passwordEntry, animated: true)
+                            }else{
+                                //create password
+                                let passwordTVC = self.storyboard?.instantiateViewController(withIdentifier: "CreatePasswordTVC") as! OFACreatePasswordTableViewController
+                                self.navigationItem.title = ""
+                                passwordTVC.emailID = self.emailID
+                                self.navigationController?.pushViewController(passwordTVC, animated: true)
+                            }
+                        }
+                    }else if self.isFromLoginPassword{
+                        print("From login password and OTP verified successfully")
+                        //call API to our server and get User details - email & userID
+                    }else{
+                        OFAUtils.removeLoadingView(nil)
+                        OFAUtils.showAlertViewControllerWithTitle(nil, message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+                    }
+                }else{
+                    OFAUtils.showToastWithTitle("\(dicResult["messages"]!)")
+                }
             }else{
                 OFAUtils.removeLoadingView(nil)
-                OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle: "Warning", message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+                OFAUtils.showAlertViewControllerWithTitle(nil, message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
             }
         }
     }

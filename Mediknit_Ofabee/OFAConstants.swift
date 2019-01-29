@@ -74,3 +74,19 @@ let URL_USER_GENERATED_TEST = "http://onlineprofesor.com/assesment_report/user_g
 let userBaseURL = "https://api.mediknit.org/index.php/"//"https://elearn.maven-silicon.com/"
 
 var videoIOSUrl = "https://elearn.maven-silicon.com/maven_ios_app/"
+
+//New Login Flow
+
+let loginUserName = "mediknit"
+
+let loginBaseURL = "https://accounts-dev.mediknit.org/api/v1/" //development
+
+//let loginBaseURL = "​https://accounts.mediknit.org/api/v1/" // live
+
+let loginKey = "mediknit_5c1cbaa9447f59.92589839"
+
+//let loginKey = "mediknit_5c1cbaa9447f59.92589839"//live
+
+let loginSecretKey = "13b87f33-5120-4e99-b0cb-915bf5065c5a"
+
+//let loginSecretKey = "13b87f33-5120-4e99-b0cb-915bf5065c5a"//live

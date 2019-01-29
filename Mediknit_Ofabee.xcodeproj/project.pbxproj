@@ -113,6 +113,7 @@
 		84DB72B41FBB1C8F003A5053 /* OFAForgotPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB72B31FBB1C8F003A5053 /* OFAForgotPasswordTableViewController.swift */; };
 		84FEA9D31F6150B000D2D201 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FEA9D21F6150B000D2D201 /* GlobalVariables.swift */; };
 		CE1152AC21FF2C8100D4D362 /* OFALoginPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1152AB21FF2C8100D4D362 /* OFALoginPasswordTableViewController.swift */; };
+		CE1CE23F220064A300520DD0 /* OFACreatePasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1CE23E220064A300520DD0 /* OFACreatePasswordTableViewController.swift */; };
 		CE20D4BE2153707300C851D0 /* OFAMyCourseDetailsCurriculumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20D4BD2153707200C851D0 /* OFAMyCourseDetailsCurriculumTableViewController.swift */; };
 		CE20D4C0215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE20D4BF215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift */; };
 		CE249045219C4041008CC796 /* OFALectureQAndAContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE249044219C4041008CC796 /* OFALectureQAndAContainerViewController.swift */; };
@@ -297,6 +298,7 @@
 		84FEA9D21F6150B000D2D201 /* GlobalVariables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		B44A05F9B6D300B8A18467C4 /* Pods_Mediknit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mediknit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1152AB21FF2C8100D4D362 /* OFALoginPasswordTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFALoginPasswordTableViewController.swift; sourceTree = "<group>"; };
+		CE1CE23E220064A300520DD0 /* OFACreatePasswordTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFACreatePasswordTableViewController.swift; sourceTree = "<group>"; };
 		CE20D4BD2153707200C851D0 /* OFAMyCourseDetailsCurriculumTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFAMyCourseDetailsCurriculumTableViewController.swift; sourceTree = "<group>"; };
 		CE20D4BF215370E700C851D0 /* OFAMyCourseDetailsCurriculumTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFAMyCourseDetailsCurriculumTableViewCell.swift; sourceTree = "<group>"; };
 		CE249044219C4041008CC796 /* OFALectureQAndAContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFALectureQAndAContainerViewController.swift; sourceTree = "<group>"; };
@@ -1012,6 +1014,7 @@
 				CE1152AB21FF2C8100D4D362 /* OFALoginPasswordTableViewController.swift */,
 				84DB72B31FBB1C8F003A5053 /* OFAForgotPasswordTableViewController.swift */,
 				847A82F61F39750000AB3D32 /* OFARegisterTableViewController.swift */,
+				CE1CE23E220064A300520DD0 /* OFACreatePasswordTableViewController.swift */,
 				847A82F81F39752200AB3D32 /* OFAOTPTableViewController.swift */,
 			);
 			name = "User Authentication";
@@ -1293,6 +1296,7 @@
 				847A834A1F398B3500AB3D32 /* UIImage+WebP.m in Sources */,
 				847A82F51F3974F300AB3D32 /* OFALoginTableTableViewController.swift in Sources */,
 				8488FBD91F417C70000B5E11 /* OFABrowseCourseDetailsTableViewController.swift in Sources */,
+				CE1CE23F220064A300520DD0 /* OFACreatePasswordTableViewController.swift in Sources */,
 				847A82DA1F39740100AB3D32 /* AppDelegate.swift in Sources */,
 				847A83071F397CDE00AB3D32 /* JJMaterialTextfield.m in Sources */,
 				CE2EADB8219D9D640040CEBC /* OFALectureDiscussionMyQuestionsTableViewCell.swift in Sources */,
@@ -1512,7 +1516,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Mediknit_Ofabee/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.enfin.mediknit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1541,7 +1545,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Mediknit_Ofabee/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.enfin.mediknit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
