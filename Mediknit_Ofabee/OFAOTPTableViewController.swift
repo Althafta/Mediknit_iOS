@@ -216,8 +216,8 @@ class OFAOTPTableViewController: UITableViewController {
                         OFAUtils.removeLoadingView(nil)
                         OFAUtils.showAlertViewControllerWithTitle(nil, message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
                     }
-                }else{
-                    OFAUtils.showToastWithTitle("\(dicResult["messages"]!)")
+                }else if let errorMessage = dicResult["messages"] as? String{
+                    OFAUtils.showToastWithTitle(errorMessage)
                 }
             }else{
                 OFAUtils.removeLoadingView(nil)

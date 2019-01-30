@@ -101,7 +101,14 @@ class OFALoginPasswordTableViewController: UITableViewController {
             if let dicResponse = responseJSON.result.value as? NSDictionary{
                 print(dicResponse)
                 OFAUtils.removeLoadingView(nil)
-                //call API to our server and get User details
+                if let _ = dicResponse["data"] as? NSDictionary{
+                    //call API to our server and get User details
+                }else if "\(dicResponse["status"]!)" == "error"{
+                    OFAUtils.removeLoadingView(nil)
+                    if let errorMessage = dicResponse["messages"] as? String{
+                        OFAUtils.showAlertViewControllerWithTitle(nil, message: errorMessage, cancelButtonTitle: "OK")
+                    }
+                }
             }else{
                 OFAUtils.removeLoadingView(nil)
                 OFAUtils.showAlertViewControllerWithTitle(nil, message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")

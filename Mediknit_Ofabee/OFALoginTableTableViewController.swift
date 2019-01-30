@@ -19,6 +19,8 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var userDetails: [User] = []
     
+    //MARK:- Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,6 +29,10 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
         
         self.buttonSignIn.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
         self.buttonSignIn.layer.cornerRadius = self.buttonSignIn.frame.height/2
+        
+        self.buttonGoogleSignIn.layer.borderWidth = 1.0
+        self.buttonGoogleSignIn.layer.borderColor = OFAUtils.getColorFromHexString(barTintColor).cgColor
+        self.buttonGoogleSignIn.layer.cornerRadius = self.self.buttonGoogleSignIn.frame.height/2
         
        OFAUtils.setBackgroundForTableView(tableView: self.tableView)
         self.tableView.backgroundColor = .white
@@ -91,7 +97,7 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
             
             let dicParameters = NSDictionary(objects: [self.textEmail.text!], forKeys: ["email" as NSCopying])
             
-            let jsonData = try! JSONSerialization.data(withJSONObject: dicParameters, options: .prettyPrinted)
+            let jsonData = try! JSONSerialization.data(withJSONObject: dicParameters, options: .sortedKeys)
             let jsonString = String(data: jsonData, encoding: .utf8)
             
             let timeStamp = "\(OFAUtils.getTimeStamp())"
