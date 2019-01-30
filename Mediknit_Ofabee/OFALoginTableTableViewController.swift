@@ -91,7 +91,7 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
             
             let dicParameters = NSDictionary(objects: [self.textEmail.text!], forKeys: ["email" as NSCopying])
             
-            let jsonData = try! JSONSerialization.data(withJSONObject: dicParameters, options: .sortedKeys)
+            let jsonData = try! JSONSerialization.data(withJSONObject: dicParameters, options: .prettyPrinted)
             let jsonString = String(data: jsonData, encoding: .utf8)
             
             let timeStamp = "\(OFAUtils.getTimeStamp())"
@@ -146,7 +146,7 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
                         self.generateOTPForEmailVerification(isRegistrationComplete: false, isPasswordPresent: false)
                     }else{
                         OFAUtils.removeLoadingView(nil)
-                        OFAUtils.showAlertViewControllerWithTitle("Error Occured", message: nil, cancelButtonTitle: "OK")
+                        OFAUtils.showAlertViewControllerWithTitle("Authentication failed", message: "Try again later", cancelButtonTitle: "OK")
                     }
                 }else{
                     OFAUtils.removeLoadingView(nil)
