@@ -17,6 +17,7 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
     @IBOutlet var textSalutation: JJMaterialTextfield!
     @IBOutlet var textPassword: JJMaterialTextfield!
     
+    @IBOutlet weak var labelStaticPassword: UILabel!
     @IBOutlet weak var buttonRegister: UIButton!
     
     var isSocialLogin = false
@@ -26,6 +27,8 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
     var emailID = ""
     
     var isDeclarationSelected = false
+    
+    //MARK:- Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +47,7 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
             self.textFirstName.text = self.socialFirstName
             self.textLastName.text = self.socialLastName
             self.textPassword.isHidden = true
+            self.labelStaticPassword.isHidden = true
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self.disconnectGoogleUser))
         }
     }
@@ -137,6 +141,8 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
             }
         }
     }
+    
+    //MARK:- Validation Helpers
     
     func isFieldValidity() -> Bool {
         if OFAUtils.isWhiteSpace(self.textSalutation.text!){
