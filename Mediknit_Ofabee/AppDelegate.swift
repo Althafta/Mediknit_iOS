@@ -34,6 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //        UILabel.appearance().font = UIFont(name: "Open-Sans", size: 15.0)
         UserDefaults.standard.set("1", forKey: DomainKey)
         UIApplication.shared.statusBarStyle = .default
+        
+        if UserDefaults.standard.bool(forKey: isTemporaryLogin){
+            UserDefaults.standard.set(false, forKey: isTemporaryLogin)
+            UserDefaults.standard.removeObject(forKey: USER_ID)
+            OFAUtils.showToastWithTitle("Temporary login expired")
+        }
+        
         GIDSignIn.sharedInstance().clientID = GoogleClientID
         if UserDefaults.standard.value(forKey: DomainKey) != nil{
             self.initializePreLoginPage()

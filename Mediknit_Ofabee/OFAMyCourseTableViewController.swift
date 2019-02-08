@@ -32,6 +32,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         self.refreshController.tintColor = OFAUtils.getColorFromHexString(barTintColor)//.white
         self.refreshController.addTarget(self, action: #selector(self.refreshInitiated), for: .valueChanged)
 
+        self.searchBar.inputAccessoryView = OFAUtils.getDoneToolBarButton(tableView: self, target: #selector(self.tapAction))
         self.tableView.backgroundColor = OFAUtils.getColorFromHexString(ofabeeCellBackground)
         self.headerView.backgroundColor = OFAUtils.getColorFromHexString(ofabeeCellBackground)
         self.setNavigationBarItem(isSidemenuEnabled: true)
@@ -50,6 +51,10 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         super.viewWillAppear(animated)
         
         self.refreshInitiated()
+    }
+    
+    @objc func tapAction(){
+        self.view.endEditing(true)
     }
     
 //    override func viewWillDisappear(_ animated: Bool) {
@@ -76,11 +81,15 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     
     func loadMyCourses(){
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
+        var arrayCourses = NSArray()
+        if let arraySubscribedCourses = UserDefaults.standard.value(forKey: Subscribed_Courses) as? NSArray{
+            arrayCourses = arraySubscribedCourses
+        }
         //        if self.user_id == nil {
 //                    let browseCourse = self.storyboard?.instantiateViewController(withIdentifier: "BrowseCourseTVC") as!OFABrowseCourseTableViewController
 //                    self.navigationController?.pushViewController(browseCourse, animated: true)
         //        }else{
-        let dicParameters = NSDictionary(objects: [self.user_id as! String,domainKey,self.accessToken as! String], forKeys: ["user_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+        let dicParameters = NSDictionary(objects: [self.user_id as! String,domainKey,self.accessToken as! String,arrayCourses], forKeys: ["user_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying,"courses" as NSCopying])
         OFAUtils.showLoadingViewWithTitle("Loading")
         Alamofire.request(userBaseURL+"api/course/mycourse", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let result = responseJSON.result.value{
@@ -166,7 +175,9 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
             self.present(sessionAlert, animated: true, completion: nil)
             return
         }
-        
+        if self.searchBar.isFirstResponder{
+            self.view.endEditing(true)
+        }
         self.navigationController?.pushViewController(myCourseDetails, animated: true)
     }
     
@@ -213,8 +224,12 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        let predicate = NSPredicate(format: "cb_title CONTAINS[c] %@",searchBar.text!)
-        self.filteredArray = self.arrayMyCourses.filtered(using: predicate) as NSArray
+        if !OFAUtils.isWhiteSpace(searchBar.text!){
+            let predicate = NSPredicate(format: "cb_title CONTAINS[c] %@",searchBar.text!)
+            self.filteredArray = self.arrayMyCourses.filtered(using: predicate) as NSArray
+        }else{
+            self.loadMyCourses()
+        }
         searchBar.endEditing(true)
         self.tableView.reloadData()
     }
