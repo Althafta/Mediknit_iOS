@@ -228,7 +228,7 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
         if let error = error{
             print("\(error.localizedDescription)")
         }else{
-            let idToken = user.authentication.idToken // Safe to send to the server
+            let idToken = user.userID //user.authentication.idToken // Safe to send to the server
             let givenName = user.profile.givenName
             let familyName = user.profile.familyName
             let email = user.profile.email
@@ -277,7 +277,7 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
                             UserDefaults.standard.setValue(arrayCourses, forKey: Subscribed_Courses)
                             let userID = UserDefaults.standard.value(forKey: USER_ID) as! String
                             let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-                            let dicParameters = NSDictionary(objects: [userID,self.textEmail.text!,domainKey], forKeys: ["user_id" as NSCopying,"email" as NSCopying,"domain_key" as NSCopying])
+                            let dicParameters = NSDictionary(objects: [userID,email!,domainKey], forKeys: ["user_id" as NSCopying,"email" as NSCopying,"domain_key" as NSCopying])
                             OFAUtils.showLoadingViewWithTitle("Fetching user details")
                             Alamofire.request(userBaseURL+"api/authenticate/login_api", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON(completionHandler: { (responseJSON) in
                                 OFAUtils.removeLoadingView(nil)
@@ -309,6 +309,7 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
                                         UserDefaults.standard.setValue(email!, forKey: EMAIL)
                                         UserDefaults.standard.set(token as! String, forKey: ACCESS_TOKEN)
                                         UserDefaults.standard.set("\(dicBody["id"]!)", forKey: USER_ID)
+                                        print(UserDefaults.standard.value(forKey: USER_ID) as! String)
                                         
                                         let userDetails = User(context: self.context)
                                         userDetails.user_name = "\(dicBody["us_name"]!)"
@@ -361,6 +362,7 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
                     }
                 }else{
                     OFAUtils.removeLoadingView(nil)
+                    GIDSignIn.sharedInstance().signOut()
                     OFAUtils.showAlertViewControllerWithTitle(nil, message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
                 }
             }

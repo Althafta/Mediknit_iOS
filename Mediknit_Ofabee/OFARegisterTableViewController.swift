@@ -252,7 +252,7 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
             OFAUtils.showToastWithTitle("Enter last name")
             return false
         }
-        if OFAUtils.isWhiteSpace(self.textPassword.text!){
+        if OFAUtils.isWhiteSpace(self.textPassword.text!) && !isSocialLogin{
             OFAUtils.showToastWithTitle("Enter password")
             return false
         }

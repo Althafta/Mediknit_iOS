@@ -191,6 +191,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.persistentContainer.viewContext.delete(user)
         }
         UserDefaults.standard.removeObject(forKey: USER_ID)
+        UserDefaults.standard.removeObject(forKey: Subscribed_Courses)
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let loginView = storyBoard.instantiateViewController(withIdentifier: "PreLoginNVC")
         self.window?.rootViewController = loginView

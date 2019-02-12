@@ -181,7 +181,7 @@ class OFACreatePasswordTableViewController: UITableViewController,UITextFieldDel
             OFAUtils.showToastWithTitle("Confirm you password")
             return false
         }else if self.textCreatePassword.text != self.textConfirmPassword.text!{
-            //            OFAUtils.showToastWithTitle("Password mismatch")
+            OFAUtils.showToastWithTitle("Password mismatch")
             return false
         }else{
             return true
