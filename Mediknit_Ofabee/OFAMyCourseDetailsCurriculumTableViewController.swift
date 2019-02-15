@@ -20,6 +20,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
     var imageBaseURL = ""
     
     var dicLastPlayed = NSDictionary()
+    var refreshController = UIRefreshControl()
     
     var myCourseContainerViewController = OFAMyCourseCurriculumListContainerViewController()
 //    lazy var myCourseContainerViewController : OFAMyCourseCurriculumListContainerViewController? = {
@@ -30,7 +31,10 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.backgroundColor = OFAUtils.getColorFromHexString(sectionBackgroundColor)
-       
+        
+        self.refreshController.tintColor = OFAUtils.getColorFromHexString(barTintColor)
+        self.refreshController.addTarget(self, action: #selector(self.refreshInitiated), for: .valueChanged)
+       self.tableView.refreshControl = self.refreshController
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,6 +52,11 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
     override func viewDidAppear(_ animated:Bool){
         super.viewDidAppear(animated)
         self.loadCurriculum()
+    }
+    
+    @objc func refreshInitiated(){
+        self.loadCurriculum()
+        NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "CurriculumRefresh"), object: nil)
     }
     
     func loadCurriculum(){
@@ -79,8 +88,10 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                 if dicBody["user_image_url"] != nil{
                     self.imageBaseURL = "\(dicBody["user_image_url"]!)"
                 }
+                self.refreshController.endRefreshing()
                 self.tableView.reloadData()
             }else{
+                self.refreshController.endRefreshing()
                 OFAUtils.removeLoadingView(nil)
                 OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle: "Warning", message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
             }

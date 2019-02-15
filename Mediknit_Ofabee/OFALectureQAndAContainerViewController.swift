@@ -33,6 +33,8 @@ class OFALectureQAndAContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        self.segmentControl.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
+//        self.segmentControl.tintColor = .white
         self.containerView.backgroundColor = OFAUtils.getColorFromHexString(ofabeeCellBackground)
         segmentControl.initUI()
         segmentControl.selectedSegmentIndex = TabIndex.discussionTab.rawValue

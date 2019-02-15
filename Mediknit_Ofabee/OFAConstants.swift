@@ -83,14 +83,14 @@ let userBaseURL = "https://api.mediknit.org/index.php/"//"https://elearn.maven-s
 
 let loginUserName = "mediknit"
 
-//let loginBaseURL = "https://accounts-dev.mediknit.org/api/v1/" //development
+let loginBaseURL = "https://accounts-dev.mediknit.org/api/v1/" //development
 
-let loginBaseURL = "https://accounts.mediknit.org/api/v1/" // live
+//let loginBaseURL = "https://accounts.mediknit.org/api/v1/" // live
 
-//let loginKey = "mediknit_5c1cbaa9447f59.92589839"  //development
+let loginKey = "mediknit_5c1cbaa9447f59.92589839"  //development
 
-let loginKey = "mediknit_5c2cd018dd7668.27138990"  //live
+//let loginKey = "mediknit_5c2cd018dd7668.27138990"  //live
 
-//let loginSecretKey = "13b87f33-5120-4e99-b0cb-915bf5065c5a"  //development
+let loginSecretKey = "13b87f33-5120-4e99-b0cb-915bf5065c5a"  //development
 
-let loginSecretKey = "b68cb115-f68e-4c36-b668-a981ae4a8f9d"//live
+//let loginSecretKey = "b68cb115-f68e-4c36-b668-a981ae4a8f9d"//live

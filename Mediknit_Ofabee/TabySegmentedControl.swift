@@ -25,6 +25,7 @@ class TabySegmentedControl: UISegmentedControl {
         let dividerImage = UIImage(named: "segmented_separator_bg")?.withRenderingMode(.alwaysTemplate)
         let backgroundImageSelected = UIImage(named: "segmented_selected_bg")?.withRenderingMode(.alwaysTemplate)
         self.tintColor = UIColor.white//OFAUtils.getColorFromHexString(ofabeeGreenColorCode)
+        self.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
         
         self.setBackgroundImage(backgroundImage, for: UIControl.State(), barMetrics: .default)
         self.setBackgroundImage(backgroundImageSelected, for: .highlighted, barMetrics: .default)

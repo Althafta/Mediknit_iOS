@@ -45,9 +45,9 @@ class OFAMyCourseDetailsQandATableViewController: UITableViewController,UITextVi
         self.refreshController.tintColor = OFAUtils.getColorFromHexString(barTintColor)
 //        self.tableView.refreshControl = self.refreshController
         
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
-        self.navigationController?.navigationBar.barTintColor = OFAUtils.getColorFromHexString(barTintColor)
+        self.navigationController?.navigationBar.tintColor = OFAUtils.getColorFromHexString(barTintColor)//UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:OFAUtils.getColorFromHexString(barTintColor)]
+        self.navigationController?.navigationBar.barTintColor = .white//OFAUtils.getColorFromHexString(barTintColor)
         
         self.tableView.backgroundColor = OFAUtils.getColorFromHexString(sectionBackgroundColor)
 

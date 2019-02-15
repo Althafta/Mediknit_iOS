@@ -31,6 +31,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         
         self.refreshController.tintColor = OFAUtils.getColorFromHexString(barTintColor)//.white
         self.refreshController.addTarget(self, action: #selector(self.refreshInitiated), for: .valueChanged)
+        self.tableView.refreshControl = self.refreshController
 
         self.searchBar.inputAccessoryView = OFAUtils.getDoneToolBarButton(tableView: self, target: #selector(self.tapAction))
         self.tableView.backgroundColor = OFAUtils.getColorFromHexString(ofabeeCellBackground)

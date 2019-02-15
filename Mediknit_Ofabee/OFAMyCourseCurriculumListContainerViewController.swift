@@ -51,6 +51,8 @@ class OFAMyCourseCurriculumListContainerViewController: UIViewController {
         self.buttonPlayLecture.setTitle(" \(faType)", for: .normal)
         
         self.loadCurriculum()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationObserver), name: NSNotification.Name.init(rawValue: "CurriculumRefresh"), object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,6 +67,10 @@ class OFAMyCourseCurriculumListContainerViewController: UIViewController {
     
     override func viewDidAppear(_ animated:Bool){
         super.viewDidAppear(animated)
+        self.loadCurriculum()
+    }
+
+    @objc func notificationObserver(){
         self.loadCurriculum()
     }
     
