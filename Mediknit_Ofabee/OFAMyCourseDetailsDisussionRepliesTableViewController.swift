@@ -115,7 +115,7 @@ class OFAMyCourseDetailsDisussionRepliesTableViewController: UITableViewControll
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        self.navigationController?.childViewControllers[1].navigationItem.title = " Question Details"
-        self.navigationItem.title = "Question Details"
+        self.navigationItem.title = "Details"
         let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
         self.loadReplies(userID: user_id, offset: self.offset, limit: "10")
     }

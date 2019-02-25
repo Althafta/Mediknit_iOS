@@ -9,13 +9,14 @@
 import UIKit
 import Alamofire
 import GoogleSignIn
+import DropDown
 
 class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate {
 
     @IBOutlet var textFirstName: JJMaterialTextfield!
     @IBOutlet var textLastName: JJMaterialTextfield!
-    @IBOutlet var textSalutation: JJMaterialTextfield!
     @IBOutlet var textPassword: JJMaterialTextfield!
+    @IBOutlet weak var buttonSalutation: UIButton!
     
     @IBOutlet weak var labelStaticPassword: UILabel!
     @IBOutlet weak var buttonRegister: UIButton!
@@ -30,6 +31,8 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
     var emailID = ""
     
     var isDeclarationSelected = false
+    let chooseSalutationDropDown = DropDown()
+    var salutationSelected = ""
     
     //MARK:- Life Cycle
     
@@ -45,6 +48,8 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.tapAction))
         singleTap.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(singleTap)
+        
+        self.getSalutation()
         
         if isSocialLogin{
             self.textFirstName.text = self.socialFirstName
@@ -76,6 +81,45 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
         self.present(sessionAlert, animated: true, completion: nil)
     }
     
+    func getSalutation(){
+//        var dicJSONRequest = Dictionary<String,Any>()
+//        dicJSONRequest["request_body"] = NSDictionary(objects: ["salutation"], forKeys: ["action" as NSCopying])
+//        let dicParameters = dicJSONRequest
+        OFAUtils.showLoadingViewWithTitle("Loading")
+        Alamofire.request(userBaseURL+"api/authenticate/salutation", method: .post, parameters: [:], encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
+            if  let dicResult = responseJSON.result.value as? NSDictionary{
+                OFAUtils.removeLoadingView(nil)
+                if "\(dicResult["success"]!)" == "1"{
+                    print(dicResult["salutation"] as! NSArray)
+                    self.chooseSalutationDropDown.anchorView = self.buttonSalutation
+                    self.chooseSalutationDropDown.bottomOffset = CGPoint(x: 0, y: self.buttonSalutation.bounds.height)
+                    self.chooseSalutationDropDown.dataSource = (dicResult["salutation"] as! NSArray) as! [String]
+                    self.chooseSalutationDropDown.selectionAction = { [weak self] (index, item) in
+                        self?.salutationSelected = item
+                        self?.buttonSalutation.setTitle(self?.salutationSelected, for: .normal)
+                    }
+                }
+            }else{
+                print("Salutation API failed")
+            }
+        }
+    }
+    
+    func customizeDropDown(_ sender: AnyObject) {
+        let appearance = chooseSalutationDropDown
+        
+        appearance.cellHeight = 60
+        appearance.backgroundColor = UIColor(white: 1, alpha: 1)
+        appearance.selectionBackgroundColor = UIColor(red: 0.6494, green: 0.8155, blue: 1.0, alpha: 0.2)
+        //        appearance.separatorColor = UIColor(white: 0.7, alpha: 0.8)
+        appearance.cornerRadius = 10
+        appearance.shadowColor = UIColor(white: 0.6, alpha: 1)
+        appearance.shadowOpacity = 0.9
+        appearance.shadowRadius = 10
+        appearance.animationduration = 0.25
+        appearance.textColor = .darkGray
+    }
+    
     // MARK: - Table view functions
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -98,6 +142,11 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
     
     //MARK:- Button Action
     
+    @IBAction func salutationPressed(_ sender: UIButton) {
+        self.customizeDropDown(self)
+        self.chooseSalutationDropDown.show()
+    }
+    
     @IBAction func declarationPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         self.isDeclarationSelected = !self.isDeclarationSelected
@@ -109,9 +158,9 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
             var dicParameters = NSDictionary()
             let userId = UserDefaults.standard.value(forKey: USER_ID) as! String
             if !isSocialLogin{
-                dicParameters = NSDictionary(objects: [userId,self.textSalutation.text!,self.textFirstName.text!,self.textLastName.text!,self.textPassword.text!,"0"], forKeys: ["user_id" as NSCopying,"salutation" as NSCopying,"first_name" as NSCopying,"last_name" as NSCopying,"password" as NSCopying,"open_auth" as NSCopying])
+                dicParameters = NSDictionary(objects: [userId,self.salutationSelected,self.textFirstName.text!,self.textLastName.text!,self.textPassword.text!,"0"], forKeys: ["user_id" as NSCopying,"salutation" as NSCopying,"first_name" as NSCopying,"last_name" as NSCopying,"password" as NSCopying,"open_auth" as NSCopying])
             }else{
-                dicParameters = NSDictionary(objects: [userId,self.textSalutation.text!,self.textFirstName.text!,self.textLastName.text!,"1"], forKeys: ["user_id" as NSCopying,"salutation" as NSCopying,"first_name" as NSCopying,"last_name" as NSCopying,"open_auth" as NSCopying])
+                dicParameters = NSDictionary(objects: [userId,self.salutationSelected,self.textFirstName.text!,self.textLastName.text!,"1"], forKeys: ["user_id" as NSCopying,"salutation" as NSCopying,"first_name" as NSCopying,"last_name" as NSCopying,"open_auth" as NSCopying])
             }
             OFAUtils.showLoadingViewWithTitle("Loading")
             
@@ -143,7 +192,7 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
                         }
                         let userID = UserDefaults.standard.value(forKey: USER_ID) as! String
                         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-                        let dicParameters = NSDictionary(objects: [self.emailID,userID,self.textSalutation.text!,self.textFirstName.text!,self.textLastName.text!,self.textPassword.text!,domainKey], forKeys: ["email" as NSCopying,"user_id" as NSCopying,"salutation" as NSCopying,"firstname" as NSCopying,"lastname" as NSCopying,"password" as NSCopying,"domain_key" as NSCopying])
+                        let dicParameters = NSDictionary(objects: [self.emailID,userID,self.salutationSelected,self.textFirstName.text!,self.textLastName.text!,self.textPassword.text!,domainKey], forKeys: ["email" as NSCopying,"user_id" as NSCopying,"salutation" as NSCopying,"firstname" as NSCopying,"lastname" as NSCopying,"password" as NSCopying,"domain_key" as NSCopying])
                         OFAUtils.showLoadingViewWithTitle("Fetching user details")
                         Alamofire.request(userBaseURL+"api/authenticate/login_api", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON(completionHandler: { (responseJSON) in
                             OFAUtils.removeLoadingView(nil)
@@ -240,7 +289,7 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
     //MARK:- Validation Helpers
     
     func isFieldValidity() -> Bool {
-        if OFAUtils.isWhiteSpace(self.textSalutation.text!){
+        if self.salutationSelected == ""{
             OFAUtils.showToastWithTitle("Enter salutaion")
             return false
         }

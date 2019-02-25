@@ -24,6 +24,10 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     var searchString = ""
     var filteredArray = NSArray()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
+    
     //MARK:- Life Cycle
      
     override func viewDidLoad() {
@@ -43,10 +47,6 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -54,24 +54,15 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         self.refreshInitiated()
     }
     
-    @objc func tapAction(){
-        self.view.endEditing(true)
-    }
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        if #available(iOS 11.0, *) {
-//            self.navigationController?.navigationBar.prefersLargeTitles = false
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationItem.title = "My Courses"
     }
     
+    @objc func tapAction(){
+        self.view.endEditing(true)
+    }
+
     func searchBarButtonPressed(){
         
     }

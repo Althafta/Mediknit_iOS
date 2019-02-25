@@ -47,7 +47,7 @@ class OFAOTPTableViewController: UITableViewController {
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.tapAction))
         singleTap.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(singleTap)
-        
+        OFAUtils.showToastWithTitle("An OTP has been sent to \(self.emailID)")
         self.runTimer()
     }
    
