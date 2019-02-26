@@ -74,8 +74,8 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     func loadMyCourses(){
         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
         var arrayCourses = NSArray()
-        if let arraySubscribedCourses = UserDefaults.standard.value(forKey: Subscribed_Courses) as? NSArray{
-            arrayCourses = arraySubscribedCourses
+        if let dataSubscribedCourses = UserDefaults.standard.value(forKey: Subscribed_Courses) as? Data{
+            arrayCourses = NSKeyedUnarchiver.unarchiveObject(with: dataSubscribedCourses) as! NSArray
         }
         //        if self.user_id == nil {
 //                    let browseCourse = self.storyboard?.instantiateViewController(withIdentifier: "BrowseCourseTVC") as!OFABrowseCourseTableViewController

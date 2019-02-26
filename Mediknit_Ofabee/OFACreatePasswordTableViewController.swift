@@ -72,7 +72,8 @@ class OFACreatePasswordTableViewController: UITableViewController,UITextFieldDel
                     if let dicData = dicResponse["data"] as? NSDictionary{
                         //call API to our server and get User details
                         let arrayCourses = dicData["courses"] as! NSArray
-                        UserDefaults.standard.setValue(arrayCourses, forKey: Subscribed_Courses)
+                        let dataCoursesArray = NSKeyedArchiver.archivedData(withRootObject: arrayCourses)
+                        UserDefaults.standard.setValue(dataCoursesArray, forKey: Subscribed_Courses)
                         let userID = UserDefaults.standard.value(forKey: USER_ID) as! String
                         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
                         let dicParameters = NSDictionary(objects: [userID,self.emailID,domainKey,self.textCreatePassword.text!], forKeys: ["user_id" as NSCopying,"email" as NSCopying,"domain_key" as NSCopying,"password" as NSCopying])
