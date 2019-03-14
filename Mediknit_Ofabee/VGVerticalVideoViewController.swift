@@ -116,7 +116,7 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.didFinishedInterativeQuestion), name: NSNotification.Name(rawValue: "InteractiveQuestionCompleted"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.willResignActiveDelegate), name: NSNotification.Name.init(rawValue: "WillRisignActiveDelegate"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.willResignActiveNotification), name: NSNotification.Name.init(rawValue: "WillRisignActiveNotification"), object: nil)
         self.buttonQandA.isHidden = false
 //        self.buttonCurriculum.isHidden = true
         
@@ -144,6 +144,7 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         super.viewWillDisappear(animated)
         OFAUtils.lockOrientation(.portrait)
 //        self.timerStarted.invalidate()
+        avPlayer.pause()
         if !isSeeked {
             self.saveLectureProgress()
         }
@@ -242,6 +243,20 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
     //MARK:- Save percentage helper
     
     @objc func updateTimer(){
+        if avPlayer.timeControlStatus == .waitingToPlayAtSpecifiedRate{
+            let currentTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.currentTime())!)
+            let intCurrentTime = Int(currentTime)
+            if intCurrentTime > self.originalTime{
+                if self.isFirstTime{
+                    self.isSeeked = true
+                    self.avPlayer.pause()
+                    self.avPlayer.seek(to: CMTime(seconds: Double(self.originalTime), preferredTimescale: 1))
+                    //                    self.originalTime = intCurrentTime
+                    self.perform(#selector(self.firstTimePlayFunction), with: nil, afterDelay: 0.5)
+                    //                    OFAUtils.showToastWithTitle("You cannot skip this lecture")
+                }
+            }
+        }
         if avPlayer.timeControlStatus == .playing{
             let currentTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.currentTime())!)
             let totalPlayerTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.asset.duration)!)
@@ -256,20 +271,30 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
             }else{
                 self.isSeeked = false
             }
-            if intCurrentTime > self.originalTime{
-                if self.isFirstTime{
-                    self.avPlayer.seek(to: CMTime(seconds: Double(self.originalTime), preferredTimescale: 1))
-//                    self.originalTime = intCurrentTime
-                }
-            }
+//            if intCurrentTime > self.originalTime{
+//                if self.isFirstTime{
+//                    self.isSeeked = true
+//                    self.avPlayer.pause()
+//                    self.avPlayer.seek(to: CMTime(seconds: Double(self.originalTime), preferredTimescale: 1))
+////                    self.originalTime = intCurrentTime
+//                    self.perform(#selector(self.firstTimePlayFunction), with: nil, afterDelay: 0.5)
+////                    OFAUtils.showToastWithTitle("You cannot skip this lecture")
+//                }
+//            }
             self.originalTime += 1
             self.time += 1
         }
     }
     
+    @objc func firstTimePlayFunction(){
+        self.avPlayer.play()
+    }
+    
     func saveLectureProgress(){
+        self.avPlayer.pause()
         if self.isFullyViewed{
             self.percentage = 100
+            self.isFirstTime = false
         }
         let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
         let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
@@ -297,9 +322,9 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         }
     }
     
-    //MARK:- NotoficationCenter Functions
+    //MARK:- NotificationCenter Functions
     
-    @objc func willResignActiveDelegate(){
+    @objc func willResignActiveNotification(){
         self.avPlayer.pause()
     }
     
