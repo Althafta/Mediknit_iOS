@@ -12,6 +12,7 @@ import SlideMenuControllerSwift
 import FAPanels
 import GoogleSignIn
 import Alamofire
+import LocalAuthentication
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -49,10 +50,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         let userId = UserDefaults.standard.value(forKey: USER_ID) as? String
         if userId != nil {
-            self.autoLogin(userId: userId!)
+//            self.autoLogin(userId: userId!)
+            self.showTouchID()
         }
         self.checkAppVersion()
         return true
+    }
+    
+    func showTouchID(){
+        let myContext = LAContext()
+        let myLocalizedReasonString = "Unlock Mediknit using Touch ID"
+        var authError: NSError?
+        if myContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &authError){
+            myContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: myLocalizedReasonString) { (success, evaluateError) in
+                DispatchQueue.main.async {
+                    if success{
+                        // User authenticated successfully, take appropriate action
+                        let userId = UserDefaults.standard.value(forKey: USER_ID) as? String
+                        if userId != nil {
+                            self.autoLogin(userId: userId!)
+                        }
+                    }else{
+                        // User did not authenticate successfully, look at error and take appropriate action
+                        print(evaluateError?.localizedDescription as Any)
+                        myContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: myLocalizedReasonString) { (success, evaluateError) in
+                            DispatchQueue.main.async {
+                                if success{
+                                    // User authenticated successfully, take appropriate action
+                                    let userId = UserDefaults.standard.value(forKey: USER_ID) as? String
+                                    if userId != nil {
+                                        self.autoLogin(userId: userId!)
+                                    }
+                                }else{
+                                    // User did not authenticate successfully, look at error and take appropriate action
+                                    print(evaluateError?.localizedDescription as Any)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }else{
+            // Could not evaluate policy; look at authError and present an appropriate message to user
+            print(authError?.localizedDescription as Any)
+            myContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: myLocalizedReasonString) { (success, evaluateError) in
+                DispatchQueue.main.async {
+                    if success{
+                        // User authenticated successfully, take appropriate action
+                        let userId = UserDefaults.standard.value(forKey: USER_ID) as? String
+                        if userId != nil {
+                            self.autoLogin(userId: userId!)
+                        }
+                    }else{
+                        // User did not authenticate successfully, look at error and take appropriate action
+                        print(evaluateError?.localizedDescription as Any)
+                    }
+                }
+            }
+        }
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

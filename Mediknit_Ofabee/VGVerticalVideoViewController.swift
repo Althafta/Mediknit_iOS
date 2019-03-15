@@ -204,7 +204,7 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
     
     func getInteractiveQuestionsArray(at timeInterval:String){
         guard let questionInterval = NumberFormatter().number(from: timeInterval) else { return }
-        print(questionInterval)
+//        print(questionInterval)
         if self.arrayQuestionTimes.contains(questionInterval){
             self.avVideoPlayerController.dismiss(animated: true, completion: nil)
             let arrayQuestionAtInterval = self.dicInteractiveQuestion[timeInterval] as! NSArray
@@ -262,7 +262,10 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
             let totalPlayerTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.asset.duration)!)
             self.percentage = (currentTime/totalPlayerTime)*100
             self.time = Int(currentTime)
-            self.getInteractiveQuestionsArray(at: "\(Int(currentTime))")
+            print(currentTime)
+            print(self.time)
+//            self.getInteractiveQuestionsArray(at: "\(Int(currentTime))")
+            self.getInteractiveQuestionsArray(at: "\(self.time)")
             let intCurrentTime = Int(currentTime)
             if intCurrentTime > self.time{
                 //print("seeked to time")

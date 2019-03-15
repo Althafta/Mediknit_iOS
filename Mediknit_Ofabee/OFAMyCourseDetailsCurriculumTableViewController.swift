@@ -572,7 +572,8 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                     videoPlayer.lectureID = lectureId
                     videoPlayer.percentage = Float64(percentage)!
                     videoPlayer.rating = ("\(dicBody["rating"]!)" == "<null>" || "\(dicBody["rating"]!)" == "") ? 0 : Int("\(dicBody["rating"]!)")!
-                    videoPlayer.isFirstTime = "\(dicBody["is_first_time"]!)" == "1" ? true : false 
+                    videoPlayer.isFirstTime = "\(dicBody["is_first_time"]!)" == "1" ? true : false
+                    videoPlayer.avPlayer.pause()
                     self.navigationController?.children[1].navigationItem.title = ""
                     self.navigationController?.pushViewController(videoPlayer, animated: true)
                 }else{
