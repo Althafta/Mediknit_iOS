@@ -40,6 +40,8 @@
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Mediknit would like to access Media for saving the video</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Mediknit would like to access Face ID for login</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Mediknit would like to access your Camera for capturing image for profile</string>
 	<key>NSContactsUsageDescription</key>

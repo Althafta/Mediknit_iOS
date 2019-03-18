@@ -123,6 +123,7 @@
 		CE712F4721958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE712F4621958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift */; };
 		CE712F492195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE712F482195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift */; };
 		CEBC66A4214BCA7900ADFA82 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEBC66A3214BCA7800ADFA82 /* credentials.plist */; };
+		CEEBE65D223FADD200AAD995 /* OFATouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBE65C223FADD200AAD995 /* OFATouchIDViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -309,6 +310,7 @@
 		CE712F4621958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAInteractiveQuestionsTableViewController.swift; sourceTree = "<group>"; };
 		CE712F482195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAVideoInteractiveQuestionTableViewCell.swift; sourceTree = "<group>"; };
 		CEBC66A3214BCA7800ADFA82 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
+		CEEBE65C223FADD200AAD995 /* OFATouchIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFATouchIDViewController.swift; sourceTree = "<group>"; };
 		D3BA94B31F236A0F032BCA22 /* Pods-Ofabee_OLP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ofabee_OLP.release.xcconfig"; path = "Pods/Target Support Files/Pods-Ofabee_OLP/Pods-Ofabee_OLP.release.xcconfig"; sourceTree = "<group>"; };
 		D51BA30CBC926154C03BC7F9 /* Pods-Life_Line.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life_Line.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Life_Line/Pods-Life_Line.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -791,6 +793,7 @@
 				847A830F1F39889400AB3D32 /* OFADomainTableViewController.swift */,
 				847A83501F398C0F00AB3D32 /* Domain Slides */,
 				8400CB1F1F3D79D3005B2086 /* PreLogin */,
+				CEEBE65C223FADD200AAD995 /* OFATouchIDViewController.swift */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -1266,6 +1269,7 @@
 				847A83481F398B3500AB3D32 /* UIImage+GIF.m in Sources */,
 				847A82E21F39740100AB3D32 /* Mediknit.xcdatamodeld in Sources */,
 				8400CB361F3DB048005B2086 /* OFAMyProfileTableViewController.swift in Sources */,
+				CEEBE65D223FADD200AAD995 /* OFATouchIDViewController.swift in Sources */,
 				84563B031F7E136100AAFF81 /* OFAAssessmentAnswerOptionTableViewCell.swift in Sources */,
 				8488FBEA1F41BBBD000B5E11 /* OFACourseDetailsDetailTableViewCell.swift in Sources */,
 				8488FBE31F41A47A000B5E11 /* OFACourseDetailsReviewTableViewCell.swift in Sources */,
