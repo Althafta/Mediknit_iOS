@@ -12,14 +12,12 @@ import LocalAuthentication
 class OFATouchIDViewController: UIViewController {
 
     @IBOutlet weak var buttonTouchID: UIButton!
-    let visualEffectView = UIVisualEffectView()
+    var visualEffectView = UIVisualEffectView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.visualEffectView.effect = UIBlurEffect(style: UIBlurEffect.Style.light)
-        self.view.addSubview(self.visualEffectView)
         self.showTouchID()
     }
     
@@ -27,7 +25,17 @@ class OFATouchIDViewController: UIViewController {
         self.showTouchID()
     }
     
+    func getBlurBG(){
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        visualEffectView = UIVisualEffectView(effect: blurEffect)
+        visualEffectView.frame = view.bounds
+        visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        self.view.addSubview(visualEffectView)
+    }
+    
     func showTouchID(){
+        self.getBlurBG()
         let context = LAContext()
         let myLocalizedReasonString = "Login to Mediknit using Touch ID"
         var error: NSError?
@@ -35,6 +43,7 @@ class OFATouchIDViewController: UIViewController {
             context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: myLocalizedReasonString) { (success, evaluateError) in
                 DispatchQueue.main.async {
                     if let err = evaluateError {
+                        self.visualEffectView.removeFromSuperview()
                         switch err._code {
                         case LAError.Code.systemCancel.rawValue:
                             self.notifyUser("Session cancelled", err: err.localizedDescription)
@@ -80,6 +89,7 @@ class OFATouchIDViewController: UIViewController {
             }
         }else{
             // Device cannot use biometric authentication
+            self.visualEffectView.removeFromSuperview()
             if let err = error {
                 switch err.code{
                 case LAError.Code.biometryNotEnrolled.rawValue:
