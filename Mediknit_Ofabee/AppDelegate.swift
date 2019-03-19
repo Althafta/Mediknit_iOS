@@ -12,7 +12,6 @@ import SlideMenuControllerSwift
 import FAPanels
 import GoogleSignIn
 import Alamofire
-import LocalAuthentication
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -63,69 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = domainView
         self.window?.makeKeyAndVisible()
     }
-    
-    func showTouchID(){
-        let context = LAContext()
-        let myLocalizedReasonString = "Login to Mediknit using Touch ID"
-        var error: NSError?
-        if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            // Device can use biometric authentication
-            context.evaluatePolicy(
-                LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: myLocalizedReasonString, reply: {(success, error) in
-                    DispatchQueue.main.async {
-                        if let err = error {
-                            switch err._code {
-                            case LAError.Code.systemCancel.rawValue:
-                                self.notifyUser("Session cancelled", err: err.localizedDescription)
-                            case LAError.Code.userCancel.rawValue:
-                                self.notifyUser("Please try again", err: err.localizedDescription)
-                            case LAError.Code.userFallback.rawValue:
-                                self.notifyUser("Authentication", err: "Password option selected")
-                                // Custom code to obtain password here
-                                context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: myLocalizedReasonString, reply: { (success, error) in
-                                    if success{
-                                        let userId = UserDefaults.standard.value(forKey: USER_ID) as? String
-                                        if userId != nil {
-                                            self.autoLogin(userId: userId!)
-                                        }
-                                    }else{
-                                        print(error?.localizedDescription as Any)
-                                    }
-                                })
-                            default:
-                                self.notifyUser("Authentication failed", err: err.localizedDescription)
-                            }
-                        } else {
-                            self.notifyUser("Authentication Successful", err: "You now have full access")
-                            let userId = UserDefaults.standard.value(forKey: USER_ID) as? String
-                            if userId != nil {
-                                self.autoLogin(userId: userId!)
-                            }
-                        }
-                    }
-            })
-        } else {
-            // Device cannot use biometric authentication
-            if let err = error {
-                switch err.code{
-                case LAError.Code.biometryNotEnrolled.rawValue:
-                    notifyUser("User is not enrolled", err: err.localizedDescription)
-                case LAError.Code.passcodeNotSet.rawValue:
-                    notifyUser("A passcode has not been set", err: err.localizedDescription)
-                case LAError.Code.biometryNotAvailable.rawValue:
-                    notifyUser("Biometric authentication not available", err: err.localizedDescription)
-                default:
-                    notifyUser("Unknown error", err: err.localizedDescription)
-                }
-            }
-        }
-    }
-    
-    func notifyUser(_ msg: String, err: String?) {
-        print(err!)
-        OFAUtils.showToastWithTitle(msg)
-    }
-        
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

@@ -71,7 +71,7 @@ class OFALeftSideMenuTableViewController: UITableViewController {
         self.imageViewUser.layer.borderColor = OFAUtils.getColorFromHexString("8FD5FA").cgColor
         self.labelUserName.text = "\(dicUserInfo["name"]!)"
         if OFASingletonUser.ofabeeUser.user_imageURL != nil{
-            self.imageViewUser.sd_setImage(with: URL(string: "\(dicUserInfo["image"]!)"), placeholderImage: #imageLiteral(resourceName: "Default image"), options: .progressiveDownload)
+            self.imageViewUser.sd_setImage(with: URL(string: "\(dicUserInfo["image"]!)"), placeholderImage: #imageLiteral(resourceName: "Default image"), options: .refreshCached)
         }else{
             self.imageViewUser.image = #imageLiteral(resourceName: "Default image")
         }
