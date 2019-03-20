@@ -20,7 +20,7 @@ class OFAMyProfileTableViewController: UITableViewController,UIImagePickerContro
     
     var imagePicker = UIImagePickerController()
     var actionSheet = UIAlertController()
-    var pickedImage = UIImage()
+//    var pickedImage = UIImage()
     var imageData : Data?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -60,7 +60,7 @@ class OFAMyProfileTableViewController: UITableViewController,UIImagePickerContro
             self.imageViewUser.sd_setImage(with: URL(string: OFASingletonUser.ofabeeUser.user_imageURL!), placeholderImage: #imageLiteral(resourceName: "Default image"), options: .refreshCached)
             self.labelUserName.text = OFASingletonUser.ofabeeUser.user_name!
             self.labelEmail.text = OFASingletonUser.ofabeeUser.user_email!
-            if OFASingletonUser.ofabeeUser.user_phone! == "0"{
+            if OFASingletonUser.ofabeeUser.user_phone! == "0" || OFASingletonUser.ofabeeUser.user_phone! == ""{
                 self.labelPhone.text = "Not Available"
             }else{
                 self.labelPhone.text = OFASingletonUser.ofabeeUser.user_phone!
@@ -174,12 +174,14 @@ class OFAMyProfileTableViewController: UITableViewController,UIImagePickerContro
                 
                 upload.uploadProgress(closure: { (progress) in
                     //                    print(progress)
+                    OFAUtils.showLoadingViewWithTitle("uploading")
                 })
                 
                 upload.responseJSON { response in
+                    OFAUtils.removeLoadingView(nil)
                     if let dicResult = response.result.value as? NSDictionary{
                         print(dicResult)
-                        OFAUtils.showToastWithTitle("\(dicResult["message"]!)")
+//                        OFAUtils.showToastWithTitle("\(dicResult["message"]!)")
                         let userId = UserDefaults.standard.value(forKey: USER_ID) as! String
                         let userArray = self.getDataFromCoreData()
                         let filteredArray = userArray.filtered(using: NSPredicate(format: "user_id==%@", userId))
@@ -220,10 +222,11 @@ class OFAMyProfileTableViewController: UITableViewController,UIImagePickerContro
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // Local variable inserted by Swift 4.2 migrator.
         let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-        self.pickedImage = (info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage)!
-        if let convertedData = pickedImage.jpeg(.medium){
+        let pickedImage = (info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage)!
+        let resizedImage = OFAUtils.resizeImage(pickedImage, newWidth: 400)
+        if let convertedData = resizedImage.jpeg(.medium){
             self.imageData = convertedData
-            self.imageViewUser.image = UIImage(data: self.imageData!)
+            self.imageViewUser.image = resizedImage//UIImage(data: self.imageData!)
             self.uploadImage(imageData: self.imageData!)
             dismiss(animated: true, completion: nil)
         }
