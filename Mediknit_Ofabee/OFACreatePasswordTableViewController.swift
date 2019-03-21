@@ -83,6 +83,15 @@ class OFACreatePasswordTableViewController: UITableViewController,UITextFieldDel
                             if let result = responseJSON.result.value {
                                 print(result)
                                 let dicResponse = result as! NSDictionary
+                                if responseJSON.response?.statusCode == 202{
+                                    //input field missing-----> redirection to Register page
+                                    //Basic Details page
+                                    OFAUtils.showToastWithTitle("Please re-enter your details")
+                                    let registerUser = self.storyboard?.instantiateViewController(withIdentifier: "RegisterTVC") as! OFARegisterTableViewController
+                                    registerUser.emailID = self.emailID
+                                    self.navigationItem.title = ""
+                                    self.navigationController?.pushViewController(registerUser, animated: true)
+                                }
                                 if responseJSON.response?.statusCode == 203{
                                     //invalid user/password
                                     OFAUtils.removeLoadingView(nil)

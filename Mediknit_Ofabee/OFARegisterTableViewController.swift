@@ -30,6 +30,8 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
     var socialEmail = ""
     var emailID = ""
     
+    var max_length = 30
+    
     var isDeclarationSelected = false
     let chooseSalutationDropDown = DropDown()
     var salutationSelected = ""
@@ -90,6 +92,7 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
             if  let dicResult = responseJSON.result.value as? NSDictionary{
                 OFAUtils.removeLoadingView(nil)
                 if "\(dicResult["success"]!)" == "1"{
+                    self.max_length = dicResult["max_length"] as! Int
                     print(dicResult["salutation"] as! NSArray)
                     self.chooseSalutationDropDown.anchorView = self.buttonSalutation
                     self.chooseSalutationDropDown.bottomOffset = CGPoint(x: 0, y: self.buttonSalutation.bounds.height)
@@ -200,6 +203,15 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
                             if let result = responseJSON.result.value {
                                 print(result)
                                 let dicResponse = result as! NSDictionary
+                                if responseJSON.response?.statusCode == 202{
+                                    //input field missing-----> redirection to Register page
+                                    //Basic Details page
+                                    OFAUtils.showToastWithTitle("Please re-enter your details")
+                                    let registerUser = self.storyboard?.instantiateViewController(withIdentifier: "RegisterTVC") as! OFARegisterTableViewController
+                                    registerUser.emailID = self.emailID
+                                    self.navigationItem.title = ""
+                                    self.navigationController?.pushViewController(registerUser, animated: true)
+                                }
                                 if responseJSON.response?.statusCode == 203{
                                     //invalid user/password
                                     OFAUtils.removeLoadingView(nil)
@@ -327,7 +339,7 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let maxLength = 30
+        let maxLength = self.max_length
         let currentString: NSString = textField.text! as NSString
         let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
         return newString.length <= maxLength
