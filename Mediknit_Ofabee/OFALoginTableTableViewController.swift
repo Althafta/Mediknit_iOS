@@ -290,6 +290,10 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
                                         //Basic Details page
                                         OFAUtils.showToastWithTitle("Please re-enter your details")
                                         let registerUser = self.storyboard?.instantiateViewController(withIdentifier: "RegisterTVC") as! OFARegisterTableViewController
+                                        registerUser.isSocialLogin = true
+                                        registerUser.socialFirstName = givenName!
+                                        registerUser.socialLastName = familyName!
+                                        registerUser.socialEmail = email!
                                         registerUser.emailID = email!
                                         self.navigationItem.title = ""
                                         self.navigationController?.pushViewController(registerUser, animated: true)
