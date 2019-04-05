@@ -235,8 +235,7 @@ class OFAOTPTableViewController: UITableViewController,UITextFieldDelegate {
                                         registerUser.emailID = self.emailID
                                         self.navigationItem.title = ""
                                         self.navigationController?.pushViewController(registerUser, animated: true)
-                                    }
-                                    if responseJSON.response?.statusCode == 203{
+                                    }else if responseJSON.response?.statusCode == 203{
                                         //invalid user/password
                                         OFAUtils.removeLoadingView(nil)
                                         OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle: nil, message: "\(dicResponse["message"]!)", cancelButtonTitle: "OK")

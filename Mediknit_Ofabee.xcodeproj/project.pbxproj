@@ -120,9 +120,15 @@
 		CE249047219C4459008CC796 /* OFAMyQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE249046219C4459008CC796 /* OFAMyQuestionsTableViewController.swift */; };
 		CE2EADB5219D30F20040CEBC /* UIImageView+Letters.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2EADB4219D30F20040CEBC /* UIImageView+Letters.m */; };
 		CE2EADB8219D9D640040CEBC /* OFALectureDiscussionMyQuestionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2EADB7219D9D640040CEBC /* OFALectureDiscussionMyQuestionsTableViewCell.swift */; };
+		CE30546D22547FB6005DA01B /* OFADashboardOtherCoursesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE30546C22547FB6005DA01B /* OFADashboardOtherCoursesCollectionViewCell.swift */; };
+		CE30546F225489E2005DA01B /* OFADashboardOtherCoursesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE30546E225489E2005DA01B /* OFADashboardOtherCoursesTableViewCell.swift */; };
 		CE712F4721958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE712F4621958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift */; };
 		CE712F492195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE712F482195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift */; };
+		CE72DB162255DBA6009C1047 /* OFAWebViewDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE72DB152255DBA6009C1047 /* OFAWebViewDashboardViewController.swift */; };
+		CE73B3D5225352A000456331 /* OFADashboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73B3D4225352A000456331 /* OFADashboardTableViewCell.swift */; };
+		CE73B3D82253530700456331 /* OFADashboardCoursesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73B3D72253530700456331 /* OFADashboardCoursesCollectionViewCell.swift */; };
 		CEBC66A4214BCA7900ADFA82 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEBC66A3214BCA7800ADFA82 /* credentials.plist */; };
+		CEBF378C225259B60003E897 /* OFADashboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBF378B225259B60003E897 /* OFADashboardTableViewController.swift */; };
 		CEEBE65D223FADD200AAD995 /* OFATouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBE65C223FADD200AAD995 /* OFATouchIDViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -307,9 +313,15 @@
 		CE2EADB3219D30F10040CEBC /* UIImageView+Letters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Letters.h"; sourceTree = "<group>"; };
 		CE2EADB4219D30F20040CEBC /* UIImageView+Letters.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Letters.m"; sourceTree = "<group>"; };
 		CE2EADB7219D9D640040CEBC /* OFALectureDiscussionMyQuestionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFALectureDiscussionMyQuestionsTableViewCell.swift; sourceTree = "<group>"; };
+		CE30546C22547FB6005DA01B /* OFADashboardOtherCoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFADashboardOtherCoursesCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE30546E225489E2005DA01B /* OFADashboardOtherCoursesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFADashboardOtherCoursesTableViewCell.swift; sourceTree = "<group>"; };
 		CE712F4621958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAInteractiveQuestionsTableViewController.swift; sourceTree = "<group>"; };
 		CE712F482195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAVideoInteractiveQuestionTableViewCell.swift; sourceTree = "<group>"; };
+		CE72DB152255DBA6009C1047 /* OFAWebViewDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAWebViewDashboardViewController.swift; sourceTree = "<group>"; };
+		CE73B3D4225352A000456331 /* OFADashboardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFADashboardTableViewCell.swift; sourceTree = "<group>"; };
+		CE73B3D72253530700456331 /* OFADashboardCoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFADashboardCoursesCollectionViewCell.swift; sourceTree = "<group>"; };
 		CEBC66A3214BCA7800ADFA82 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
+		CEBF378B225259B60003E897 /* OFADashboardTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFADashboardTableViewController.swift; sourceTree = "<group>"; };
 		CEEBE65C223FADD200AAD995 /* OFATouchIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFATouchIDViewController.swift; sourceTree = "<group>"; };
 		D3BA94B31F236A0F032BCA22 /* Pods-Ofabee_OLP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ofabee_OLP.release.xcconfig"; path = "Pods/Target Support Files/Pods-Ofabee_OLP/Pods-Ofabee_OLP.release.xcconfig"; sourceTree = "<group>"; };
 		D51BA30CBC926154C03BC7F9 /* Pods-Life_Line.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life_Line.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Life_Line/Pods-Life_Line.debug.xcconfig"; sourceTree = "<group>"; };
@@ -590,6 +602,7 @@
 		846D09FC1F3B022600AADB82 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				CE73B3D222531DCE00456331 /* Dashboard Courses */,
 				8400CB241F3D92C1005B2086 /* LeftSideMenu */,
 				8400CB411F3DBE1D005B2086 /* Courses */,
 				84C2816C1F986DC7002BC508 /* My Profile */,
@@ -658,6 +671,7 @@
 				8400CB3C1F3DB0E0005B2086 /* Courses */,
 				8400CB371F3DB0A5005B2086 /* Left Side Menu */,
 				8432479020E0E57D00AD1E26 /* Challenges */,
+				CE73B3D6225352A500456331 /* Dashboard */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1080,6 +1094,26 @@
 			name = "ImageView+Letters";
 			sourceTree = "<group>";
 		};
+		CE73B3D222531DCE00456331 /* Dashboard Courses */ = {
+			isa = PBXGroup;
+			children = (
+				CEBF378B225259B60003E897 /* OFADashboardTableViewController.swift */,
+				CE72DB152255DBA6009C1047 /* OFAWebViewDashboardViewController.swift */,
+			);
+			name = "Dashboard Courses";
+			sourceTree = "<group>";
+		};
+		CE73B3D6225352A500456331 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				CE73B3D4225352A000456331 /* OFADashboardTableViewCell.swift */,
+				CE30546E225489E2005DA01B /* OFADashboardOtherCoursesTableViewCell.swift */,
+				CE73B3D72253530700456331 /* OFADashboardCoursesCollectionViewCell.swift */,
+				CE30546C22547FB6005DA01B /* OFADashboardOtherCoursesCollectionViewCell.swift */,
+			);
+			name = Dashboard;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1118,7 +1152,7 @@
 				TargetAttributes = {
 					847A82D51F39740100AB3D32 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 85B835546C;
+						DevelopmentTeam = 5P7ZL8LJJJ;
 						LastSwiftMigration = 1000;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -1287,6 +1321,8 @@
 				CE2EADB5219D30F20040CEBC /* UIImageView+Letters.m in Sources */,
 				8400CB3E1F3DB483005B2086 /* MHProgressButton.swift in Sources */,
 				846D09FA1F3AE98F00AADB82 /* HandleNullValues.m in Sources */,
+				CE30546F225489E2005DA01B /* OFADashboardOtherCoursesTableViewCell.swift in Sources */,
+				CEBF378C225259B60003E897 /* OFADashboardTableViewController.swift in Sources */,
 				CE712F492195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift in Sources */,
 				847A834E1F398B3500AB3D32 /* UIView+WebCacheOperation.m in Sources */,
 				8488FBDB1F419C06000B5E11 /* OFACourseDetailsCurriculumTableViewCell.swift in Sources */,
@@ -1318,6 +1354,7 @@
 				8488FBE11F41A447000B5E11 /* OFACourseReviewsTableViewCell.swift in Sources */,
 				84B363DD1F95C795001F4252 /* OFAAssessmentScoreCardTableViewController.swift in Sources */,
 				84879F6E1F737C3B001724C3 /* OFADescriptiveTableViewController.swift in Sources */,
+				CE73B3D5225352A000456331 /* OFADashboardTableViewCell.swift in Sources */,
 				CE249047219C4459008CC796 /* OFAMyQuestionsTableViewController.swift in Sources */,
 				84DB72B41FBB1C8F003A5053 /* OFAForgotPasswordTableViewController.swift in Sources */,
 				8415BE701F66BA600075B7B5 /* OFAMyCourseResultsTableViewCell.swift in Sources */,
@@ -1354,6 +1391,7 @@
 				847A83131F3989CE00AB3D32 /* OFAPageViewImagesViewController.swift in Sources */,
 				847A83021F397CDE00AB3D32 /* OFAConstants.swift in Sources */,
 				849B69FA1F629D0D00EFD167 /* OFAQuestionDetailsRepliesTableViewCell.swift in Sources */,
+				CE72DB162255DBA6009C1047 /* OFAWebViewDashboardViewController.swift in Sources */,
 				84CF8EA11F57FEBB00CF93E8 /* OFAMyCourseCurriculumListContainerViewController.swift in Sources */,
 				8488FBEE1F41BBE5000B5E11 /* OFACourseDetailsDescriptionTableViewCell.swift in Sources */,
 				84A343AB1F87B1BA00C48332 /* OFAAssessmentQuestionListTableViewCell.swift in Sources */,
@@ -1365,8 +1403,10 @@
 				8488FBDE1F41A040000B5E11 /* OFACourseCurriculumTableViewCell.swift in Sources */,
 				845222291F99FE950080F09A /* OFAPieChartView.swift in Sources */,
 				847A83061F397CDE00AB3D32 /* OFACustomTextField.swift in Sources */,
+				CE30546D22547FB6005DA01B /* OFADashboardOtherCoursesCollectionViewCell.swift in Sources */,
 				843E42741FB2E24000857E62 /* OFAEditMyProfileTableViewController.swift in Sources */,
 				844270881F4DAE3D002CAD2A /* OFAYoutubeVideoViewController.swift in Sources */,
+				CE73B3D82253530700456331 /* OFADashboardCoursesCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1510,10 +1550,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_MODULE_DEBUGGING = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ayyappan Asokan (3WYBNZJ96C)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ayyappan Asokan (3WYBNZJ96C)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: HealthConnect Digital Pte Ltd (5P7ZL8LJJJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HealthConnect Digital Pte Ltd (5P7ZL8LJJJ)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 85B835546C;
+				DEVELOPMENT_TEAM = 5P7ZL8LJJJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -1522,10 +1562,10 @@
 				INFOPLIST_FILE = Mediknit_Ofabee/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.enfin.mediknit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.healthconnect.mediknit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "014b937e-7849-403f-8f87-d6538b8a1e93";
-				PROVISIONING_PROFILE_SPECIFIER = Mediknit_Development_profile_Nov_22;
+				PROVISIONING_PROFILE_SPECIFIER = Mediknit_AppStore_Distribution_Mar_29;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/user/Desktop/Althaf/Projects/Git Projects/MediKnit/Mediknit_iOS/Mediknit_Ofabee/Mediknit-Ofabee-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -1539,10 +1579,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_MODULE_DEBUGGING = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ayyappan Asokan (3WYBNZJ96C)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ayyappan Asokan (3WYBNZJ96C)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: HealthConnect Digital Pte Ltd (5P7ZL8LJJJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HealthConnect Digital Pte Ltd (5P7ZL8LJJJ)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 85B835546C;
+				DEVELOPMENT_TEAM = 5P7ZL8LJJJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -1551,10 +1591,10 @@
 				INFOPLIST_FILE = Mediknit_Ofabee/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.enfin.mediknit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.healthconnect.mediknit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "014b937e-7849-403f-8f87-d6538b8a1e93";
-				PROVISIONING_PROFILE_SPECIFIER = Mediknit_Development_profile_Nov_22;
+				PROVISIONING_PROFILE_SPECIFIER = Mediknit_AppStore_Distribution_Mar_29;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/user/Desktop/Althaf/Projects/Git Projects/MediKnit/Mediknit_iOS/Mediknit_Ofabee/Mediknit-Ofabee-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};

@@ -16,8 +16,8 @@ class OFALeftSideMenuTableViewController: UITableViewController {
     @IBOutlet var imageViewUser: UIImageView!
     @IBOutlet var labelUserName: UILabel!
     
-    var arraySideMenu = ["My Courses","My Profile","Logout"]
-    var arrayIdentifiers = ["MyCourseTVC","ProfileTVC",""]
+    var arraySideMenu = ["Dashboard","My Courses","My Profile","Logout"]
+    var arrayIdentifiers = ["DashboardTVC","MyCourseTVC","ProfileTVC",""]
     
     var currentRow:Int = 0
     var currentSection = 0
@@ -106,7 +106,7 @@ class OFALeftSideMenuTableViewController: UITableViewController {
         let identifier = self.arrayIdentifiers[indexPath.row]
         
         
-        if indexPath.row == 2{
+        if indexPath.row == 3{
             self.logout()
         }else{
             let centerVC: UIViewController = (self.storyboard?.instantiateViewController(withIdentifier: identifier))!

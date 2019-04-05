@@ -297,8 +297,7 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
                                         registerUser.emailID = email!
                                         self.navigationItem.title = ""
                                         self.navigationController?.pushViewController(registerUser, animated: true)
-                                    }
-                                    if responseJSON.response?.statusCode == 203{
+                                    }else if responseJSON.response?.statusCode == 203{
                                         //invalid user/password
                                         OFAUtils.removeLoadingView(nil)
                                         OFAUtils.showAlertViewControllerWithinViewControllerWithTitle(viewController: self, alertTitle: nil, message: "\(dicResponse["message"]!)", cancelButtonTitle: "OK")
@@ -316,8 +315,7 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
                                             
                                         }))
                                         self.present(sessionAlert, animated: true, completion: nil)
-                                    }
-                                    else if let token = dicResponse["token"] {
+                                    }else if let token = dicResponse["token"] {
                                         let dicBody = dicResponse["body"] as! NSDictionary
                                         
                                         UserDefaults.standard.setValue(email!, forKey: EMAIL)
