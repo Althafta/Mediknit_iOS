@@ -21,9 +21,9 @@ extension UIViewController {
             // Fallback on earlier versions
         }
         self.navigationController?.navigationBar.barTintColor = UIColor.white//OFAUtils.getColorFromHexString(barTintColor)
-        if isSidemenuEnabled{
-            self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!) 
-        }
+//        if isSidemenuEnabled{
+//            self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
+//        }
     }
     
     func removeNavigationBarItem() {

@@ -16,7 +16,7 @@ class OFAMyProfileTableViewController: UITableViewController,UIImagePickerContro
     @IBOutlet var labelUserName: UILabel!
     @IBOutlet var labelEmail: UILabel!
     @IBOutlet var labelPhone: UILabel!
-    @IBOutlet var textViewBio: UITextView!
+    @IBOutlet var buttonleftIcon: UIButton!
     
     var imagePicker = UIImagePickerController()
     var actionSheet = UIAlertController()
@@ -40,6 +40,9 @@ class OFAMyProfileTableViewController: UITableViewController,UIImagePickerContro
 //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "profileEdit"), style: .plain, target: self, action: #selector(self.editPressed))
         
         self.imageViewUser.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.editImagePressed)))
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.buttonleftIcon)
+        
         self.tableView.reloadData()
     }
 
@@ -81,6 +84,10 @@ class OFAMyProfileTableViewController: UITableViewController,UIImagePickerContro
     }
     
     //MARK:- Button Actions
+    
+    @IBAction func dashboardIconPressed(_ sender: UIButton) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
     
     @objc func editPressed(){
         let editProfile = self.storyboard?.instantiateViewController(withIdentifier: "EditMyProfileTVC") as! OFAEditMyProfileTableViewController

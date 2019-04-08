@@ -14,6 +14,8 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
 
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var headerView: UIView!
+    @IBOutlet var buttonLeftIcon: UIButton!
+    
     var arrayMyCourses = NSMutableArray()
     let user_id = UserDefaults.standard.value(forKey: USER_ID)
     let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN)
@@ -41,6 +43,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         self.tableView.backgroundColor = OFAUtils.getColorFromHexString(ofabeeCellBackground)
         self.headerView.backgroundColor = OFAUtils.getColorFromHexString(ofabeeCellBackground)
         self.setNavigationBarItem(isSidemenuEnabled: true)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.buttonLeftIcon)
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,7 +53,6 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.refreshInitiated()
     }
     
@@ -61,10 +63,6 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     
     @objc func tapAction(){
         self.view.endEditing(true)
-    }
-
-    func searchBarButtonPressed(){
-        
     }
     
     @objc func refreshInitiated(){
@@ -195,6 +193,11 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         }else{
             return 0//self.searchBar.bounds.height
         }
+    }
+     //MARK:-  Button Actions
+    
+    @IBAction func dashBoardIconPressed(_ sender: UIButton) {
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     //MARK:- Search Bar Delegates

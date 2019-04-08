@@ -1550,8 +1550,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_MODULE_DEBUGGING = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: HealthConnect Digital Pte Ltd (5P7ZL8LJJJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HealthConnect Digital Pte Ltd (5P7ZL8LJJJ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ayyappan Asokan (SURG73B4D2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ayyappan Asokan (SURG73B4D2)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 5P7ZL8LJJJ;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1565,7 +1565,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.healthconnect.mediknit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "014b937e-7849-403f-8f87-d6538b8a1e93";
-				PROVISIONING_PROFILE_SPECIFIER = Mediknit_AppStore_Distribution_Mar_29;
+				PROVISIONING_PROFILE_SPECIFIER = Mediknit_Development_Apr_8;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/user/Desktop/Althaf/Projects/Git Projects/MediKnit/Mediknit_iOS/Mediknit_Ofabee/Mediknit-Ofabee-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -1579,8 +1579,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_MODULE_DEBUGGING = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: HealthConnect Digital Pte Ltd (5P7ZL8LJJJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HealthConnect Digital Pte Ltd (5P7ZL8LJJJ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ayyappan Asokan (SURG73B4D2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ayyappan Asokan (SURG73B4D2)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 5P7ZL8LJJJ;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1594,7 +1594,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.healthconnect.mediknit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "014b937e-7849-403f-8f87-d6538b8a1e93";
-				PROVISIONING_PROFILE_SPECIFIER = Mediknit_AppStore_Distribution_Mar_29;
+				PROVISIONING_PROFILE_SPECIFIER = Mediknit_Development_Apr_8;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/user/Desktop/Althaf/Projects/Git Projects/MediKnit/Mediknit_iOS/Mediknit_Ofabee/Mediknit-Ofabee-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};

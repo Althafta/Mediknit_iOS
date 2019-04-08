@@ -9,10 +9,16 @@
 import UIKit
 import Alamofire
 
+protocol MyCourseDashboardListDelegate {
+    func pushToCourseDetails(dicDetails:NSDictionary)
+}
+
 class OFADashboardTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSource {
     
     @IBOutlet weak var collectionViewMyCourse: UICollectionView!
     @IBOutlet weak var labelCourseTitle: UILabel!
+    
+    var delegate:MyCourseDashboardListDelegate!
     
     var courseTitle = ""
     var arrayCourseList = NSMutableArray()
@@ -32,14 +38,18 @@ class OFADashboardTableViewCell: UITableViewCell,UICollectionViewDelegate,UIColl
         // Configure the view for the selected state
     }
 
+    //MARK:- Cell customizisation
+    
     func customizeCellWithDetails(sectionTitle:String, identifier:String){
         self.labelCourseTitle.text = sectionTitle
         self.getCourseList(usingIdentifier: identifier)
     }
     
+    //MARK:- Get course list
+    
     func getCourseList(usingIdentifier identifier:String){
         let dicParameters = NSDictionary(objects: [self.user_id as! String,domainKey,self.accessToken as! String,identifier], forKeys: ["user_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying,"identifier" as NSCopying])
-        OFAUtils.showLoadingViewWithTitle("Loading")
+//        OFAUtils.showLoadingViewWithTitle("Loading")
         Alamofire.request(userBaseURL+"api/course/dashboard_course", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let dicResponse = responseJSON.result.value as? NSDictionary{
                 OFAUtils.removeLoadingView(nil)
@@ -47,7 +57,9 @@ class OFADashboardTableViewCell: UITableViewCell,UICollectionViewDelegate,UIColl
                 let arrayCourse = dicBody["course"] as! NSArray
                 for item in arrayCourse{
                     let dicCourseDetails = item as! NSDictionary
-                    self.arrayCourseList.add(dicCourseDetails)
+                    if !self.arrayCourseList.contains(dicCourseDetails){
+                        self.arrayCourseList.add(dicCourseDetails)
+                    }
                 }
                 self.collectionViewMyCourse.reloadData()
             }else{
@@ -56,6 +68,8 @@ class OFADashboardTableViewCell: UITableViewCell,UICollectionViewDelegate,UIColl
             }
         }
     }
+    
+    //MARK:- CollectionView delegates
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.arrayCourseList.count
@@ -67,6 +81,11 @@ class OFADashboardTableViewCell: UITableViewCell,UICollectionViewDelegate,UIColl
         cell.customizeCellWithDetails(imageURL: "\(dicCourseDetail["cb_image"]!)", courseTitle: "\(dicCourseDetail["cb_title"]!)", lectureCount: "\(dicCourseDetail["total_lectures"]!)", lecturePercentage: "\(dicCourseDetail["percentage"]!)", startDate: self.getFormattedStringDate(stringDate: "\(dicCourseDetail["cs_start_date"]!)"), endDate: self.getFormattedStringDate(stringDate: "\(dicCourseDetail["cs_end_date"]!)"))
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let dicCourseDetail = self.arrayCourseList[indexPath.row] as! NSDictionary
+        self.delegate.pushToCourseDetails(dicDetails: dicCourseDetail)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
