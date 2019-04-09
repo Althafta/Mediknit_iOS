@@ -33,12 +33,18 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
         self.refreshController.addTarget(self, action: #selector(self.refreshInitiated), for: .valueChanged)
         self.tableView.refreshControl = self.refreshController
         
+        let labelTitle = UILabel()
+        labelTitle.text = "MEDIKNIT"
+//        labelTitle.font = UIFont(name: "Open Sans-Bold", size: 17)
+        labelTitle.textColor = OFAUtils.getColorFromHexString(barTintColor)
+        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: UIImageView(image: UIImage(named: "DashboardIcon"))),UIBarButtonItem(customView: labelTitle)]
+        
         self.customAppearance()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = "MEDIKNIT"
+//        self.navigationItem.title = "MEDIKNIT"
         self.refreshInitiated()
     }
     
@@ -65,7 +71,7 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
             arrayCourses = NSKeyedUnarchiver.unarchiveObject(with: dataSubscribedCourses) as! NSArray
         }
         let dicParameters = NSDictionary(objects: [self.user_id as! String,domainKey,self.accessToken as! String,arrayCourses], forKeys: ["user_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying,"courses" as NSCopying])
-//        OFAUtils.showLoadingViewWithTitle("Loading")
+        OFAUtils.showLoadingViewWithTitle("Loading")
         Alamofire.request(userBaseURL+"api/course/dashboard_content", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let dicResponse = responseJSON.result.value as? NSDictionary{
                 OFAUtils.removeLoadingView(nil)

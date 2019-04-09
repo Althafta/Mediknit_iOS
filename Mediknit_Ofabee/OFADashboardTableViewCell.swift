@@ -53,15 +53,19 @@ class OFADashboardTableViewCell: UITableViewCell,UICollectionViewDelegate,UIColl
         Alamofire.request(userBaseURL+"api/course/dashboard_course", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let dicResponse = responseJSON.result.value as? NSDictionary{
                 OFAUtils.removeLoadingView(nil)
-                let dicBody = dicResponse["body"] as! NSDictionary
-                let arrayCourse = dicBody["course"] as! NSArray
-                for item in arrayCourse{
-                    let dicCourseDetails = item as! NSDictionary
-                    if !self.arrayCourseList.contains(dicCourseDetails){
-                        self.arrayCourseList.add(dicCourseDetails)
+                if "\(dicResponse["success"]!)" == "1"{
+                    let dicBody = dicResponse["body"] as! NSDictionary
+                    let arrayCourse = dicBody["course"] as! NSArray
+                    for item in arrayCourse{
+                        let dicCourseDetails = item as! NSDictionary
+                        if !self.arrayCourseList.contains(dicCourseDetails){
+                            self.arrayCourseList.add(dicCourseDetails)
+                        }
                     }
+                    self.collectionViewMyCourse.reloadData()
+                }else{
+                    OFAUtils.showToastWithTitle("\(dicResponse["message"]!)")
                 }
-                self.collectionViewMyCourse.reloadData()
             }else{
                 OFAUtils.removeLoadingView(nil)
                 OFAUtils.showToastWithTitle("My course detail loading failed")
