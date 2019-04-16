@@ -66,12 +66,7 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         super.viewDidLoad()
         self.ratingView.delegate = self
         self.ratingView.rating = self.rating
-        //        self.navigationController?.hidesBarsOnTap = true
-        
-//        self.buttonCurriculum.layer.cornerRadius = self.buttonCurriculum.frame.height/2
-//        self.buttonCurriculum.layer.borderColor = OFAUtils.getColorFromHexString(barTintColor).cgColor
-//        self.buttonCurriculum.layer.borderWidth = 1.0
-        
+
         self.buttonQandA.layer.cornerRadius = self.buttonQandA.frame.height/2
         self.buttonQandA.layer.borderColor = OFAUtils.getColorFromHexString(barTintColor).cgColor
         self.buttonQandA.layer.borderWidth = 1.0
@@ -83,9 +78,6 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         volumeBar.animation = .fadeIn
         
         view.addSubview(volumeBar)
-        
-//        let m3u8URLString = self.videoURLString.components(separatedBy: "/videos/")
-//        self.videoURLString = videoIOSUrl + m3u8URLString[1]
         
         self.avPlayer = AVPlayer(url: URL(string: self.videoURLString)!)
         self.avVideoPlayerController.view.frame = self.viewVideoContent.frame
@@ -103,7 +95,7 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
             self.originalTime = currentTime.toInt()!
             let cmtime = CMTime(seconds: currentTime, preferredTimescale: 1)
             self.avPlayer.play()
-//            self.avVideoPlayerController.showsPlaybackControls = false
+            
             self.time = Int(CMTimeGetSeconds(cmtime))
             self.avPlayer.seek(to: cmtime)
             self.seekedTime = cmtime
@@ -116,18 +108,18 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.didFinishedInterativeQuestion), name: NSNotification.Name(rawValue: "InteractiveQuestionCompleted"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.willResignActiveNotification), name: NSNotification.Name.init(rawValue: "WillRisignActiveNotification"), object: nil)
-        self.buttonQandA.isHidden = false
-//        self.buttonCurriculum.isHidden = true
+        NotificationCenter.default.addObserver(self, selector: #selector(self.willResignActiveNotification), name: NSNotification.Name.init(rawValue: "WillResignActiveNotification"), object: nil)
         
-//        self.present(self.avVideoPlayerController, animated: true, completion: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.detectScreenRecording), name: NSNotification.Name(rawValue: "kScreenRecordingDetectorRecordingStatusChangedNotification"), object: nil)
+        
+        self.buttonQandA.isHidden = false
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(awesomeType: .fa_ellipsis_v, style: .plain, target: self, action: #selector(self.rightBarButtonPressed))
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -138,18 +130,22 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         if isLiveVideo == true{
             self.liveTimer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.getVideoDetails), userInfo: nil, repeats: true)
         }
+        self.detectScreenRecording()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         OFAUtils.lockOrientation(.portrait)
-//        self.timerStarted.invalidate()
         avPlayer.pause()
         if !isSeeked {
             self.saveLectureProgress()
         }
         removeBlur()
         animateOut()
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "kScreenRecordingDetectorRecordingStatusChangedNotification"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.init(rawValue: "WillResignActiveNotification"), object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -157,6 +153,17 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         avPlayer.pause()
         self.liveTimer.invalidate()
         UIApplication.shared.isStatusBarHidden = false
+    }
+    
+    //MARK:- Screen recording detector
+    
+    @objc func detectScreenRecording(){
+        if (ScreenRecordingDetector.sharedInstance()?.isRecording())!{
+            self.avPlayer.pause()
+            OFAUtils.showAlertViewControllerWithTitle("Warning", message: "Screen Recording is not supported", cancelButtonTitle: "OK")
+        }else{
+            self.avPlayer.play()
+        }
     }
     
     //MARK:- Barbutton action
@@ -204,11 +211,9 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
     
     func getInteractiveQuestionsArray(at timeInterval:String){
         guard let questionInterval = NumberFormatter().number(from: timeInterval) else { return }
-//        print(questionInterval)
         if self.arrayQuestionTimes.contains(questionInterval){
             self.avVideoPlayerController.dismiss(animated: true, completion: nil)
             let arrayQuestionAtInterval = self.dicInteractiveQuestion[timeInterval] as! NSArray
-//            print(arrayQuestionAtInterval)
             let interactiveQuestions = self.storyboard?.instantiateViewController(withIdentifier: "InteractiveQuestionsTVC") as! OFAInteractiveQuestionsTableViewController
             UserDefaults.standard.setValue(arrayQuestionAtInterval, forKey: "QuestionArray")
             UserDefaults.standard.setValue(0, forKey: "PageIndex")
@@ -218,25 +223,12 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
             let nav = UINavigationController(rootViewController: interactiveQuestions)
             if self.avVideoPlayerController.isTopVC(self){
                 self.presentedViewController?.dismiss(animated: true, completion: {
-//                    self.present(nav, animated: true, completion: nil)
                 })
                 self.present(nav, animated: true, completion: nil)
             }else{
                 self.present(nav, animated: true, completion: nil)
             }
             self.avPlayer.pause()
-            
-//            if self.avVideoPlayerController.isBeingPresented{
-//                self.presentedViewController?.dismiss(animated: true, completion: {
-//                    self.present(nav, animated: true, completion: nil)
-//                })
-//            }else{
-//                self.present(nav, animated: true, completion: nil)
-//            }
-//            self.avVideoPlayerController.dismiss(animated: true) {
-//                self.present(nav, animated: true, completion: nil)
-//            }
-//            self.avVideoPlayerController.present(nav, animated: true, completion: nil)
         }
     }
     
@@ -251,39 +243,25 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
                     self.isSeeked = true
                     self.avPlayer.pause()
                     self.avPlayer.seek(to: CMTime(seconds: Double(self.originalTime), preferredTimescale: 1))
-                    //                    self.originalTime = intCurrentTime
                     self.perform(#selector(self.firstTimePlayFunction), with: nil, afterDelay: 0.5)
-                    //                    OFAUtils.showToastWithTitle("You cannot skip this lecture")
                 }
             }
         }
         if avPlayer.timeControlStatus == .playing{
+            self.detectScreenRecording()
             let currentTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.currentTime())!)
             let totalPlayerTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.asset.duration)!)
             self.percentage = (currentTime/totalPlayerTime)*100
             self.time = Int(currentTime)
             print(currentTime)
             print(self.time)
-//            self.getInteractiveQuestionsArray(at: "\(Int(currentTime))")
             self.getInteractiveQuestionsArray(at: "\(self.time)")
             let intCurrentTime = Int(currentTime)
             if intCurrentTime > self.time{
-                //print("seeked to time")
                 self.isSeeked = false
-//                self.timerStarted.invalidate()
             }else{
                 self.isSeeked = false
             }
-//            if intCurrentTime > self.originalTime{
-//                if self.isFirstTime{
-//                    self.isSeeked = true
-//                    self.avPlayer.pause()
-//                    self.avPlayer.seek(to: CMTime(seconds: Double(self.originalTime), preferredTimescale: 1))
-////                    self.originalTime = intCurrentTime
-//                    self.perform(#selector(self.firstTimePlayFunction), with: nil, afterDelay: 0.5)
-////                    OFAUtils.showToastWithTitle("You cannot skip this lecture")
-//                }
-//            }
             self.originalTime += 1
             self.time += 1
         }
@@ -327,8 +305,13 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
     
     //MARK:- NotificationCenter Functions
     
+    @objc func didBecomeActive(){
+        ScreenRecordingDetector.triggerDetectorTimer()
+    }
+    
     @objc func willResignActiveNotification(){
         self.avPlayer.pause()
+        ScreenRecordingDetector.stopTimer()
     }
     
     @objc func didFinishedPlaying(){

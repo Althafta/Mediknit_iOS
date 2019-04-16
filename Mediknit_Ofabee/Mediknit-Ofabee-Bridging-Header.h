@@ -9,6 +9,7 @@
 #import "UITextfieldScrollViewController.h"
 #import <PlugNPlay/PlugNPlay.h>
 #import "UIImageView+Letters.h"
+#import "ScreenRecordingDetector.h"
 //#import "KMMedia.h"
 
 

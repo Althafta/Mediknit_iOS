@@ -122,6 +122,7 @@
 		CE2EADB8219D9D640040CEBC /* OFALectureDiscussionMyQuestionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2EADB7219D9D640040CEBC /* OFALectureDiscussionMyQuestionsTableViewCell.swift */; };
 		CE30546D22547FB6005DA01B /* OFADashboardOtherCoursesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE30546C22547FB6005DA01B /* OFADashboardOtherCoursesCollectionViewCell.swift */; };
 		CE30546F225489E2005DA01B /* OFADashboardOtherCoursesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE30546E225489E2005DA01B /* OFADashboardOtherCoursesTableViewCell.swift */; };
+		CE5C35682265DA4400D28BFE /* ScreenRecordingDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5C35672265DA4300D28BFE /* ScreenRecordingDetector.m */; };
 		CE712F4721958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE712F4621958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift */; };
 		CE712F492195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE712F482195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift */; };
 		CE72DB162255DBA6009C1047 /* OFAWebViewDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE72DB152255DBA6009C1047 /* OFAWebViewDashboardViewController.swift */; };
@@ -315,6 +316,8 @@
 		CE2EADB7219D9D640040CEBC /* OFALectureDiscussionMyQuestionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFALectureDiscussionMyQuestionsTableViewCell.swift; sourceTree = "<group>"; };
 		CE30546C22547FB6005DA01B /* OFADashboardOtherCoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFADashboardOtherCoursesCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE30546E225489E2005DA01B /* OFADashboardOtherCoursesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFADashboardOtherCoursesTableViewCell.swift; sourceTree = "<group>"; };
+		CE5C35662265DA4300D28BFE /* ScreenRecordingDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScreenRecordingDetector.h; sourceTree = "<group>"; };
+		CE5C35672265DA4300D28BFE /* ScreenRecordingDetector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScreenRecordingDetector.m; sourceTree = "<group>"; };
 		CE712F4621958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAInteractiveQuestionsTableViewController.swift; sourceTree = "<group>"; };
 		CE712F482195A6D300554EEA /* OFAVideoInteractiveQuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAVideoInteractiveQuestionTableViewCell.swift; sourceTree = "<group>"; };
 		CE72DB152255DBA6009C1047 /* OFAWebViewDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFAWebViewDashboardViewController.swift; sourceTree = "<group>"; };
@@ -679,6 +682,7 @@
 		847A82F01F39744100AB3D32 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CE5C35692265DA5500D28BFE /* Screen Recorder Detector */,
 				CE2EADB6219D31120040CEBC /* ImageView+Letters */,
 				84AD5CC62036CA6F003DB93B /* Font Awesome */,
 				8419F1541F7241A9003758C8 /* UITextfield ScrollableVC */,
@@ -1094,6 +1098,15 @@
 			name = "ImageView+Letters";
 			sourceTree = "<group>";
 		};
+		CE5C35692265DA5500D28BFE /* Screen Recorder Detector */ = {
+			isa = PBXGroup;
+			children = (
+				CE5C35662265DA4300D28BFE /* ScreenRecordingDetector.h */,
+				CE5C35672265DA4300D28BFE /* ScreenRecordingDetector.m */,
+			);
+			name = "Screen Recorder Detector";
+			sourceTree = "<group>";
+		};
 		CE73B3D222531DCE00456331 /* Dashboard Courses */ = {
 			isa = PBXGroup;
 			children = (
@@ -1311,6 +1324,7 @@
 				8488FBE51F41A67E000B5E11 /* OFACourseInstructorsTableViewCell.swift in Sources */,
 				841400EA1F9DD5CC00B68E6B /* OFASemiCirclePieChart.swift in Sources */,
 				847A833F1F398B3500AB3D32 /* SDImageCache.m in Sources */,
+				CE5C35682265DA4400D28BFE /* ScreenRecordingDetector.m in Sources */,
 				CE712F4721958B9F00554EEA /* OFAInteractiveQuestionsTableViewController.swift in Sources */,
 				845EA0831F455AA3002FED75 /* TabySegmentedControl.swift in Sources */,
 				846D09F71F3AE8A900AADB82 /* OFASingletonUser.swift in Sources */,
