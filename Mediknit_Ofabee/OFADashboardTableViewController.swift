@@ -34,7 +34,7 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
         self.tableView.refreshControl = self.refreshController
         
         let labelTitle = UILabel()
-        labelTitle.text = "MEDIKNIT"
+        labelTitle.text = "Mediknit"
 //        labelTitle.font = UIFont(name: "Open Sans-Bold", size: 17)
         labelTitle.textColor = OFAUtils.getColorFromHexString(barTintColor)
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: UIImageView(image: UIImage(named: "DashboardIcon"))),UIBarButtonItem(customView: labelTitle)]
@@ -76,6 +76,14 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
             if let dicResponse = responseJSON.result.value as? NSDictionary{
                 OFAUtils.removeLoadingView(nil)
                 self.refreshController.endRefreshing()
+                if responseJSON.response?.statusCode == 203{
+                    let sessionAlert = UIAlertController(title: "Session Expired", message: nil, preferredStyle: .alert)
+                    sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
+                        self.sessionExpired()
+                    }))
+                    self.present(sessionAlert, animated: true, completion: nil)
+                    return
+                }
                 let dicBody = dicResponse["body"] as! NSDictionary
                 let arrayTitles = dicBody["title"] as! NSArray
                 for item in arrayTitles{
@@ -90,6 +98,11 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
                 OFAUtils.showToastWithTitle("Dashboard content loading failed")
             }
         }
+    }
+    
+    func sessionExpired() {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        delegate.logout()
     }
     
     // MARK: - Table view data source

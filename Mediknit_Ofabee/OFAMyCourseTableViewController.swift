@@ -85,7 +85,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
             if let result = responseJSON.result.value{
                 OFAUtils.removeLoadingView(nil)
                 let dicResult = result as! NSDictionary
-                if "\(dicResult["message"]!)" == "Login failed" {
+                if responseJSON.response?.statusCode == 203 {
                     let sessionAlert = UIAlertController(title: "Session Expired", message: nil, preferredStyle: .alert)
                     sessionAlert.addAction(UIAlertAction(title: "Login Again", style: .default, handler: { (action) in
                         self.sessionExpired()

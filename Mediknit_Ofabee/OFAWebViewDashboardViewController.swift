@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class OFAWebViewDashboardViewController: UIViewController {
+class OFAWebViewDashboardViewController: UIViewController,WKNavigationDelegate {
 
     @IBOutlet weak var webViewCourseDetails: WKWebView!
     var urlString = ""
@@ -19,6 +19,8 @@ class OFAWebViewDashboardViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        OFAUtils.showLoadingViewWithTitle("Loading")
+        self.webViewCourseDetails.navigationDelegate = self
         self.webViewCourseDetails.load(URLRequest(url: URL(string: self.urlString)!))
     }
 
@@ -26,4 +28,9 @@ class OFAWebViewDashboardViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationItem.title = self.titleString
     }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        OFAUtils.removeLoadingView(nil)
+    }
+    
 }
