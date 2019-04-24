@@ -1625,7 +1625,7 @@
                                                     <rect key="frame" x="0.0" y="28" width="355" height="90"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2FA-eo-HfX" id="439-kk-kWg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="89.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bz-39-Nk4">
@@ -3332,7 +3332,6 @@
                     <navigationItem key="navigationItem" id="1jX-65-lIn"/>
                     <connections>
                         <outlet property="buttonHome" destination="81f-9U-4HJ" id="AdX-lm-Joz"/>
-                        <outlet property="buttonLogout" destination="zul-Su-hPw" id="bu6-UL-5BJ"/>
                         <outlet property="buttonMyCourse" destination="ijp-A1-bm0" id="89A-an-A8v"/>
                         <outlet property="buttonMyProfile" destination="nKV-Dk-5HU" id="JdF-3T-qEn"/>
                         <outlet property="viewHeading" destination="t5w-hJ-BAo" id="AGt-wq-B4I"/>
@@ -3344,7 +3343,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Oc-DV-575">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
                             <subviews>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81f-9U-4HJ">
                                     <rect key="frame" x="10" y="25.5" width="90" height="21"/>
@@ -3399,38 +3398,21 @@
                             <constraints>
                                 <constraint firstItem="ijp-A1-bm0" firstAttribute="baseline" secondItem="nKV-Dk-5HU" secondAttribute="baseline" id="SDp-gs-4GT"/>
                                 <constraint firstItem="81f-9U-4HJ" firstAttribute="baseline" secondItem="ijp-A1-bm0" secondAttribute="firstBaseline" id="Sqa-ev-jV3"/>
-                                <constraint firstAttribute="trailing" secondItem="nKV-Dk-5HU" secondAttribute="trailing" constant="20" id="Urc-5x-J7V"/>
                                 <constraint firstAttribute="bottom" secondItem="81f-9U-4HJ" secondAttribute="bottom" constant="25.333333333333329" id="Y6i-w0-MTK"/>
                                 <constraint firstItem="ijp-A1-bm0" firstAttribute="leading" secondItem="81f-9U-4HJ" secondAttribute="trailing" constant="8" symbolic="YES" id="dXT-n6-8zk"/>
+                                <constraint firstAttribute="trailing" secondItem="nKV-Dk-5HU" secondAttribute="trailing" constant="20" id="gka-xO-frz"/>
                                 <constraint firstItem="nKV-Dk-5HU" firstAttribute="leading" secondItem="ijp-A1-bm0" secondAttribute="trailing" constant="8" symbolic="YES" id="lca-vB-ogb"/>
                                 <constraint firstItem="81f-9U-4HJ" firstAttribute="leading" secondItem="6Oc-DV-575" secondAttribute="leading" constant="10" id="liC-3E-0RB"/>
                                 <constraint firstItem="81f-9U-4HJ" firstAttribute="centerY" secondItem="6Oc-DV-575" secondAttribute="centerY" id="vgc-Ic-Ibm"/>
                             </constraints>
                         </scrollView>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zul-Su-hPw">
-                            <rect key="frame" x="328" y="16" width="40" height="40"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="7Ng-y3-7g6"/>
-                                <constraint firstAttribute="width" constant="40" id="hLJ-Cx-z1c"/>
-                            </constraints>
-                            <color key="tintColor" red="0.24052932860000001" green="0.71346527339999999" blue="0.96319597960000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <state key="normal" image="Logout">
-                                <color key="titleColor" red="0.23921568630000001" green="0.71372549019999998" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="logoutPressed:" destination="vO0-rU-Edq" eventType="touchUpInside" id="6Zk-DO-I6E"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="6Oc-DV-575" firstAttribute="top" secondItem="t5w-hJ-BAo" secondAttribute="top" id="85n-2w-j36"/>
-                        <constraint firstItem="zul-Su-hPw" firstAttribute="leading" secondItem="6Oc-DV-575" secondAttribute="trailing" constant="8" id="EF0-Mw-CkL"/>
+                        <constraint firstAttribute="bottom" secondItem="6Oc-DV-575" secondAttribute="bottom" id="QRD-LA-jvC"/>
                         <constraint firstItem="6Oc-DV-575" firstAttribute="leading" secondItem="t5w-hJ-BAo" secondAttribute="leading" id="QXW-nK-uSb"/>
-                        <constraint firstItem="6Oc-DV-575" firstAttribute="centerY" secondItem="zul-Su-hPw" secondAttribute="centerY" id="cmB-dX-hg8"/>
-                        <constraint firstAttribute="trailing" secondItem="zul-Su-hPw" secondAttribute="trailing" constant="7" id="uxW-8E-8KI"/>
-                        <constraint firstItem="zul-Su-hPw" firstAttribute="centerY" secondItem="t5w-hJ-BAo" secondAttribute="centerY" id="zpo-2K-5qf"/>
+                        <constraint firstAttribute="trailing" secondItem="6Oc-DV-575" secondAttribute="trailing" id="QpN-TF-Kdi"/>
                     </constraints>
                 </view>
             </objects>
@@ -5297,7 +5279,6 @@
         <image name="Download" width="25" height="30"/>
         <image name="GoogleIcon" width="25" height="25"/>
         <image name="LeftMenuDown" width="17" height="17"/>
-        <image name="Logout" width="20" height="20"/>
         <image name="PadLock" width="170" height="170"/>
         <image name="Wrong_Answer" width="15" height="15"/>
         <image name="checkmarkSelected" width="25" height="25"/>

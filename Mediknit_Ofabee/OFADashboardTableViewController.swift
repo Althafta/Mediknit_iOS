@@ -16,7 +16,7 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
     @IBOutlet weak var buttonHome: UIButton!
     @IBOutlet weak var buttonMyCourse: UIButton!
     @IBOutlet weak var buttonMyProfile: UIButton!
-    @IBOutlet weak var buttonLogout: UIButton!
+//    @IBOutlet weak var buttonLogout: UIButton!
     
     let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
     let user_id = UserDefaults.standard.value(forKey: USER_ID)
@@ -38,6 +38,7 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
 //        labelTitle.font = UIFont(name: "Open Sans-Bold", size: 17)
         labelTitle.textColor = OFAUtils.getColorFromHexString(barTintColor)
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: UIImageView(image: UIImage(named: "DashboardIcon"))),UIBarButtonItem(customView: labelTitle)]
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Logout"), style: .plain, target: self, action: #selector(self.logoutPressed))
         
         self.customAppearance()
     }
@@ -52,12 +53,12 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
         self.buttonHome.layer.cornerRadius = self.buttonHome.frame.height/2
         self.buttonMyCourse.layer.cornerRadius = self.buttonMyCourse.frame.height/2
         self.buttonMyProfile.layer.cornerRadius = self.buttonMyProfile.frame.height/2
-        self.buttonLogout.layer.cornerRadius = self.buttonLogout.frame.height/2
+//        self.buttonLogout.layer.cornerRadius = self.buttonLogout.frame.height/2
         
         self.buttonHome.dropShadow()
         self.buttonMyProfile.dropShadow()
         self.buttonMyCourse.dropShadow()
-        self.buttonLogout.dropShadow()
+//        self.buttonLogout.dropShadow()
         self.viewHeading.dropShadow()
     }
     
@@ -191,7 +192,7 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
         self.navigationController?.pushViewController(myProfile, animated: true)
     }
     
-    @IBAction func logoutPressed(_ sender: UIButton) {
+    @objc func logoutPressed(_ sender: UIButton) {
         let logoutAlert = UIAlertController(title: "Do you want to logout?", message: nil, preferredStyle: .alert)
         logoutAlert.addAction(UIAlertAction(title: "Logout", style: .destructive, handler: { (action) in
             let delegate = UIApplication.shared.delegate as! AppDelegate
