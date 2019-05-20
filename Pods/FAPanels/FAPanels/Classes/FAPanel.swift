@@ -179,7 +179,6 @@ open class FAPanelController: UIViewController {
         leftPanelContainer.layer.shadowOffset = configs.shadowOffset
         leftPanelContainer.layer.shadowOpacity = configs.shadowOppacity
         leftPanelContainer.layer.shadowPath = shadowPath.cgPath
-
     }
     
     
@@ -258,7 +257,7 @@ open class FAPanelController: UIViewController {
         didSet {
             
             if _leftPanelPosition == .front {
-                configs.resizeLeftPanel = true
+                configs.resizeLeftPanel = false
             }
         
             layoutLeftContainer()
@@ -345,7 +344,12 @@ open class FAPanelController: UIViewController {
             }
         }
     }
-    
+    open var left: UIViewController? {
+        get {
+            return leftPanelVC
+        }
+    }
+
     
     internal var _rightPanelVC: UIViewController? = nil
     internal var rightPanelVC : UIViewController? {
@@ -375,7 +379,12 @@ open class FAPanelController: UIViewController {
             }
         }
     }
-    
+    open var right: UIViewController? {
+        get {
+            return rightPanelVC
+        }
+    }
+
     
     
     internal var _centerPanelVC: UIViewController? = nil
@@ -388,6 +397,12 @@ open class FAPanelController: UIViewController {
             setCenterPanelVC(newValue, afterThat: nil)
         }
     }
+    open var center: UIViewController? {
+        get {
+            return centerPanelVC
+        }
+    }
+
     
     internal func setCenterPanelVC( _ newValue: UIViewController?, afterThat completion: (() -> Void)? = nil) {
         
@@ -467,7 +482,9 @@ open class FAPanelController: UIViewController {
             }
         }
         else {
-            leftPanelContainer.frame = view.bounds
+            if leftPanelContainer != nil {
+                leftPanelContainer.frame = view.bounds
+            }
         }
     }
 
@@ -486,7 +503,10 @@ open class FAPanelController: UIViewController {
             }
         }
         else {
-            rightPanelContainer.frame = view.bounds
+            
+            if rightPanelContainer != nil {
+                rightPanelContainer.frame = view.bounds
+            }
         }
     }
     

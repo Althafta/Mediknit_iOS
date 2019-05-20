@@ -1,10 +1,10 @@
-    //
-    //  ViewController.m
-    //  PlugNPlayExample
-    //
-    //  Created by Yadnesh Wankhede on 8/8/16.
-    //  Copyright © 2016 Citrus Payment Solutions, Pvt. Ltd. All rights reserved.
-    //
+//
+//  ViewController.m
+//  PlugNPlayExample
+//
+//  Created by Yadnesh Wankhede on 8/8/16.
+//  Copyright © 2016 Citrus Payment Solutions, Pvt. Ltd. All rights reserved.
+//
 
 #import "ViewController.h"
 #import <CommonCrypto/CommonDigest.h>
@@ -14,6 +14,10 @@
 #define SCROLLVIEW_WIDTH 320
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+#define kMerchantKey @"mdyCKV"
+#define kMerchantID @"4914106"
+#define kMerchantSalt @"Je7q3652"
 
 @interface ViewController ()<UIScrollViewDelegate>{
     UITextField *fieldInAction;
@@ -32,9 +36,8 @@
     NSString *returnUrl;
 }
 @property BOOL isCompletionDisable;
-@property BOOL isWalletDisable;
-@property BOOL isCardsDisable;
-@property BOOL isNetbankDisable;
+@property BOOL isExitAlertOnBankPageDisable;
+@property BOOL isExitAlertOnCheckoutPageDisable;
 @end
 
 @implementation ViewController
@@ -51,7 +54,7 @@
     tapScroll.cancelsTouchesInView = YES;
     [_scrollView addGestureRecognizer:tapScroll];
     
-//    self.version.text = [NSString stringWithFormat:@"© PlugNPlay Demo v%@", PLUGNPLAY_VERSION];
+    self.version.text = [NSString stringWithFormat:@"© PlugNPlay Demo v%@", @""];
 
     _scrollView.delegate = self;
     
@@ -86,7 +89,7 @@
     [super viewWillAppear:animated];
     // [self keyBoardNotification];
     [self registerForKeyboardNotifications];
-    self.scrollView.contentSize = CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT);
+//    self.scrollView.contentSize = CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT);
     keyboardVisible = NO;
     
     if ([PayUMoneyCoreSDK isUserSignedIn]) {
@@ -150,10 +153,11 @@
     
     //Customize plug and play's behaviour//optional step
     [PlugNPlay setDisableCompletionScreen:_isCompletionDisable];
-    [PlugNPlay setDisableCards:_isCardsDisable];
-    [PlugNPlay setDisableNetbanking:_isNetbankDisable];
-    [PlugNPlay setDisableWallet:_isWalletDisable];
+    [PlugNPlay setExitAlertOnBankPageDisabled:_isExitAlertOnBankPageDisable];
+    [PlugNPlay setExitAlertOnCheckoutPageDisabled:_isExitAlertOnCheckoutPageDisable];
     
+    [PlugNPlay setOrderDetails:[self testOrderDetailsArray]];
+
     PUMTxnParam * txnParam = [self getTxnParam];
     [self rememberEnteredDetails];
     
@@ -179,6 +183,10 @@
     
 }
 
+- (NSArray *)testOrderDetailsArray {
+    return @[@{@"From":@"Delhi"}, @{@"To":@"Pune"}];
+}
+
 - (IBAction)resetTheme:(id)sender {
     [self resetThemeDetails];
 }
@@ -200,30 +208,23 @@
     }
     _isCompletionDisable = isDisable;
 }
-- (IBAction)disableWallet:(id)sender{
-    UISwitch *walletSwitch = (UISwitch *)sender;
+
+- (IBAction)disableExitAlertOnBankPage:(id)sender {
+    UISwitch *completionSwitch = (UISwitch *)sender;
     BOOL isDisable = NO;
-    if (walletSwitch.isOn) {
+    if (completionSwitch.isOn) {
         isDisable = YES;
     }
-    _isWalletDisable = isDisable;
-}
-- (IBAction)disableNetbanking:(id)sender{
-    UISwitch *netBankingSwitch = (UISwitch *)sender;
-    BOOL isDisable = NO;
-    if (netBankingSwitch.isOn) {
-        isDisable = YES;
-    }
-    _isNetbankDisable = isDisable;
+    _isExitAlertOnBankPageDisable = isDisable;
 }
 
-- (IBAction)disableCards:(id)sender{
-    UISwitch *cardsSwitch = (UISwitch *)sender;
+- (IBAction)disableExitAlertOnCheckoutPage:(id)sender {
+    UISwitch *completionSwitch = (UISwitch *)sender;
     BOOL isDisable = NO;
-    if (cardsSwitch.isOn) {
+    if (completionSwitch.isOn) {
         isDisable = YES;
     }
-    _isCardsDisable = isDisable;
+    _isExitAlertOnCheckoutPageDisable = isDisable;
 }
 
 #pragma mark - Touch events handling
@@ -337,7 +338,6 @@
     [self loadThemeColor];
 }
 
-
 #pragma mark - Helper methods
 
 -(PUMTxnParam*)getTxnParam{
@@ -350,8 +350,8 @@
     txnParam.amount = tfAmount.text;
     txnParam.environment = [self selectedEnv];
     txnParam.firstname = @"UserFirstName";
-    txnParam.key = txnParam.environment == PUMEnvironmentProduction ? @"mdyCKV" : @"Aqryi8";
-    txnParam.merchantid = txnParam.environment == PUMEnvironmentProduction ? @"4914106" : @"397202";
+    txnParam.key =  kMerchantKey;
+    txnParam.merchantid = kMerchantID;
 //    params.txnid = [NSString stringWithFormat:@"0nf7%@",[self getRandomString:4]];
     txnParam.txnID = @"12";
     txnParam.surl = @"https://www.payumoney.com/mobileapp/payumoney/success.php";
@@ -523,7 +523,6 @@
 
 -(void)doSignOut{
     if ([PayUMoneyCoreSDK isUserSignedIn]) {
-#warning CODE TO BE REMOVED BEFORE GOING LIVE
         [PayUMoneyCoreSDK signOut];
         [UIUtility toastMessageOnScreen:@"Signout Successfull"];
         _logout.enabled = NO;
@@ -536,14 +535,14 @@
 
 -(PUMEnvironment)selectedEnv {
     if(serverSelector.selectedSegmentIndex == 0){
-        return PUMEnvironmentPP44;
+        return PUMEnvironmentTest;
     }
     return PUMEnvironmentProduction;
 }
 
 //TODO: get rid of this function for test environemnt
 -(NSString*)getHashForPaymentParams:(PUMTxnParam*)txnParam {
-    NSString *salt = txnParam.environment == PUMEnvironmentProduction? @"Je7q3652" : @"ZRC9Xgru";
+    NSString *salt = kMerchantSalt;
     NSString *hashSequence = [NSString stringWithFormat:@"%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@",txnParam.key,txnParam.txnID,txnParam.amount,txnParam.productInfo,txnParam.firstname,txnParam.email,txnParam.udf1,txnParam.udf2,txnParam.udf3,txnParam.udf4,txnParam.udf5,txnParam.udf6,txnParam.udf7,txnParam.udf8,txnParam.udf9,txnParam.udf10, salt];
     
     NSString *hash = [[[[[self createSHA512:hashSequence] description]stringByReplacingOccurrencesOfString:@"<" withString:@""]stringByReplacingOccurrencesOfString:@">" withString:@""]stringByReplacingOccurrencesOfString:@" " withString:@""];

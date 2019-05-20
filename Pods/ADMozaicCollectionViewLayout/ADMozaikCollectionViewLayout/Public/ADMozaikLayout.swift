@@ -153,7 +153,7 @@ open class ADMozaikLayout: UICollectionViewFlowLayout {
     
     fileprivate func createSectionInformations() {
         guard let cache = self.layoutCache, let delegate = self.delegate, let collectionView = self.collectionView else {
-            fatalError("createLayoutGeometries internal parameters don't satisfy requirenments: cache: \(String(describing: self.layoutCache)), delegate: \(self.delegate), collectionView = \(String(describing: self.collectionView)))")
+            fatalError("createLayoutGeometries internal parameters don't satisfy requirenments: cache: \(String(describing: self.layoutCache)), delegate: \(String(describing: self.delegate)), collectionView = \(String(describing: self.collectionView)))")
         }
         var buildingLayoutGeometries: [ADMozaikLayoutSectionGeometry] = []
         var buildingLayoutMatrixes: [ADMozaikLayoutSectionMatrix] = []
@@ -161,7 +161,8 @@ open class ADMozaikLayout: UICollectionViewFlowLayout {
             let sectionGeometryInfo = delegate.collectonView(collectionView, mozaik: self, geometryInfoFor: section)
             let sectionGeometry = ADMozaikLayoutSectionGeometry(geometryInfo: sectionGeometryInfo)
             buildingLayoutGeometries.append(sectionGeometry)
-            let sectionMatrix = ADMozaikLayoutSectionMatrix(numberOfColumns: sectionGeometryInfo.columns.count, section: section)
+            let sectionContentMode = delegate.collectonView(collectionView, mozaik: self, contentModeFor: section)
+            let sectionMatrix = ADMozaikLayoutSectionMatrix(numberOfColumns: sectionGeometryInfo.columns.count, section: section, contentMode: sectionContentMode)
             buildingLayoutMatrixes.append(sectionMatrix)
         }
         self.layoutGeometries = buildingLayoutGeometries

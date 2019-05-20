@@ -1,39 +1,32 @@
 PODS:
-  - ADMozaicCollectionViewLayout (4.0.4)
-  - Alamofire (4.6.0)
-  - CitrusGraphics (2.0.0)
-  - DropDown (2.3.1)
-  - FAPanels (0.3.8)
-  - Floaty (4.0.1)
-  - FontAwesomeKit.Swift (0.4.2)
-  - GoogleSignIn (4.2.0):
+  - ADMozaicCollectionViewLayout (4.1.0)
+  - Alamofire (4.8.2)
+  - DropDown (2.3.13)
+  - FAPanels (0.5.0)
+  - Floaty (4.2.0)
+  - FontAwesomeKit.Swift (0.4.3)
+  - GoogleSignIn (4.4.0):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
-    - GTMOAuth2 (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleToolboxForMac/DebugUtils (2.1.4):
-    - GoogleToolboxForMac/Defines (= 2.1.4)
-  - GoogleToolboxForMac/Defines (2.1.4)
-  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.4)":
-    - GoogleToolboxForMac/DebugUtils (= 2.1.4)
-    - GoogleToolboxForMac/Defines (= 2.1.4)
-    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.4)"
-  - "GoogleToolboxForMac/NSString+URLArguments (2.1.4)"
-  - GTMOAuth2 (1.1.6):
-    - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.2.0):
-    - GTMSessionFetcher/Full (= 1.2.0)
-  - GTMSessionFetcher/Core (1.2.0)
-  - GTMSessionFetcher/Full (1.2.0):
-    - GTMSessionFetcher/Core (= 1.2.0)
-  - PayUmoney_CoreSDK (3.1)
-  - PayUmoney_PnP (2.1):
-    - CitrusGraphics
+  - GoogleToolboxForMac/DebugUtils (2.2.1):
+    - GoogleToolboxForMac/Defines (= 2.2.1)
+  - GoogleToolboxForMac/Defines (2.2.1)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.2.1)":
+    - GoogleToolboxForMac/DebugUtils (= 2.2.1)
+    - GoogleToolboxForMac/Defines (= 2.2.1)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.1)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.2.1)"
+  - GTMSessionFetcher/Core (1.2.2)
+  - PayUIndia-Custom-Browser (5.8.2)
+  - PayUmoney_CoreSDK (3.7):
+    - PayUIndia-Custom-Browser (~> 5.8.1)
+  - PayUmoney_PnP (2.5.0):
     - PayUmoney_CoreSDK
   - SlideMenuControllerSwift (4.0.0)
   - SnapKit (3.2.0)
-  - STRatingControl (1.1.0)
-  - YNDropDownMenu (3.0.1)
+  - STRatingControl (1.1.2)
+  - YNDropDownMenu (3.1.0)
   - YouTubePlayer (0.4.0)
 
 DEPENDENCIES:
@@ -55,15 +48,14 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - ADMozaicCollectionViewLayout
     - Alamofire
-    - CitrusGraphics
     - DropDown
     - FAPanels
     - Floaty
     - FontAwesomeKit.Swift
     - GoogleSignIn
     - GoogleToolboxForMac
-    - GTMOAuth2
     - GTMSessionFetcher
+    - PayUIndia-Custom-Browser
     - PayUmoney_CoreSDK
     - PayUmoney_PnP
     - SlideMenuControllerSwift
@@ -73,25 +65,24 @@ SPEC REPOS:
     - YouTubePlayer
 
 SPEC CHECKSUMS:
-  ADMozaicCollectionViewLayout: 3145a65a65e5f1f5dc22dd31b2e9a03407259adf
-  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  CitrusGraphics: 99a20691ab62595796b26dcc64646c12abbd962c
-  DropDown: 20499c7b2731b0d21609af924e47c7677a2be50d
-  FAPanels: b1b89a3916741be8f8fe29775eaf683435a7e91b
-  Floaty: 82854e1a5ef4fa208281ebd4da2f3d1e51ba67a6
-  FontAwesomeKit.Swift: 252b2e05752e6c7410866693c7350e62313da910
-  GoogleSignIn: 591e46382014e591269f862ba6e7bc0fbd793532
-  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
-  GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
-  GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
-  PayUmoney_CoreSDK: 650af3bbe3b274819112c40ae9fe37a42b1c4525
-  PayUmoney_PnP: 3041f47f2df4e5a8b0d63d2f2f7e2d6bb04b62df
+  ADMozaicCollectionViewLayout: d2fd1885758c17ef7728c4602ba8ed665935667b
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  FAPanels: def3b6e1e407ea1d1198d1acddc9d855d9e418ec
+  Floaty: e2bd5a0f6f7f70899e26ff2da31081c8bee8d1b0
+  FontAwesomeKit.Swift: a1ff696276568f92f5bdde75917744eb3989f45c
+  GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
+  GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
+  GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  PayUIndia-Custom-Browser: 39fa27d6a57806dcd2a38a9768bb110e60d8618a
+  PayUmoney_CoreSDK: 9c270b1ba54ae49ec57a2cbddc9fcd97e1d398e8
+  PayUmoney_PnP: d5ae7bf23e3e17c6fcd23e6763c2d78963eb318d
   SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
-  STRatingControl: 92346816fb485c8a547c9687a19f94c81d7929ba
-  YNDropDownMenu: 967ebe0c633ce8f40e8667574525aa230ba24560
+  STRatingControl: 254ee5f6dd174e3fa9d8365a08326291fd0bd950
+  YNDropDownMenu: 9c88e36c5f913bc614aaf0f3d0a7968f6251268b
   YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
 PODFILE CHECKSUM: 77cc4b8f14409a912ec5e9953d63280936b96e7e
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.2

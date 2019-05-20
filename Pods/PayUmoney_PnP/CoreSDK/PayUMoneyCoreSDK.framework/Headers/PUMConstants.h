@@ -27,4 +27,13 @@ typedef NS_ENUM(NSInteger, PUMEnvironment) {
 #define     ISSUER_JCB                                          @"JCB"
 
 
+
+#define     EMI_SMALL                                           @"emi"
+#define     EMI                                                 @"EMI"
+#define     UPI                                                 @"UPI"
+#define     CASH_CARD_SMALL                                     @"cashcard"
+#define     CASH_CARD_CAPITAL                                   @"CASHCARD"
+#define     CASH                                                @"CASH"
+
+#define     PAYMENT_MODE_CASH_CARD                                          @"cashcard"
 #endif /* PUMConstants_h */

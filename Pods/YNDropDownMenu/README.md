@@ -7,20 +7,20 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](https://github.com/younatics/YNDropDownMenu/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/younatics/YNDropDownMenu.svg?branch=master)](https://travis-ci.org/younatics/YNDropDownMenu)
 [![Platform](https://img.shields.io/cocoapods/p/YNDropDownMenu.svg?style=flat)](http://cocoapods.org/pods/YNDropDownMenu)
-[![Swift 4.0](https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
+[![Swift 5.0](https://img.shields.io/badge/Swift-5.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
 
 ## Updates
 See [CHANGELOG](https://github.com/younatics/YNDropDownMenu/blob/master/CHANGELOG.md) for details
 
-## Intoduction
-The eligible dropdown menu for iOS, written in Swift 4, appears dropdown menu to display a view of related items when a user click on the dropdown menu. You can customize dropdown view whatever you like (e.g. UITableView, UICollectionView... etc)
+## Introduction
+The eligible dropdown menu for iOS, written in Swift 5, appears dropdown menu to display a view of related items when a user click on the dropdown menu. You can customize dropdown view whatever you like (e.g. UITableView, UICollectionView... etc)
 
 ![demo](https://github.com/younatics/YNDropDownMenu/blob/master/Images/YNDropDownMenu.gif?raw=true)
 ![demo2](https://github.com/younatics/YNDropDownMenu/blob/master/Images/YNDropDownMenu2.gif?raw=true)
 
 ## Requirements
 
-`YNDropDownMenu` written in Swift 4. Compatible with iOS 8.0+
+`YNDropDownMenu` written in Swift 5. Compatible with iOS 8.0+
 
 ## Installation
 
@@ -98,9 +98,9 @@ view.alwaysSelected(at: 0)
 view.normalSelected(at: 0)
 ```
 
-Button Image with 3 situations (normal, selected, disabled)
+Button Images with 3 situations (normal, selected, disabled)
 ```swift
-view.setImageWhen(normal: UIImage(named: "arrow_nor"), selected: UIImage(named: "arrow_sel"), disabled: UIImage(named: "arrow_dim"))
+view.setStatesImages(normalImages: [UIImage(named: "arrow_nor")], selectedImages: [UIImage(named: "arrow_sel")], disabledImages: [UIImage(named: "arrow_dim")])
 ```
 
 Label color with 3 situations

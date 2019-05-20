@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-//#import "PlugAndPlayPayment.h"
+
 
 
 @interface PnPUtility : NSObject
@@ -19,6 +19,9 @@
 //+(NSString *)paymentAmount;
 //+(UIViewController *)merchantReturnVC;
 +(id)completionHandler;
+
++(void)cacheFetchUserData:(id)fetchUserData;
++(id)userData;
 
 //+(BOOL)isCompletionScreenDisabled;
 //+(NSString*)merchantDisplayName;
@@ -89,4 +92,24 @@
 +(NSDecimalNumber *)roundUpNumberTo2DecimalPlaces:(NSDecimalNumber *) number;
 +(NSString *)getDisplayCardNameForCardNumber:(NSString *)cardNumber pg:(NSString *) pg;
 +(BOOL)isAmexCard:(NSString *)cardNumber;
+
++ (NSArray *)topNBBanks;
+
++ (void)saveTopNBBanks:(NSArray *)topNBBanks;
+
++ (void)usedNBForBank:(NSString *)bankName andBankCode:(NSString *)bankCode;
+
++ (NSArray *)selectedWallets;
+
++ (void)usedWallet:(NSString *)name code:(NSString *)code;
++ (void)saveTopWallets:(NSArray *)topWallets;
+
+
++ (NSArray *)selectedEMIOptions;
++ (void)usedEMIOption:(NSString *)name code:(NSString *)code;
++ (void)saveTopEMIOptions:(NSArray *)topEMIOptions;
+
++ (NSArray *)getCardBinsArrayFromStoredCardArray:(NSArray *) arr;
++(NSString *)getDisplayCardNameForBankName:(NSString *)bankName pg:(NSString *) pg;
+
 @end

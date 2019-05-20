@@ -48,7 +48,7 @@ open class FAPanelConfigurations: NSObject {
     
     // resizes all subviews as well
     
-    open var resizeLeftPanel : Bool = true
+    open var resizeLeftPanel : Bool = false
     open var resizeRightPanel: Bool = true
     
     

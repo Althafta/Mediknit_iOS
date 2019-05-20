@@ -27,7 +27,7 @@
 
 #define DOWNLOAD_BANKIMAGE                          @"media/images/payment/payment/netbanking/"
 #define CC_BIN_DETAILS                              @"payment/op/v1/getBinDetails" // params bin=541891
-#define ADD_PAYMENT                                 @"payment/app/v1/addPayment"
+#define ADD_PAYMENT                                 @"payment/app/v2/addPayment"
 #define SEND_PAYMENT_OTP                            @"auth/op/sendPaymentOTP"
 #define USER_REG_AND_LOGIN                          @"auth/op/registerAndLogin"
 #define USER_GENERATE_WALLET_CODE                   @"/auth/app/generateWalletCode"
@@ -36,6 +36,7 @@
 #define USER_LOAD_WALLET_URL                        @"payment/app/wallet/loadWalletPayment"
 #define USER_FETCH_PAYMENT_USER_DATA_URL            @"payment/app/v1/fetchPaymentUserData"
 #define FETCH_USER_DATA_URL                         @"payment/op/v1/fetchUserDataFromEmailMobile"
+#define GET_MULTIPLE_BIN_DETAILS                    @"payment/op/v1/getMultipleBinDetails"
 
 
 //Cards
@@ -61,12 +62,14 @@
 #define OTP_URL                                     @"auth/op/generateAndSendOTP"
 #define Forgot_Password_URL                         @"auth/app/forgot/password"
 #define Cancel_Transaction_URL                      @"payment/postBackParam.do"
+#define Cancel_Transaction                          @"payment/postBackParamIcp.do"
 #define Post_Payment_URL                            @"payment/app/postPayment"
+#define Validate_VPA                                @"payu/validateVpa"
 
 // ONE_TAP_ENABLE
 #define ENABLE_ONE_TAP                              @"auth/app/setUserPaymentOption"  //params oneClickTxn=-1 OR 0 OR 1 <POST
 //#define KVAULT_TEST_URL                             @"http://tvapaymon.payubiz.in/vault/getToken" //POST
-#define KVAULT_TEST_URL                             @"http://pp41.payumoney.com/oneclick/getToken" //POST
+#define KVAULT_TEST_URL                             @"https://pp41.payumoney.com/oneclick/getToken" //POST
 #define KVAULT_DELETE_TOKEN_URL_TEST                @"http://tvapaymon.payubiz.in/vault/deleteToken"
 #define KVAULT_PROD_URL                             @"https://www.payumoney.com/oneclick/getToken" //POST
 #define KVAULT_DELETE_TOKEN_URL_PROD                @"https://www.payumoney.com/oneclick/deleteToken"
@@ -208,6 +211,7 @@
  ************************************************** Internal Environments ***********************
  */
 #define ENVIRONMENT_PP42                                        @"PP42"
+#define ENVIRONMENT_PP25                                        @"PP25"
 #define ENVIRONMENT_PP41                                        @"PP41"
 #define ENVIRONMENT_PP10                                        @"PP10"
 #define ENVIRONMENT_PP0                                         @"PP0"
@@ -216,31 +220,37 @@
 
 //API URLs
 #define ENVIRONMENT_PRODUCTION_API_URL                          @"https://www.payumoney.com/"
-#define ENVIRONMENT_TEST_API_URL                                @"https://test.payumoney.com/"
-#define ENVIRONMENT_PP42_API_URL                                @"http://pp42.payumoney.com/"
-#define ENVIRONMENT_PP48_API_URL                                @"http://pp51.payumoney.com/"
-#define ENVIRONMENT_PP41_API_URL                                @"http://pp41.payumoney.com/"
-#define ENVIRONMENT_PP10_API_URL                                @"http://pp10.payumoney.com/"
-#define ENVIRONMENT_PP0_API_URL                                 @"http://pp0.payumoney.com/"
-#define ENVIRONMENT_PP4_API_URL                                 @"http://pp4.payumoney.com/"
-#define ENVIRONMENT_PP22_API_URL                                 @"http://pp22.payumoney.com/"
+#define ENVIRONMENT_TEST_API_URL                                @"https://www.payumoney.com/sandbox/"
+#define ENVIRONMENT_PP42_API_URL                                @"https://pp42.payumoney.com/"
+#define ENVIRONMENT_PP25_API_URL                                @"https://pp25.payumoney.com/"
+#define ENVIRONMENT_PP48_API_URL                                @"https://pp51.payumoney.com/"
+#define ENVIRONMENT_PP41_API_URL                                @"https://pp41.payumoney.com/"
+#define ENVIRONMENT_PP10_API_URL                                @"https://pp10.payumoney.com/"
+#define ENVIRONMENT_PP0_API_URL                                 @"https://pp0.payumoney.com/"
+#define ENVIRONMENT_PP4_API_URL                                 @"https://pp4.payumoney.com/"
+#define ENVIRONMENT_PP22_API_URL                                @"https://pp22.payumoney.com/"
 #define ENVIRONMENT_MOBILE_TEST_API_URL                         @"https://mobiletest.payumoney.com/"
-#define ENVIRONMENT_PP44_API_URL                                 @"http://pp44.payumoney.com/"
+#define ENVIRONMENT_PP44_API_URL                                @"https://pp44.payumoney.com/"
+#define ENVIRONMENT_PP58_API_URL                                @"https://pp58.payumoney.com/"
 
 //Web URLs
-#define ENVIRONMENT_PRODUCTION_WEB_URL                          @"https://secure.payu.in/_seamless_payment"
-#define ENVIRONMENT_TEST_WEB_URL                                @"https://test.payu.in/_seamless_payment"
-#define ENVIRONMENT_PP42_WEB_URL                                @"http://pp42.secure.payu.in/_seamless_payment/"
-#define ENVIRONMENT_PP41_WEB_URL                                @"http://pp41.secure.payu.in/_seamless_payment/"
-#define ENVIRONMENT_PP10_WEB_URL                                @"http://pp10.secure.payu.in/_seamless_payment/"
-#define ENVIRONMENT_PP0_WEB_URL                                 @"http://pp0.secure.payu.in/_seamless_payment/"
-#define ENVIRONMENT_PP48_WEB_URL                                 @"http://pp51.secure.payu.in/_seamless_payment/"
-#define ENVIRONMENT_PP4_WEB_URL                                 @"http://pp4.secure.payu.in/_seamless_payment/"
-#define ENVIRONMENT_MOBILE_TEST_WEB_URL                         @"http://mobiletest.payu.in/_seamless_payment/"
-#define ENVIRONMENT_PP22_WEB_URL                                @"http://pp22.secure.payu.in/_seamless_payment/"
-#define ENVIRONMENT_PP44_WEB_URL                                @"http://pp44.secure.payu.in/_seamless_payment/"
+#define ENVIRONMENT_PRODUCTION_WEB_URL                          @"https://secure.payu.in/_payment"
+#define ENVIRONMENT_TEST_WEB_URL                                @"https://sandboxsecure.payu.in/_payment"
+#define ENVIRONMENT_PP42_WEB_URL                                @"https://pp42secure.payu.in/_payment"
+#define ENVIRONMENT_PP25_WEB_URL                                @"https://pp25secure.payu.in/_payment"
+#define ENVIRONMENT_PP41_WEB_URL                                @"https://pp41secure.payu.in/_payment"
+#define ENVIRONMENT_PP10_WEB_URL                                @"https://pp10secure.payu.in/_payment"
+#define ENVIRONMENT_PP0_WEB_URL                                 @"https://pp0secure.payu.in/_payment"
+#define ENVIRONMENT_PP48_WEB_URL                                @"https://pp51secure.payu.in/_payment"
+#define ENVIRONMENT_PP4_WEB_URL                                 @"https://pp4secure.payu.in/_payment"
+#define ENVIRONMENT_MOBILE_TEST_WEB_URL                         @"https://mobiletest.payu.in/_payment"
+#define ENVIRONMENT_PP22_WEB_URL                                @"https://pp22secure.payu.in/_payment"
+#define ENVIRONMENT_PP44_WEB_URL                                @"https://pp44secure.payu.in/_payment"
+#define ENVIRONMENT_PP58_WEB_URL                                @"https://pp58secure.payu.in/_payment"
 
+//Citrus URLs
 
+#define CITRUS_CHECKOUT_URL                                     @"https://checkout.citruspay.com/"
 
 #define TXNID @"txnid"
 #define MERCHANTID @"merchantId"
@@ -272,13 +282,16 @@
 
 #define     RAW_JSON                                            @"RawJSON"
 #define     PARSED_RESPONSE                                     @"ParsedResponse"
-
+#define     VPA                                                 @"vpa"
+#define     INVALID_RESPONSE                                    @"Invalid Response"
+#define     API_Failure                                         @"API Failed"
 
 
 
 typedef NS_ENUM(NSInteger, PUMBaseURLCategory) {
     PUMBaseURLForAPI,
-    PUMBaseURLForWeb
+    PUMBaseURLForWeb,
+    PUMBaseURLForCitrusCheckout
 };
 
 typedef NS_ENUM(NSInteger, PUMInternalEnvironment) {
@@ -288,9 +301,11 @@ typedef NS_ENUM(NSInteger, PUMInternalEnvironment) {
     PUMEnvironmentPP10,
     PUMEnvironmentPP0,
     PUMEnvironmentPP4,
-  PUMEnvironmentPP22,
-  PUMEnvironmentPP48,
-  PUMEnvironmentPP44
+    PUMEnvironmentPP22,
+    PUMEnvironmentPP48,
+    PUMEnvironmentPP44,
+    PUMEnvironmentPP25,
+    PUMEnvironmentPP58
 };
 
 
@@ -329,10 +344,13 @@ typedef NS_ENUM(NSInteger,SDK_REQUEST_TYPE ) {
     SDK_EMI_DETAILS,
     SDK_ANALYTICS_FETCH_API_TOKEN,
     SDK_ANALYTICS_SEND,
-    SDK_FETCH_USER_DATA
-    
+    SDK_FETCH_USER_DATA,
+    SDK_GET_MULTIPLE_BIN_DETAILS,
+    SDK_VALIDATE_VPA
 };
 
+static NSString *const kPUMAOTP = @"OTP";
+static NSString *const kPUMAPassword = @"Password";
 
 
 @interface PUMInternalConstants : NSObject

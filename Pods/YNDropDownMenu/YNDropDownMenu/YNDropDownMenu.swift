@@ -29,7 +29,7 @@ open class YNDropDownMenu: UIView, YNDropDownDelegate {
     internal var menuHeight: CGFloat = 0.0
     internal var numberOfMenu: Int = 0
     
-    internal var buttonImages: YNImages?
+    internal var buttonImagesArray: [YNImages?]?
     internal var buttonlabelFontColors: YNFontColor?
     internal var buttonlabelFonts: YNFont?
     
@@ -129,61 +129,57 @@ open class YNDropDownMenu: UIView, YNDropDownDelegate {
         
     }
     
-    
-    /**
-     Set arrow image or other images. Same image size is the best
-     
-     - Parameter normal: Normal image
-     - Parameter selected: Selected image
-     - Parameter disabled: Disabled image
-     */
-    open func setImageWhen(normal: UIImage?, selected: UIImage?, disabled: UIImage?) {
-        self.buttonImages = YNImages.init(normal: normal, selected: selected, disabled: disabled)
-        
-        for i in 0..<numberOfMenu {
-            dropDownButtons?[i].buttonImages = self.buttonImages
+    deinit {
+        if let _blurEffectView = blurEffectView {
+            _blurEffectView.removeFromSuperview()
         }
     }
     
-    
-    /**
-     Set an image for a drop-down button with various colors.
-     
-     - Parameter normal: Normal image used as a drop-down button.
-     - Parameter selectedColor: Tint color masking the image when the button selected.
-     - Parameter disabledColor: Tint color masking the image when the button disabled.
-     */
-    open func setImageWhen(normal: UIImage?, selectedTintColor: UIColor, disabledTintColor: UIColor) {
-        
-        let selected = imageMaskingwithColor(selectedTintColor, image: normal)
-        let disabled = imageMaskingwithColor(disabledTintColor, image: normal)
-        
-        self.buttonImages = YNImages.init(normal: normal, selected: selected, disabled: disabled)
-        
-        for i in 0..<numberOfMenu {
-            dropDownButtons?[i].buttonImages = self.buttonImages
+    open func setStatesImages(normalImages: [UIImage?], selectedImages: [UIImage?], disabledImages: [UIImage?]) {
+        if self.buttonImagesArray == nil {
+            self.buttonImagesArray = []
         }
         
-        
+        for i in 0 ..< numberOfMenu {
+            let normalImage = normalImages[i]
+            let selectedImage = selectedImages[i]
+            let disabledImage = disabledImages[i]
+            
+            let ynImages = YNImages.init(normal: normalImage, selected: selectedImage, disabled: disabledImage)
+            self.buttonImagesArray?.append(ynImages)
+            dropDownButtons?[i].buttonImages = self.buttonImagesArray?[i]
+        }
     }
     
+    open func setImageWhens(normal: [UIImage?], selectedTintColor: UIColor, disabledTintColor: UIColor) {
+        if self.buttonImagesArray == nil {
+            self.buttonImagesArray = []
+        }
+        
+        for i in 0 ..< numberOfMenu {
+            let image = normal[i]
+            let selected = imageMaskingwithColor(selectedTintColor, image: image)
+            let disabled = imageMaskingwithColor(disabledTintColor, image: image)
+            
+            let ynImages = YNImages.init(normal: image, selected: selected, disabled: disabled)
+            self.buttonImagesArray?.append(ynImages)
+            dropDownButtons?[i].buttonImages = self.buttonImagesArray?[i]
+        }
+    }
     
-    /**
-     Set an image for a drop-down button with various colors.
-     
-     - Parameter normal: Normal image used as a drop-down button.
-     - Parameter selectedColorRGB: a Hex code color masking the image when the button selected.
-     - Parameter disabledColorRGB: a Hex code color masking the image when the button disabled.
-     */
-    open func setImageWhen(normal: UIImage?, selectedTintColorRGB: String, disabledTintColorRGB: String) {
+    open func setImageWhens(normal: [UIImage?], selectedTintColorRGB: String, disabledTintColorRGB: String) {
+        if self.buttonImagesArray == nil {
+            self.buttonImagesArray = []
+        }
         
-        let selected = imageMaskingwithColor(hexStringToUIColor(hex: selectedTintColorRGB), image: normal)
-        let disabled = imageMaskingwithColor(hexStringToUIColor(hex: disabledTintColorRGB), image: normal)
-        
-        self.buttonImages = YNImages.init(normal: normal, selected: selected, disabled: disabled)
-        
-        for i in 0..<numberOfMenu {
-            dropDownButtons?[i].buttonImages = self.buttonImages
+        for i in 0 ..< numberOfMenu {
+            let image = normal[i]
+            let selected = imageMaskingwithColor(hexStringToUIColor(hex: selectedTintColorRGB), image: image)
+            let disabled = imageMaskingwithColor(hexStringToUIColor(hex: disabledTintColorRGB), image: image)
+            
+            let ynImages = YNImages.init(normal: image, selected: selected, disabled: disabled)
+            self.buttonImagesArray?.append(ynImages)
+            dropDownButtons?[i].buttonImages = self.buttonImagesArray?[i]
         }
     }
     
@@ -495,8 +491,7 @@ open class YNDropDownMenu: UIView, YNDropDownDelegate {
                 }
                 self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.width, height: dropDownView.frame.height + CGFloat(self.menuHeight))
                 if let _buttonImageView = buttonImageView {
-                    _buttonImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 1.0, 0.0, 0.0)
-                    _buttonImageView.image = self.buttonImages?.selected
+                    _buttonImageView.image = self.buttonImagesArray?[yNDropDownButton.tag]?.selected
                 }
                 yNDropDownButton.buttonLabel.textColor = self.buttonlabelFontColors?.selected
                 yNDropDownButton.buttonLabel.font = self.buttonlabelFonts?.selected
@@ -527,7 +522,7 @@ open class YNDropDownMenu: UIView, YNDropDownDelegate {
                 self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.width, height: CGFloat(self.menuHeight))
                 if let _buttonImageView = buttonImageView {
                     _buttonImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 0.0, 0.0, 0.0);
-                    _buttonImageView.image = self.buttonImages?.normal
+                    _buttonImageView.image = self.buttonImagesArray?[yNDropDownButton.tag]?.normal
                 }
                 
                 guard let alwaysOnIndex = self.alwaysOnIndex else { return }
@@ -561,11 +556,9 @@ open class YNDropDownMenu: UIView, YNDropDownDelegate {
         
         self.dropDownButtons = []
         
-        let eachWidth = self.bounds.size.width / CGFloat(numberOfMenu)
-        
         for i in 0..<numberOfMenu {
             // Setup button
-            let button = YNDropDownButton(frame: CGRect(x: eachWidth * CGFloat(i), y: 0.0, width: eachWidth, height: CGFloat(menuHeight)), buttonLabelText: dropDownViewTitles?[i])
+            let button = YNDropDownButton(frame: CGRect(x: 0, y: 0.0, width: 10, height: CGFloat(menuHeight)), buttonLabelText: dropDownViewTitles?[i])
             button.tag = i
             button.addTarget(self, action: #selector(menuClicked(_:)), for: .touchUpInside)
             dropDownButtons?.append(button)
@@ -574,12 +567,11 @@ open class YNDropDownMenu: UIView, YNDropDownDelegate {
             
             // Setup Views
             if let _dropDownView = dropDownViews?[i] {
-                _dropDownView.frame.size = CGSize(width: self.bounds.size.width, height: _dropDownView.frame.height)
-                _dropDownView.frame.origin.y = -_dropDownView.frame.height + CGFloat(menuHeight)
+                _dropDownView.isHidden = true
             }
         }
         
-        self.bottomLine = UIView(frame: CGRect(x: 0, y: CGFloat(menuHeight) - 0.5, width: self.frame.width, height: 0.5))
+        self.bottomLine = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 0.5))
         self.bottomLine.backgroundColor = UIColor.init(red: 225/255, green: 225/255, blue: 225/255, alpha: 1.0)
         self.bottomLine.isHidden = true
         self.addSubview(self.bottomLine)
@@ -588,10 +580,33 @@ open class YNDropDownMenu: UIView, YNDropDownDelegate {
         self.blurEffectView = UIVisualEffectView(effect: blurEffect)
         self.blurEffectView?.alpha = 0
         
-        let originY = self.frame.origin.y + menuHeight + 5
-        
-        self.blurEffectView?.frame = CGRect(x: self.frame.origin.x, y: originY, width: self.frame.width, height: UIScreen.main.bounds.size.height - originY)
+        self.blurEffectView?.frame = CGRect(x: self.frame.origin.x, y: 0, width: self.frame.width, height: 0)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(blurEffectViewClicked(_:)))
         self.blurEffectView?.addGestureRecognizer(tapGesture)
+        
+        layoutViews()
+    }
+    
+    internal func layoutViews() {
+        let eachWidth = self.bounds.size.width / CGFloat(numberOfMenu)
+        for i in 0..<numberOfMenu {
+            // Setup button
+            if let button = dropDownButtons?[i] {
+                button.frame = CGRect(x: eachWidth * CGFloat(i), y: 0.0, width: eachWidth, height: CGFloat(menuHeight))
+            }
+            // Setup Views
+            if let _dropDownView = dropDownViews?[i] {
+                _dropDownView.frame.size = CGSize(width: self.bounds.size.width, height: _dropDownView.frame.height)
+                _dropDownView.frame.origin.y = CGFloat(menuHeight)
+            }
+        }
+        let originY = self.frame.origin.y + menuHeight + 5
+        self.bottomLine.frame = CGRect(x: 0, y: CGFloat(menuHeight) - 0.5, width: self.frame.width, height: 0.5)
+        self.blurEffectView?.frame = CGRect(x: self.frame.origin.x, y: originY, width: self.frame.width, height: UIScreen.main.bounds.size.height - originY)
+    }
+    
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        layoutViews()
     }
 }

@@ -1,4 +1,4 @@
-// Generated using Sourcery 0.6.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 0.15.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
 // swiftlint:disable file_length
@@ -58,5 +58,16 @@ public func == (lhs: ADMozaikLayoutSize, rhs: ADMozaikLayoutSize) -> Bool {
 }
 
 // MARK: - AutoEquatable for Enums
+// MARK: - ADMozaikLayoutSectionContentMode AutoEquatable
+extension ADMozaikLayoutSectionContentMode: Equatable {}
+public func == (lhs: ADMozaikLayoutSectionContentMode, rhs: ADMozaikLayoutSectionContentMode) -> Bool {
+    switch (lhs, rhs) {
+    case (.fill, .fill): 
+         return true 
+    case (.ordered, .ordered): 
+         return true 
+    default: return false
+    }
+}
 
 // MARK: -
