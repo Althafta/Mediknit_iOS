@@ -62,6 +62,8 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         return .lightContent
     }
     
+    //MARK:- Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.ratingView.delegate = self
@@ -311,6 +313,9 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
     
     @objc func willResignActiveNotification(){
         self.avPlayer.pause()
+        if !isSeeked {
+            self.saveLectureProgress()
+        }
         ScreenRecordingDetector.stopTimer()
     }
     

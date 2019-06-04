@@ -121,7 +121,7 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
                     print(dicResponse)
                     OFAUtils.removeLoadingView(nil)
                     if let dicUserData = dicResponse["data"] as? NSDictionary{
-                        UserDefaults.standard.setValue("\(dicUserData["user_id"]!)", forKey: USER_ID)
+                        UserDefaults.standard.setValue("\(dicUserData["user_id"]!)", forKey: CLIENT_USER_ID)
                         if "\(dicUserData["email_verified"]!)" == "0"{//false
                             self.generateOTPForEmailVerification(isRegistrationComplete: "\(dicUserData["registration_completed"]!)" == "0" ? false : true, isPasswordPresent: "\(dicUserData["password_present"]!)" == "0" ? false : true)
                         }else{
@@ -261,7 +261,8 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
                     print(dicResult)
                     OFAUtils.removeLoadingView(nil)
                     if let dicData = dicResult["data"] as? NSDictionary{
-                        UserDefaults.standard.setValue("\(dicData["user_id"]!)", forKey: USER_ID)
+//                        UserDefaults.standard.setValue("\(dicData["user_id"]!)", forKey: USER_ID)
+                        UserDefaults.standard.setValue("\(dicData["user_id"]!)", forKey: CLIENT_USER_ID)
                         if "\(dicData["registration_completed"]!)" == "0"{//false
                             let registerUser = self.storyboard?.instantiateViewController(withIdentifier: "RegisterTVC") as! OFARegisterTableViewController
                             registerUser.isSocialLogin = true
@@ -276,7 +277,7 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
                             let arrayCourses = dicData["courses"] as! NSArray
                             let dataCoursesArray = NSKeyedArchiver.archivedData(withRootObject: arrayCourses)
                             UserDefaults.standard.setValue(dataCoursesArray, forKey: Subscribed_Courses)
-                            let userID = UserDefaults.standard.value(forKey: USER_ID) as! String
+                            let userID = UserDefaults.standard.value(forKey: CLIENT_USER_ID) as! String
                             let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
                             let dicParameters = NSDictionary(objects: [userID,email!,domainKey], forKeys: ["user_id" as NSCopying,"email" as NSCopying,"domain_key" as NSCopying])
                             OFAUtils.showLoadingViewWithTitle("Fetching user details")

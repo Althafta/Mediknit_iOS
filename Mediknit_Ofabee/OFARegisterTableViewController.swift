@@ -159,7 +159,7 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
         self.view.endEditing(true)
         if self.isFieldValidity(){
             var dicParameters = NSDictionary()
-            let userId = UserDefaults.standard.value(forKey: USER_ID) as! String
+            let userId = UserDefaults.standard.value(forKey: CLIENT_USER_ID) as! String
             if !isSocialLogin{
                 dicParameters = NSDictionary(objects: [userId,self.salutationSelected,self.textFirstName.text!,self.textLastName.text!,self.textPassword.text!,"0"], forKeys: ["user_id" as NSCopying,"salutation" as NSCopying,"first_name" as NSCopying,"last_name" as NSCopying,"password" as NSCopying,"open_auth" as NSCopying])
             }else{
@@ -194,7 +194,7 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
                             let dataCoursesArray = NSKeyedArchiver.archivedData(withRootObject: arrayCourses)
                             UserDefaults.standard.setValue(dataCoursesArray, forKey: Subscribed_Courses)
                         }
-                        let userID = UserDefaults.standard.value(forKey: USER_ID) as! String
+                        let userID = UserDefaults.standard.value(forKey: CLIENT_USER_ID) as! String
                         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
                         let dicParameters = NSDictionary(objects: [self.emailID,userID,self.salutationSelected,self.textFirstName.text!,self.textLastName.text!,self.textPassword.text!,domainKey], forKeys: ["email" as NSCopying,"user_id" as NSCopying,"salutation" as NSCopying,"firstname" as NSCopying,"lastname" as NSCopying,"password" as NSCopying,"domain_key" as NSCopying])
                         OFAUtils.showLoadingViewWithTitle("Fetching user details")

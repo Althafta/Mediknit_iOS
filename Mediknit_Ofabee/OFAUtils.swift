@@ -406,6 +406,10 @@ class OFAUtils: NSObject {
         return formatter.string(from: date)
     }
     
+    class func getJSONStringFromDictionary(dicParameter:NSDictionary) -> String{
+        let jsonData = try! JSONSerialization.data(withJSONObject: dicParameter, options: .sortedKeys)
+        return String(data: jsonData, encoding: .utf8)!
+    }
     /*
     class func isNetworkAvailable()->Bool {
         let status = CAReachability().connectionStatus()

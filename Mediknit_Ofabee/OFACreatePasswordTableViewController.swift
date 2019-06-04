@@ -40,11 +40,11 @@ class OFACreatePasswordTableViewController: UITableViewController,UITextFieldDel
         self.view.endEditing(true)
     }
     
-    @IBAction func registerPressed(_ sender: UIButton) {
+    @IBAction func registerPressed(_ sender: UIButton) {//createPasswordPressed
         self.view.endEditing(true)
         if self.isFieldValid(){
             OFAUtils.showLoadingViewWithTitle("Loading")
-            let userID = UserDefaults.standard.value(forKey: USER_ID) as! String
+            let userID = UserDefaults.standard.value(forKey: CLIENT_USER_ID) as! String
             let dicParameters = NSDictionary(objects: [self.textCreatePassword.text!,userID], forKeys: ["password" as NSCopying,"user_id" as NSCopying])
             
             let jsonData = try! JSONSerialization.data(withJSONObject: dicParameters, options: .sortedKeys)
@@ -74,7 +74,7 @@ class OFACreatePasswordTableViewController: UITableViewController,UITextFieldDel
                         let arrayCourses = dicData["courses"] as! NSArray
                         let dataCoursesArray = NSKeyedArchiver.archivedData(withRootObject: arrayCourses)
                         UserDefaults.standard.setValue(dataCoursesArray, forKey: Subscribed_Courses)
-                        let userID = UserDefaults.standard.value(forKey: USER_ID) as! String
+                        let userID = UserDefaults.standard.value(forKey: CLIENT_USER_ID) as! String
                         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
                         let dicParameters = NSDictionary(objects: [userID,self.emailID,domainKey,self.textCreatePassword.text!], forKeys: ["user_id" as NSCopying,"email" as NSCopying,"domain_key" as NSCopying,"password" as NSCopying])
                         OFAUtils.showLoadingViewWithTitle("Fetching user details")

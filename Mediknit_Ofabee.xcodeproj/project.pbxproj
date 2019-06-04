@@ -1577,7 +1577,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.healthconnect.mediknit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "014b937e-7849-403f-8f87-d6538b8a1e93";
-				PROVISIONING_PROFILE_SPECIFIER = Mediknit_Development_Apr_8;
+				PROVISIONING_PROFILE_SPECIFIER = Mediknit_Development_May_31_2019;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/enfin/Desktop/Althaf/Projects/Git Projects/MediKnit/Mediknit_iOS/Mediknit_Ofabee/Mediknit-Ofabee-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1606,7 +1606,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.healthconnect.mediknit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "014b937e-7849-403f-8f87-d6538b8a1e93";
-				PROVISIONING_PROFILE_SPECIFIER = Mediknit_Development_Apr_8;
+				PROVISIONING_PROFILE_SPECIFIER = Mediknit_Development_May_31_2019;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/enfin/Desktop/Althaf/Projects/Git Projects/MediKnit/Mediknit_iOS/Mediknit_Ofabee/Mediknit-Ofabee-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};

@@ -23,9 +23,12 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
     let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN)
     var refreshController = UIRefreshControl()
     
+    //MARK:- Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.getClientCourses()
         self.setNavigationBarItem(isSidemenuEnabled: true)
         self.tableView.backgroundColor = UIColor.white
         
@@ -66,6 +69,49 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
         self.loadDashboardContents()
     }
     
+    //MARK:- Dashboard content Loader
+    
+    func getClientCourses(){
+        let clientUserId = UserDefaults.standard.value(forKey: CLIENT_USER_ID) as! String
+        let dicParameters = NSDictionary(objects: [clientUserId], forKeys: ["user_id" as NSCopying])
+        
+        let jsonData = try! JSONSerialization.data(withJSONObject: dicParameters, options: .sortedKeys)
+        let jsonString = String(data: jsonData, encoding: .utf8)
+        
+        let timeStamp = "\(OFAUtils.getTimeStamp())"
+        let secretString = "POST+\(jsonString!)+\(timeStamp)"
+        let base64EncodedJSONString = secretString.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
+        let sha256EncodedSecretString = base64EncodedJSONString?.hmac(algorithm: .SHA256, key: loginSecretKey)//.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
+        
+        var request = URLRequest(url: URL(string: loginBaseURL+"get-user-courses")!)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(loginKey, forHTTPHeaderField: "KEY")
+        request.setValue(loginUserName, forHTTPHeaderField: "USERNAME")
+        request.setValue(timeStamp, forHTTPHeaderField: "TIMESTAMP")
+        request.setValue(sha256EncodedSecretString!, forHTTPHeaderField: "SECRET")
+        
+        let parameterJsonData = jsonString?.data(using: .utf8)
+        
+        request.httpBody = parameterJsonData
+        Alamofire.request(request).responseJSON { (responseJSON) in
+            if let dicResponse = responseJSON.result.value as? NSDictionary{
+//                print(dicResponse)
+                OFAUtils.removeLoadingView(nil)
+                if let arrayCoursesData = dicResponse["data"] as? NSArray{
+                    let dataCoursesArray = NSKeyedArchiver.archivedData(withRootObject: arrayCoursesData)
+                    UserDefaults.standard.setValue(dataCoursesArray, forKey: Subscribed_Courses)
+                    self.loadDashboardContents()
+                }else{
+                    print("Error loading course array")
+                }
+            }else{
+                OFAUtils.removeLoadingView(nil)
+                OFAUtils.showAlertViewControllerWithTitle(nil, message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+            }
+        }
+    }
+    
     func loadDashboardContents(){
         var arrayCourses = NSArray()
         if let dataSubscribedCourses = UserDefaults.standard.value(forKey: Subscribed_Courses) as? Data{
@@ -73,6 +119,7 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
         }
         let dicParameters = NSDictionary(objects: [self.user_id as! String,domainKey,self.accessToken as! String,arrayCourses], forKeys: ["user_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying,"courses" as NSCopying])
         OFAUtils.showLoadingViewWithTitle("Loading")
+        
         Alamofire.request(userBaseURL+"api/course/dashboard_content", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let dicResponse = responseJSON.result.value as? NSDictionary{
                 OFAUtils.removeLoadingView(nil)
