@@ -26,6 +26,7 @@ class OFAUtils: NSObject {
 
     class func getDeviceVersion()->String?{
         let deviceVersion=UIDevice.current.systemVersion
+        print(deviceVersion)
         return deviceVersion
     }
     
