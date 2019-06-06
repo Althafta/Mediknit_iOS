@@ -7,6 +7,8 @@
 
 import UIKit
 import AVFoundation
+import DeviceCheck
+
 class OFAUtils: NSObject {
     class func delay(seconds: Double, completion:@escaping ()->()) {
         let popTime = DispatchTime.now() + Double(Int64( Double(NSEC_PER_SEC) * seconds )) / Double(NSEC_PER_SEC)
@@ -21,13 +23,12 @@ class OFAUtils: NSObject {
     func getSelectedCellBackGroundColor()->UIColor{
         return UIColor(red:0.76, green:0.87, blue:0.98, alpha:1.0)
     }
-    class func getDeviceUniqueId()->String{
-        return (UIDevice.current.identifierForVendor?.uuidString)!
-    }
+
     class func getDeviceVersion()->String?{
         let deviceVersion=UIDevice.current.systemVersion
         return deviceVersion
     }
+    
     class func getBuildNumber()->String{
         return   Bundle.main.infoDictionary?["CFBundleVersion"] as! String
     }
@@ -52,8 +53,15 @@ class OFAUtils: NSObject {
         viewController.present(alert, animated: true, completion: nil)
     }
     
-    class func getUDID()->String{
-        return String(describing: UserDefaults.standard.value(forKey: device_token))
+    class func getDeviceID()->String{
+        let deviceID = UIDevice.current.identifierForVendor?.uuidString
+        print("Device Token = \(deviceID!)")
+        return deviceID!//String(describing: UserDefaults.standard.value(forKey: device_token))
+    }
+    
+    class func getAppVersion()->String{
+        let nsObject: AnyObject? = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as AnyObject
+        return nsObject as! String
     }
     class func checkEmailValidation(_ stringEmail:String)->Bool{
         let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
