@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3760B8DE16A1888B849E23FF /* Pods_Mediknit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44A05F9B6D300B8A18467C4 /* Pods_Mediknit.framework */; };
+		65DF771A22AA289B00779F9A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65DF771922AA289B00779F9A /* GoogleService-Info.plist */; };
 		8400CB211F3D79F1005B2086 /* OFAPreLoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8400CB201F3D79F1005B2086 /* OFAPreLoginTableViewController.swift */; };
 		8400CB231F3D92B9005B2086 /* OFALeftSideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8400CB221F3D92B9005B2086 /* OFALeftSideMenuTableViewController.swift */; };
 		8400CB261F3D9306005B2086 /* OFALeftSideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8400CB251F3D9306005B2086 /* OFALeftSideTableViewCell.swift */; };
@@ -163,6 +164,8 @@
 		36F6C14BB8951EA0B4F65ED6 /* Pods-Ofabee_OLP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ofabee_OLP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Ofabee_OLP/Pods-Ofabee_OLP.debug.xcconfig"; sourceTree = "<group>"; };
 		41876F84D8DBA7D92DB3FE03 /* Pods-Life_Line.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life_Line.release.xcconfig"; path = "Pods/Target Support Files/Pods-Life_Line/Pods-Life_Line.release.xcconfig"; sourceTree = "<group>"; };
 		5758172BEAEB3EA78D732FAA /* Pods_Ofabee_OLP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ofabee_OLP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65DF771922AA289B00779F9A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		65DF771B22AA2A6A00779F9A /* Mediknit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mediknit.entitlements; sourceTree = "<group>"; };
 		8400CB201F3D79F1005B2086 /* OFAPreLoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFAPreLoginTableViewController.swift; sourceTree = "<group>"; };
 		8400CB221F3D92B9005B2086 /* OFALeftSideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFALeftSideMenuTableViewController.swift; sourceTree = "<group>"; };
 		8400CB251F3D9306005B2086 /* OFALeftSideTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFALeftSideTableViewCell.swift; sourceTree = "<group>"; };
@@ -626,6 +629,7 @@
 		847A82CD1F39740100AB3D32 = {
 			isa = PBXGroup;
 			children = (
+				65DF771B22AA2A6A00779F9A /* Mediknit.entitlements */,
 				847A82D81F39740100AB3D32 /* Mediknit_Ofabee */,
 				847A82D71F39740100AB3D32 /* Products */,
 				4166D533B9EFC44E5DE8343C /* Pods */,
@@ -644,6 +648,7 @@
 		847A82D81F39740100AB3D32 /* Mediknit_Ofabee */ = {
 			isa = PBXGroup;
 			children = (
+				65DF771922AA289B00779F9A /* GoogleService-Info.plist */,
 				84B0B8B71F4EB33E00B88EE8 /* open-sans */,
 				847A82D91F39740100AB3D32 /* AppDelegate.swift */,
 				CEBC66A3214BCA7800ADFA82 /* credentials.plist */,
@@ -1172,6 +1177,12 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -1208,6 +1219,7 @@
 				84B0B8CA1F4EB33E00B88EE8 /* OpenSans-LightItalic.ttf in Resources */,
 				847A82E41F39740100AB3D32 /* Assets.xcassets in Resources */,
 				84B0B8C41F4EB33E00B88EE8 /* OpenSans-Bold.ttf in Resources */,
+				65DF771A22AA289B00779F9A /* GoogleService-Info.plist in Resources */,
 				847A82DF1F39740100AB3D32 /* Main.storyboard in Resources */,
 				CEBC66A4214BCA7900ADFA82 /* credentials.plist in Resources */,
 				84B0B8CD1F4EB33E00B88EE8 /* OpenSans-SemiboldItalic.ttf in Resources */,
@@ -1253,14 +1265,17 @@
 				"${BUILT_PRODUCTS_DIR}/FontAwesomeKit.Swift/FontAwesomeKit_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${PODS_ROOT}/PayUIndia-Custom-Browser/PayUCustomBrowser.framework",
 				"${PODS_ROOT}/PayUmoney_CoreSDK/CoreSDK/PayUMoneyCoreSDK.framework",
 				"${PODS_ROOT}/PayUmoney_PnP/PlugNPlay/PlugNPlay.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/STRatingControl/STRatingControl.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/YNDropDownMenu/YNDropDownMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/YouTubePlayer/YouTubePlayer.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1272,14 +1287,17 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesomeKit_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PayUCustomBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PayUMoneyCoreSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlugNPlay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/STRatingControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YNDropDownMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YouTubePlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1562,6 +1580,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_MODULE_DEBUGGING = YES;
+				CODE_SIGN_ENTITLEMENTS = Mediknit.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ayyappan Asokan (SURG73B4D2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ayyappan Asokan (SURG73B4D2)";
 				CODE_SIGN_STYLE = Manual;
@@ -1577,7 +1596,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.healthconnect.mediknit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "014b937e-7849-403f-8f87-d6538b8a1e93";
-				PROVISIONING_PROFILE_SPECIFIER = Mediknit_Development_May_31_2019;
+				PROVISIONING_PROFILE_SPECIFIER = Mediknit_Development_APNS_Jun7_2019;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/enfin/Desktop/Althaf/Projects/Git Projects/MediKnit/Mediknit_iOS/Mediknit_Ofabee/Mediknit-Ofabee-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1591,6 +1610,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_MODULE_DEBUGGING = YES;
+				CODE_SIGN_ENTITLEMENTS = Mediknit.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ayyappan Asokan (SURG73B4D2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ayyappan Asokan (SURG73B4D2)";
 				CODE_SIGN_STYLE = Manual;
@@ -1606,7 +1626,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.healthconnect.mediknit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "014b937e-7849-403f-8f87-d6538b8a1e93";
-				PROVISIONING_PROFILE_SPECIFIER = Mediknit_Development_May_31_2019;
+				PROVISIONING_PROFILE_SPECIFIER = Mediknit_Development_APNS_Jun7_2019;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/enfin/Desktop/Althaf/Projects/Git Projects/MediKnit/Mediknit_iOS/Mediknit_Ofabee/Mediknit-Ofabee-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};

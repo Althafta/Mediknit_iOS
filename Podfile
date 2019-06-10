@@ -19,6 +19,8 @@ pod 'PayUmoney_PnP'
 pod 'ADMozaicCollectionViewLayout'
 pod 'GoogleSignIn'
 pod 'Floaty'
+pod 'Firebase/Core'
+pod 'Firebase/Messaging'
   # Pods for Ofabee_OLP
 
 end
