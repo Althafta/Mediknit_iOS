@@ -220,7 +220,8 @@ class OFAOTPTableViewController: UITableViewController,UITextFieldDelegate {
                         UserDefaults.standard.setValue(dataCoursesArray, forKey: Subscribed_Courses)
                         let userID = UserDefaults.standard.value(forKey: CLIENT_USER_ID) as! String
                         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-                        let dicParameters = NSDictionary(objects: [userID,self.emailID,domainKey], forKeys: ["user_id" as NSCopying,"email" as NSCopying,"domain_key" as NSCopying])
+                        let fcmToken = UserDefaults.standard.value(forKey: FCM_token) as! String
+                        let dicParameters = NSDictionary(objects: [userID,self.emailID,domainKey,"ios","\(OFAUtils.getAppVersion())","\(OFAUtils.getDeviceID())",fcmToken], forKeys: ["user_id" as NSCopying,"email" as NSCopying,"domain_key" as NSCopying,"platform" as NSCopying,"app_version" as NSCopying,"device" as NSCopying,"fcm_token" as NSCopying])
                         OFAUtils.showLoadingViewWithTitle("Fetching user details")
                         Alamofire.request(userBaseURL+"api/authenticate/login_api", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON(completionHandler: { (responseJSON) in
                             OFAUtils.removeLoadingView(nil)

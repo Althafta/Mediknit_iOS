@@ -19,6 +19,10 @@ class OFAPreLoginTableViewController: UITableViewController,GIDSignInDelegate,GI
     @IBOutlet var buttonSignInGoogle: UIButton!
     @IBOutlet var buttonBrowseCourse: UIButton!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .default
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

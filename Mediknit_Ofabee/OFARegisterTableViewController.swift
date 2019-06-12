@@ -196,7 +196,8 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
                         }
                         let userID = UserDefaults.standard.value(forKey: CLIENT_USER_ID) as! String
                         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-                        let dicParameters = NSDictionary(objects: [self.emailID,userID,self.salutationSelected,self.textFirstName.text!,self.textLastName.text!,self.textPassword.text!,domainKey], forKeys: ["email" as NSCopying,"user_id" as NSCopying,"salutation" as NSCopying,"firstname" as NSCopying,"lastname" as NSCopying,"password" as NSCopying,"domain_key" as NSCopying])
+                        let fcmToken = UserDefaults.standard.value(forKey: FCM_token) as! String
+                        let dicParameters = NSDictionary(objects: [self.emailID,userID,self.salutationSelected,self.textFirstName.text!,self.textLastName.text!,self.textPassword.text!,domainKey,"ios","\(OFAUtils.getAppVersion())","\(OFAUtils.getDeviceID())",fcmToken], forKeys: ["email" as NSCopying,"user_id" as NSCopying,"salutation" as NSCopying,"firstname" as NSCopying,"lastname" as NSCopying,"password" as NSCopying,"domain_key" as NSCopying,"platform" as NSCopying,"app_version" as NSCopying,"device" as NSCopying,"fcm_token" as NSCopying])
                         OFAUtils.showLoadingViewWithTitle("Fetching user details")
                         Alamofire.request(userBaseURL+"api/authenticate/login_api", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON(completionHandler: { (responseJSON) in
                             OFAUtils.removeLoadingView(nil)

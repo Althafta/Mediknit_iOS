@@ -76,7 +76,8 @@ class OFACreatePasswordTableViewController: UITableViewController,UITextFieldDel
                         UserDefaults.standard.setValue(dataCoursesArray, forKey: Subscribed_Courses)
                         let userID = UserDefaults.standard.value(forKey: CLIENT_USER_ID) as! String
                         let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
-                        let dicParameters = NSDictionary(objects: [userID,self.emailID,domainKey,self.textCreatePassword.text!], forKeys: ["user_id" as NSCopying,"email" as NSCopying,"domain_key" as NSCopying,"password" as NSCopying])
+                        let fcmToken = UserDefaults.standard.value(forKey: FCM_token) as! String
+                        let dicParameters = NSDictionary(objects: [userID,self.emailID,domainKey,self.textCreatePassword.text!,"ios","\(OFAUtils.getAppVersion())","\(OFAUtils.getDeviceID())",fcmToken], forKeys: ["user_id" as NSCopying,"email" as NSCopying,"domain_key" as NSCopying,"password" as NSCopying,"platform" as NSCopying,"app_version" as NSCopying,"device" as NSCopying,"fcm_token" as NSCopying])
                         OFAUtils.showLoadingViewWithTitle("Fetching user details")
                         Alamofire.request(userBaseURL+"api/authenticate/login_api", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON(completionHandler: { (responseJSON) in
                             OFAUtils.removeLoadingView(nil)

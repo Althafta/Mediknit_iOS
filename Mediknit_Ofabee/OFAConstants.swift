@@ -18,6 +18,8 @@ var arrayPreviewImages = NSArray()
 
 let device_token="DEVICE_TOKEN"
 
+let FCM_token="FCM_TOKEN"
+
 let orderAcceptColorCode = "0ca500"
 
 let ofabeeGreenColorCode = "fa6c6c"

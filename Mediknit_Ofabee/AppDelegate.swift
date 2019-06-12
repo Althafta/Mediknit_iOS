@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             self.showTouchIDViewController()
         }
         self.checkAppVersion()
+        UIApplication.shared.statusBarStyle = .default
         
         return true
     }
@@ -328,6 +329,7 @@ extension AppDelegate : MessagingDelegate {
     // [START refresh_token]
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(fcmToken)")
+        UserDefaults.standard.setValue(fcmToken, forKey: FCM_token)
         
         let dataDict:[String: String] = ["token": fcmToken]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)

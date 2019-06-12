@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>352279737943-4dpnhuotut15pdanuqtl7dtth1atk7f1.apps.googleusercontent.com</string>
+	<string>437581892610-uaqqh508mmgcdcafifqct500hsdo23di.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.352279737943-4dpnhuotut15pdanuqtl7dtth1atk7f1</string>
+	<string>com.googleusercontent.apps.437581892610-uaqqh508mmgcdcafifqct500hsdo23di</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>437581892610-2j8tqabvj99ebsoanbe20ifrpj7mfko1.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDSUutNQ0xD1ichF2kHjqExc1ue5BuVjpQ</string>
+	<string>AIzaSyC73JyBDppTT7HVeiXuiKXYF4kjRqv3jyo</string>
 	<key>GCM_SENDER_ID</key>
-	<string>352279737943</string>
+	<string>437581892610</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.healthconnect.mediknit</string>
 	<key>PROJECT_ID</key>
-	<string>mediknit-ios</string>
+	<string>mediknit-android</string>
 	<key>STORAGE_BUCKET</key>
-	<string>mediknit-ios.appspot.com</string>
+	<string>mediknit-android.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:352279737943:ios:9e3366d68e203f8d</string>
+	<string>1:437581892610:ios:9e3366d68e203f8d</string>
 	<key>DATABASE_URL</key>
-	<string>https://mediknit-ios.firebaseio.com</string>
+	<string>https://mediknit-android.firebaseio.com</string>
 </dict>
 </plist>
