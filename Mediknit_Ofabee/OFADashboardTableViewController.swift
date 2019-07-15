@@ -107,7 +107,8 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
                 }
             }else{
                 OFAUtils.removeLoadingView(nil)
-                OFAUtils.showAlertViewControllerWithTitle(nil, message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+//                OFAUtils.showAlertViewControllerWithTitle(nil, message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+                print("Course list loading failed")
             }
         }
     }
@@ -117,7 +118,8 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
         if let dataSubscribedCourses = UserDefaults.standard.value(forKey: Subscribed_Courses) as? Data{
             arrayCourses = NSKeyedUnarchiver.unarchiveObject(with: dataSubscribedCourses) as! NSArray
         }
-        let dicParameters = NSDictionary(objects: [self.user_id as! String,domainKey,self.accessToken as! String,arrayCourses,"ios","\(OFAUtils.getAppVersion())","\(OFAUtils.getDeviceID())"], forKeys: ["user_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying,"courses" as NSCopying,"platform" as NSCopying,"app_version" as NSCopying,"device" as NSCopying])
+        let fcmToken = UserDefaults.standard.value(forKey: FCM_token) as! String
+        let dicParameters = NSDictionary(objects: [self.user_id as! String,domainKey,self.accessToken as! String,arrayCourses,"ios","\(OFAUtils.getAppVersion())","\(OFAUtils.getDeviceID())",fcmToken], forKeys: ["user_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying,"courses" as NSCopying,"platform" as NSCopying,"app_version" as NSCopying,"device" as NSCopying,"fcm_token" as NSCopying])
         OFAUtils.showLoadingViewWithTitle("Loading")
         
         Alamofire.request(userBaseURL+"api/course/dashboard_content", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
@@ -143,6 +145,7 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
                 self.tableView.reloadData()
             }else{
                 OFAUtils.removeLoadingView(nil)
+                self.refreshController.endRefreshing()
                 OFAUtils.showToastWithTitle("Dashboard content loading failed")
             }
         }
@@ -175,10 +178,19 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 420
+        if cellIdentifier == "myCourse"{
+            if self.myCoursesArray.count > 0 {
+                return 420
+            }else{
+                return 0
+            }
+        }else{
+            return 420
+        }
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.layer.cornerRadius = 10.0
         cell.backgroundColor = .clear
         cell.dropShadow()
     }
@@ -192,6 +204,13 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
     }
     
     //MARK:- MyCourse selection delegate
+    var myCoursesArray = NSMutableArray()
+    var cellIdentifier = ""
+    func getArrayCount(arrayMyCourses: NSMutableArray,identifier:String) {
+        self.cellIdentifier = identifier
+        self.myCoursesArray = arrayMyCourses
+//        self.tableView.reloadData()
+    }
     
     func pushToCourseDetails(dicDetails:NSDictionary) {
         let myCourseDetails = self.storyboard?.instantiateViewController(withIdentifier: "MyCourseDetailsVC") as! OFAMyCourseDetailsViewController

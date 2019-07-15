@@ -240,19 +240,20 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
             }else{
                 guard let n = NumberFormatter().number(from: "\(dicLecture["ll_percentage"]!)")
                     else { return 128 }
-//                percentage = CGFloat(n)
-//                if percentage < 100 {
+                percentage = CGFloat(n)
+                if percentage >= 100 {
 //                    if "\(dicLecture["cl_limited_access"]!)" == "0"{
 //                        return 128
 //                    }else{
-//                        return 170
+                        return 107
 //                    }
-//                }else{
+                }else{
 //                    if "\(dicLecture["cl_downloadable"]!)" == "0"{
 //                        return 128
 //                    }
-//                }
-                return 128
+                    return 128
+                }
+//                return 128
             }
         }
         return 170
@@ -274,6 +275,20 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = OFAUtils.getColorFromHexString(sectionBackgroundColor)
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let QandARowAction = UITableViewRowAction(style: .normal, title: "Q & A") { (rowAction, indexPath) in
+            let dicSection = self.arraySections[indexPath.section] as! NSDictionary
+            let arrLectures = dicSection["lectures"] as! NSArray
+            if let dicLecture = arrLectures[indexPath.row] as? NSDictionary{
+                let QandATabCVC = self.storyboard?.instantiateViewController(withIdentifier: "QandAContainerVC") as! OFALectureQAndAContainerViewController
+                LECTURE_ID = "\(dicLecture["id"]!)"
+                self.navigationController?.pushViewController(QandATabCVC, animated: true)
+            }
+        }
+        QandARowAction.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
+        return [QandARowAction]
     }
     
     //MARK:- Button Actions

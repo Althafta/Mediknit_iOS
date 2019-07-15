@@ -144,7 +144,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCourseCell", for: indexPath) as! OFAMyCourseTableViewCell
 
         let dicDetails = self.filteredArray[indexPath.row] as! NSDictionary
-        let descriptionString = "Lecture \(dicDetails["total_lectures"]!)"
+        let descriptionString = "Course progress"//"Lecture \(dicDetails["total_lectures"]!)"
         cell.customizeCellWithDetails(courseTitle: "\(dicDetails["cb_title"]!)", courseImageURL: "\(dicDetails["cb_image"]!)", courseDescription: descriptionString, percentage: "\(dicDetails["percentage"]!)")
         return cell
     }

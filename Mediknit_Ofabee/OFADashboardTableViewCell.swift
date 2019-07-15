@@ -11,6 +11,7 @@ import Alamofire
 
 protocol MyCourseDashboardListDelegate {
     func pushToCourseDetails(dicDetails:NSDictionary)
+    func getArrayCount(arrayMyCourses:NSMutableArray,identifier:String)
 }
 
 class OFADashboardTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSource {
@@ -54,14 +55,16 @@ class OFADashboardTableViewCell: UITableViewCell,UICollectionViewDelegate,UIColl
             if let dicResponse = responseJSON.result.value as? NSDictionary{
                 OFAUtils.removeLoadingView(nil)
                 if "\(dicResponse["success"]!)" == "1"{
-                    let dicBody = dicResponse["body"] as! NSDictionary
-                    let arrayCourse = dicBody["course"] as! NSArray
-                    for item in arrayCourse{
-                        let dicCourseDetails = item as! NSDictionary
-                        if !self.arrayCourseList.contains(dicCourseDetails){
-                            self.arrayCourseList.add(dicCourseDetails)
+                    if let dicBody = dicResponse["body"] as? NSDictionary{
+                        let arrayCourse = dicBody["course"] as! NSArray
+                        for item in arrayCourse{
+                            let dicCourseDetails = item as! NSDictionary
+                            if !self.arrayCourseList.contains(dicCourseDetails){
+                                self.arrayCourseList.add(dicCourseDetails)
+                            }
                         }
                     }
+                    self.delegate.getArrayCount(arrayMyCourses: self.arrayCourseList, identifier: identifier)
                     self.collectionViewMyCourse.reloadData()
                 }else{
                     OFAUtils.showToastWithTitle("\(dicResponse["message"]!)")

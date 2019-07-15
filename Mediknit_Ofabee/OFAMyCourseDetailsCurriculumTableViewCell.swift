@@ -73,10 +73,18 @@ class OFAMyCourseDetailsCurriculumTableViewCell: UITableViewCell {
     func customizeCellWithDetails(curriculumTitle:String,details:String,percentage:CGFloat,serialNumber:String){
         self.buttonDownload.isHidden = true
         self.buttonAction.isHidden = true
-        self.buttonCompleted.isHidden = true
+//        self.buttonCompleted.isHidden = true
         self.viewCountBG.isHidden = true
         self.labelCount.isHidden = true
-        
+        if percentage >= 100{
+            self.buttonCompleted.isHidden = false
+            self.buttonProgress.isHidden = true
+            self.labelPercentage.isHidden = true
+        }else{
+            self.buttonCompleted.isHidden = true
+            self.buttonProgress.isHidden = false
+            self.labelPercentage.isHidden = false
+        }
         self.labelPercentage.text = "\(percentage) %"
         self.labelCurriculumTitle.text = curriculumTitle
         self.labelDetails.text = details
