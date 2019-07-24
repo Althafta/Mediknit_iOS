@@ -240,8 +240,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 //        UIApplication.shared.statusBarStyle = .default
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 //        let leftMenuVC: OFALeftSideMenuTableViewController = mainStoryboard.instantiateViewController(withIdentifier: "LeftSideMenu") as! OFALeftSideMenuTableViewController
-//        let centerVC: OFAMyCourseTableViewController = mainStoryboard.instantiateViewController(withIdentifier: "MyCourseTVC") as! OFAMyCourseTableViewController
-        let centerVC: OFADashboardTableViewController = mainStoryboard.instantiateViewController(withIdentifier: "DashboardTVC") as! OFADashboardTableViewController
+        let centerVC: OFAMyCourseTableViewController = mainStoryboard.instantiateViewController(withIdentifier: "MyCourseTVC") as! OFAMyCourseTableViewController
+//        let centerVC: OFADashboardTableViewController = mainStoryboard.instantiateViewController(withIdentifier: "DashboardTVC") as! OFADashboardTableViewController
         let centerNavVC = UINavigationController(rootViewController: centerVC)
         
 //        let rootController = FAPanelController()

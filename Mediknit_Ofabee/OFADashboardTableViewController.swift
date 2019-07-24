@@ -66,6 +66,7 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
     }
     
     @objc func refreshInitiated(){
+        self.cellIdentifier = ""
         self.loadDashboardContents()
     }
     
@@ -214,12 +215,18 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
     
     func pushToCourseDetails(dicDetails:NSDictionary) {
         let myCourseDetails = self.storyboard?.instantiateViewController(withIdentifier: "MyCourseDetailsVC") as! OFAMyCourseDetailsViewController
-        self.navigationItem.title = ""
-        
+
         myCourseDetails.courseTitle = "\(dicDetails["cb_title"]!)"
         myCourseDetails.promoImageURLString = "\(dicDetails["cb_image"]!)"
         COURSE_ID = "\(dicDetails["id"]!)"
-        
+        if "\(dicDetails["subscription_status"]!)" == "3" {
+            let sessionAlert = UIAlertController(title: nil, message: "\(dicDetails["subscription_message"]!)", preferredStyle: .alert)
+            sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
+                sessionAlert.dismiss(animated: true, completion: nil)
+            }))
+            self.present(sessionAlert, animated: true, completion: nil)
+            return
+        }
         if "\(dicDetails["cs_approved"]!)" == "0" {
             let sessionAlert = UIAlertController(title: "Course not approved", message: nil, preferredStyle: .alert)
             sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
@@ -228,6 +235,7 @@ class OFADashboardTableViewController: UITableViewController,OtherCourseTableVie
             self.present(sessionAlert, animated: true, completion: nil)
             return
         }
+        self.navigationItem.title = ""
         self.navigationController?.pushViewController(myCourseDetails, animated: true)
     }
     //MARK:- Button Action Delegate

@@ -34,6 +34,7 @@ class OFAMyProfileTableViewController: UITableViewController,UIImagePickerContro
         self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.height/2
         self.imageViewUser.layer.borderWidth = 3.0
         self.imageViewUser.layer.borderColor = UIColor.lightGray.cgColor
+        self.imageViewUser.contentMode = .scaleAspectFill
 //        self.textViewBio.dropShadow()
 //        self.textViewBio.isHidden = true
 //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.editPressed))
@@ -41,7 +42,7 @@ class OFAMyProfileTableViewController: UITableViewController,UIImagePickerContro
         
         self.imageViewUser.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.editImagePressed)))
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.buttonleftIcon)
+//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.buttonleftIcon)
         
         self.tableView.reloadData()
     }

@@ -44,6 +44,9 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         self.headerView.backgroundColor = OFAUtils.getColorFromHexString(ofabeeCellBackground)
         self.setNavigationBarItem(isSidemenuEnabled: true)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.buttonLeftIcon)
+        let barButtonlogout = UIBarButtonItem(image: UIImage(named: "Logout"), style: .plain, target: self, action: #selector(self.logoutPressed))
+        let barButtonProfile = UIBarButtonItem(image: UIImage(named: "DashboardMyProfile"), style: .plain, target: self, action: #selector(self.profilePressed))
+        self.navigationItem.rightBarButtonItems = [barButtonlogout,barButtonProfile]
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,6 +62,24 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationItem.title = "My Courses"
+    }
+    
+    @objc func logoutPressed(_ sender: UIButton) {
+        let logoutAlert = UIAlertController(title: "Do you want to logout?", message: nil, preferredStyle: .alert)
+        logoutAlert.addAction(UIAlertAction(title: "Logout", style: .destructive, handler: { (action) in
+            let delegate = UIApplication.shared.delegate as! AppDelegate
+            delegate.logout()
+        }))
+        logoutAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(logoutAlert, animated: true, completion: nil)
+    }
+    
+    @objc func profilePressed(){
+        let myProfile = self.storyboard?.instantiateViewController(withIdentifier: "ProfileTVC") as! OFAMyProfileTableViewController
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(myProfile, animated: true)
     }
     
     @objc func tapAction(){
@@ -151,12 +172,19 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let myCourseDetails = self.storyboard?.instantiateViewController(withIdentifier: "MyCourseDetailsVC") as! OFAMyCourseDetailsViewController
-        self.navigationItem.title = ""
+        
         let dicDetails = self.filteredArray[indexPath.row] as! NSDictionary
         myCourseDetails.courseTitle = "\(dicDetails["cb_title"]!)"
         myCourseDetails.promoImageURLString = "\(dicDetails["cb_image"]!)"
         COURSE_ID = "\(dicDetails["id"]!)"
-        
+        if "\(dicDetails["subscription_status"]!)" == "3" {
+            let sessionAlert = UIAlertController(title: nil, message: "\(dicDetails["subscription_message"]!)", preferredStyle: .alert)
+            sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
+                sessionAlert.dismiss(animated: true, completion: nil)
+            }))
+            self.present(sessionAlert, animated: true, completion: nil)
+            return
+        }
         if "\(dicDetails["cs_approved"]!)" == "0" {
             let sessionAlert = UIAlertController(title: "Course not approved", message: nil, preferredStyle: .alert)
             sessionAlert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { (action) in
@@ -168,6 +196,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         if self.searchBar.isFirstResponder{
             self.view.endEditing(true)
         }
+        self.navigationItem.title = ""
         self.navigationController?.pushViewController(myCourseDetails, animated: true)
     }
     
@@ -197,7 +226,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
      //MARK:-  Button Actions
     
     @IBAction func dashBoardIconPressed(_ sender: UIButton) {
-        self.navigationController?.popToRootViewController(animated: true)
+//        self.navigationController?.popToRootViewController(animated: true)
     }
     
     //MARK:- Search Bar Delegates

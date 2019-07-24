@@ -117,7 +117,7 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         
         self.buttonQandA.isHidden = false
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(awesomeType: .fa_ellipsis_v, style: .plain, target: self, action: #selector(self.rightBarButtonPressed))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(awesomeType: .fa_ellipsis_v, style: .plain, target: self, action: #selector(self.rightBarButtonPressed))
     }
     
     override func didReceiveMemoryWarning() {

@@ -9,10 +9,10 @@
 import UIKit
 import Alamofire
 import FontAwesomeKit_Swift
-//import UXMPDFKit
+import STRatingControl
 import Photos
 
-class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyCourseCurriculumContainerDelegate {
+class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyCourseCurriculumContainerDelegate,STRatingControlDelegate {
 
     var course_id = ""
     var arraySections = NSMutableArray()
@@ -21,6 +21,12 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
     
     var dicLastPlayed = NSDictionary()
     var refreshController = UIRefreshControl()
+    
+    @IBOutlet var viewRatingPopup: UIView!
+    @IBOutlet weak var ratingView: STRatingControl!
+    
+    var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
+    var blurEffectView = UIVisualEffectView()
     
     var myCourseContainerViewController = OFAMyCourseCurriculumListContainerViewController()
 //    lazy var myCourseContainerViewController : OFAMyCourseCurriculumListContainerViewController? = {
@@ -35,6 +41,10 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
         self.refreshController.tintColor = OFAUtils.getColorFromHexString(barTintColor)
         self.refreshController.addTarget(self, action: #selector(self.refreshInitiated), for: .valueChanged)
        self.tableView.refreshControl = self.refreshController
+        
+        self.ratingView.delegate = self
+//        self.ratingView.rating = self.rating
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,8 +59,15 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
         parentVC.delegate = self
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.animateOut()
+        self.removeBlur()
+    }
+    
     override func viewDidAppear(_ animated:Bool){
         super.viewDidAppear(animated)
+        viewRatingPopup.setNeedsFocusUpdate()
         self.loadCurriculum()
     }
     
@@ -278,7 +295,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let QandARowAction = UITableViewRowAction(style: .normal, title: "Q & A") { (rowAction, indexPath) in
+        let rowActionQandA = UITableViewRowAction(style: .normal, title: "Q & A") { (rowAction, indexPath) in
             let dicSection = self.arraySections[indexPath.section] as! NSDictionary
             let arrLectures = dicSection["lectures"] as! NSArray
             if let dicLecture = arrLectures[indexPath.row] as? NSDictionary{
@@ -287,8 +304,42 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                 self.navigationController?.pushViewController(QandATabCVC, animated: true)
             }
         }
-        QandARowAction.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
-        return [QandARowAction]
+        let rowActionRatingLecture = UITableViewRowAction(style: .normal, title: "Rating") { (rowAction, indexPath) in
+            let dicSection = self.arraySections[indexPath.section] as! NSDictionary
+            let arrLectures = dicSection["lectures"] as! NSArray
+            if let dicLecture = arrLectures[indexPath.row] as? NSDictionary{
+                LECTURE_ID = "\(dicLecture["id"]!)"
+                 self.ratingView.rating = ("\(dicLecture["rating"]!)" == "<null>" || "\(dicLecture["rating"]!)" == "") ? 0 : Int("\(dicLecture["rating"]!)")!
+                self.showRatingPopUp()
+                self.animateIn()
+                self.blur()
+            }
+            
+        }
+        rowActionQandA.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
+        rowActionRatingLecture.backgroundColor = OFAUtils.getColorFromHexString(ofabeeGreenColorCode)
+        return [rowActionQandA,rowActionRatingLecture]
+    }
+    
+    //MARK:- STRatingControl Delegate
+    
+    func didSelectRating(_ control: STRatingControl, rating: Int) {
+        let user_id = UserDefaults.standard.value(forKey: USER_ID) as! String
+        let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN) as! String
+        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
+        let dicParameters = NSDictionary(objects: [LECTURE_ID,COURSE_ID,"\(rating)",user_id,domainKey,accessToken], forKeys: ["lecture_id" as NSCopying,"course_id" as NSCopying,"rating" as NSCopying,"user_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+        print(dicParameters)
+        Alamofire.request(userBaseURL+"api/course/save_rating_review", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
+            if let dicResult = responseJSON.result.value as? NSDictionary{
+                print(dicResult)
+                self.removeBlur()
+                self.animateOut()
+                self.refreshInitiated()
+            }else{
+                OFAUtils.removeLoadingView(nil)
+                OFAUtils.showAlertViewControllerWithTitle(nil, message: responseJSON.result.error?.localizedDescription, cancelButtonTitle: "OK")
+            }
+        }
     }
     
     //MARK:- Button Actions
@@ -903,5 +954,92 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
             detailString = "  Recording"
         }
         return detailString
+    }
+    
+    //MARK:- iPopUP Functions
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        viewRatingPopup.setNeedsFocusUpdate()
+//    }
+    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let rootView = delegate.window?.rootViewController?.view
+        
+        viewRatingPopup.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: (rootView?.frame.width)! - 50, height: 146))
+        viewRatingPopup.center = view.center
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches , with:event)
+        if touches.first != nil{
+            removeBlur()
+            animateOut()
+        }
+    }
+    
+    @objc func touchesView(){//tapAction
+        removeBlur()
+        animateOut()
+    }
+    
+    public func removeBlur() {
+        blurEffectView.removeFromSuperview()
+    }
+    
+    func showRatingPopUp(){
+        if !OFAUtils.isiPhone(){
+            viewRatingPopup.frame.origin.x = 0
+            viewRatingPopup.frame.origin.y = 0
+        }
+        else{
+            viewRatingPopup.frame.origin.x = 0
+            viewRatingPopup.frame.origin.y = 0
+            let delegate = UIApplication.shared.delegate as! AppDelegate
+            let rootView = delegate.window?.rootViewController?.view
+            if GlobalVariables.sharedManager.rotated() == true{
+                viewRatingPopup.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: (rootView?.frame.width)! - 50, height: 146))
+            }
+            else {
+                viewRatingPopup.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: (rootView?.frame.width)! - 50, height: 146))
+            }
+        }
+        viewRatingPopup.layer.cornerRadius = 10 //make oval view edges
+    }
+    
+    func blur(){
+//        let delegate = UIApplication.shared.delegate as! AppDelegate
+//        let rootView = delegate.window?.rootViewController?.view
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.view.bounds//(rootView?.bounds)!
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
+        self.view.addSubview(blurEffectView)
+        
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.touchesView))
+        singleTap.numberOfTapsRequired = 1
+        self.blurEffectView.addGestureRecognizer(singleTap)
+    }
+    
+    func animateIn() {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let rootView = delegate.window?.rootViewController?.view
+        //        self.view.addSubview(viewRatingPopup)
+        rootView?.addSubview(viewRatingPopup)
+        viewRatingPopup.center = (rootView?.center)!
+        viewRatingPopup.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        viewRatingPopup.alpha = 0
+        UIView.animate(withDuration: 0.4) {
+            self.viewRatingPopup.alpha = 1
+            self.viewRatingPopup.transform = CGAffineTransform.identity
+        }
+    }
+    
+    public func animateOut () {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.viewRatingPopup.transform = CGAffineTransform.init(scaleX: 2.0, y: 2.0)
+            self.viewRatingPopup.alpha = 0
+        }) { (success:Bool) in
+            self.viewRatingPopup.transform = CGAffineTransform.init(scaleX: 1.0, y: 1.0)
+            self.viewRatingPopup.removeFromSuperview()
+        }
     }
 }
