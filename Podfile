@@ -21,6 +21,7 @@ pod 'GoogleSignIn'
 pod 'Floaty'
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
+pod 'Instabug'
   # Pods for Ofabee_OLP
 
 end

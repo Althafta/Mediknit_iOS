@@ -15,7 +15,7 @@ class OFAMyCoursesContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setNavigationBarItem(isSidemenuEnabled: true)
+//        self.setNavigationBarItem(isSidemenuEnabled: true)
         
     }
 

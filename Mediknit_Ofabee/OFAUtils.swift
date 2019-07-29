@@ -239,6 +239,23 @@ class OFAUtils: NSObject {
         formatter.locale=local
         return formatter.string(from: date)
     }
+    
+    class func getStringFromDateWithFormat(date:Date, format:String)->String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        let local = Locale(identifier: "en_US")
+        formatter.locale=local
+        return formatter.string(from: date)
+    }
+    
+    class func getDateFromStringWithFormat(dateString:String, format:String)->Date{
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        let local = Locale(identifier: "en_US")
+        formatter.locale=local
+        return formatter.date(from: dateString)!
+    }
+    
     class func getExtensionOFFileName(_ fileName:String)->String
     {
         let arrayName = fileName.components(separatedBy: ".")

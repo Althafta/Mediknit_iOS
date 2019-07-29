@@ -34,7 +34,7 @@ class OFALoginTableTableViewController: UITableViewController,GIDSignInDelegate,
         self.buttonGoogleSignIn.layer.borderColor = OFAUtils.getColorFromHexString(barTintColor).cgColor
         self.buttonGoogleSignIn.layer.cornerRadius = self.self.buttonGoogleSignIn.frame.height/2
         
-       OFAUtils.setBackgroundForTableView(tableView: self.tableView)
+//       OFAUtils.setBackgroundForTableView(tableView: self.tableView)
         self.tableView.backgroundColor = .white
         let email = UserDefaults.standard.value(forKey: EMAIL) as? String
         if UserDefaults.standard.value(forKey: EMAIL) != nil{

@@ -19,12 +19,15 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     var arrayMyCourses = NSMutableArray()
     let user_id = UserDefaults.standard.value(forKey: USER_ID)
     let accessToken = UserDefaults.standard.value(forKey: ACCESS_TOKEN)
+    let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
     
     var refreshController = UIRefreshControl()
     var searchBarButtonItem = UIBarButtonItem()
     
     var searchString = ""
     var filteredArray = NSArray()
+    
+    var notificationBarButtonItem = UIBarButtonItem()
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
@@ -46,7 +49,8 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.buttonLeftIcon)
         let barButtonlogout = UIBarButtonItem(image: UIImage(named: "Logout"), style: .plain, target: self, action: #selector(self.logoutPressed))
         let barButtonProfile = UIBarButtonItem(image: UIImage(named: "DashboardMyProfile"), style: .plain, target: self, action: #selector(self.profilePressed))
-        self.navigationItem.rightBarButtonItems = [barButtonlogout,barButtonProfile]
+        self.notificationBarButtonItem = UIBarButtonItem(image: UIImage(named: "NotificationIcon"), style: .plain, target: self, action: #selector(self.notificationPressed))
+        self.navigationItem.rightBarButtonItems = [barButtonlogout,barButtonProfile,self.notificationBarButtonItem]
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,6 +61,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.refreshInitiated()
+        self.getNotifications()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,8 +87,38 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         self.navigationController?.pushViewController(myProfile, animated: true)
     }
     
+    @objc func notificationPressed(){
+        let notificationPage = self.storyboard?.instantiateViewController(withIdentifier: "NotificationTVC") as! OFANotificationTableViewController
+        notificationPage.isCourseSpecific = false
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(notificationPage, animated: true)
+    }
+    
     @objc func tapAction(){
         self.view.endEditing(true)
+    }
+    
+    func getNotifications(){
+        let dicParameters = NSDictionary(objects: [self.user_id as! String,domainKey,self.accessToken as! String], forKeys: ["user_id" as NSCopying,"domain_key" as NSCopying,"token" as NSCopying])
+        Alamofire.request(userBaseURL+"api/course/announcement_notification", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
+            if let dicResult = responseJSON.result.value as? NSDictionary{
+                if let dicBody = dicResult["body"] as? NSDictionary{
+                    if let arrayNotifications = dicBody["notification"] as? NSArray{
+                        let arrayUnReadNotifications = NSMutableArray()
+                        arrayUnReadNotifications.removeAllObjects()
+                        for item in arrayNotifications{
+                            let dicNotification = item as! NSDictionary
+                            if "\(dicNotification["readStatus"]!)" == "0"{
+                                arrayUnReadNotifications.add(dicNotification)
+                            }
+                        }
+                        self.notificationBarButtonItem.addBadge(number: arrayUnReadNotifications.count)
+                    }
+                }
+            }else{
+                print("Notification API failed")
+            }
+        }
     }
     
     @objc func refreshInitiated(){
@@ -91,7 +126,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     }
     
     func loadMyCourses(){
-        let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
+        
         var arrayCourses = NSArray()
         if let dataSubscribedCourses = UserDefaults.standard.value(forKey: Subscribed_Courses) as? Data{
             arrayCourses = NSKeyedUnarchiver.unarchiveObject(with: dataSubscribedCourses) as! NSArray
@@ -205,7 +240,9 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        self.tableView.estimatedRowHeight = 230
+        self.tableView.rowHeight = UITableView.automaticDimension
+        return self.tableView.rowHeight
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

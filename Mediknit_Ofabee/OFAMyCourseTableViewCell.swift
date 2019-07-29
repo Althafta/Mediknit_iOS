@@ -15,7 +15,8 @@ class OFAMyCourseTableViewCell: UITableViewCell {
     @IBOutlet var labelCourseDescription: UILabel!
     @IBOutlet var labelPercentage: UILabel!
     @IBOutlet var buttonProgress: MHProgressButton!
-    @IBOutlet var buttonCourseTitle: UIButton!
+//    @IBOutlet var buttonCourseTitle: UIButton!
+    @IBOutlet weak var textViewCourseTitle: UITextView!
     @IBOutlet var myCourseInnerView: UIView!
     
     override func awakeFromNib() {
@@ -31,7 +32,10 @@ class OFAMyCourseTableViewCell: UITableViewCell {
 
     func customizeCellWithDetails(courseTitle:String,courseImageURL:String,courseDescription:String,percentage:String){
 //        self.labelCourseTitle.text = courseTitle
-        self.buttonCourseTitle.setTitle(courseTitle, for: .normal)
+//        self.buttonCourseTitle.setTitle(courseTitle, for: .normal)
+        self.myCourseInnerView.dropShadow()
+        self.myCourseInnerView.layer.cornerRadius = 10.0
+        self.textViewCourseTitle.text = courseTitle
         self.labelCourseDescription.text = courseDescription
         
         guard let n = NumberFormatter().number(from: percentage) else { return }

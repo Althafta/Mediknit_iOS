@@ -239,7 +239,8 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let dicSection = self.arraySections[section] as! NSDictionary
         let sectionTitle = OFAUtils.getHTMLAttributedString(htmlString:"\(dicSection["s_name"]!)")
-        return "      Section \(section+1): \(sectionTitle)"
+//        return "      Section \(section+1): \(sectionTitle)"
+        return "      \(sectionTitle)"
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

@@ -76,6 +76,7 @@ PODS:
   - GoogleUtilities/UserDefaults (6.1.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.2)
+  - Instabug (8.3.1)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
@@ -103,6 +104,7 @@ DEPENDENCIES:
   - Floaty
   - FontAwesomeKit.Swift (~> 0.4)
   - GoogleSignIn
+  - Instabug
   - PayUmoney_PnP
   - SlideMenuControllerSwift
   - SnapKit (~> 3.0)
@@ -129,6 +131,7 @@ SPEC REPOS:
     - GoogleToolboxForMac
     - GoogleUtilities
     - GTMSessionFetcher
+    - Instabug
     - nanopb
     - PayUIndia-Custom-Browser
     - PayUmoney_CoreSDK
@@ -158,6 +161,7 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
   GoogleUtilities: 84df567c76ca84f67b7bb40e769fdd4acc746a10
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  Instabug: 4fd85913b8261c297e0a47059bea04b269b3f4e9
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   PayUIndia-Custom-Browser: 39fa27d6a57806dcd2a38a9768bb110e60d8618a
   PayUmoney_CoreSDK: 9c270b1ba54ae49ec57a2cbddc9fcd97e1d398e8
@@ -169,6 +173,6 @@ SPEC CHECKSUMS:
   YNDropDownMenu: 9c88e36c5f913bc614aaf0f3d0a7968f6251268b
   YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
-PODFILE CHECKSUM: 6e24df3a474876ac714ee31a658d40ae7db60371
+PODFILE CHECKSUM: b7fa367fd370195799ecee4a08fc3bc75a1c2042
 
 COCOAPODS: 1.6.2

@@ -18,7 +18,7 @@ class OFAForgotPasswordTableViewController: UITableViewController,UITextFieldDel
         self.buttonSendEmail.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
         self.buttonSendEmail.layer.cornerRadius = self.buttonSendEmail.frame.height/2
         
-        OFAUtils.setBackgroundForTableView(tableView: self.tableView)
+//        OFAUtils.setBackgroundForTableView(tableView: self.tableView)
         self.tableView.backgroundColor = .white
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.tapAction))

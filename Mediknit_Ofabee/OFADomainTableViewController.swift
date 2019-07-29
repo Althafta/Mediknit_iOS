@@ -16,7 +16,7 @@ class OFADomainTableViewController: UITableViewController,UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        OFAUtils.setBackgroundForTableView(tableView: self.tableView)
+//        OFAUtils.setBackgroundForTableView(tableView: self.tableView)
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.tapAction))
         singleTap.numberOfTapsRequired = 1

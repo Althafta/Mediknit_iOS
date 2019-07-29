@@ -39,7 +39,7 @@ class OFAPreLoginTableViewController: UITableViewController,GIDSignInDelegate,GI
         self.buttonBrowseCourse.layer.borderColor = OFAUtils.getColorFromHexString(barTintColor).cgColor
         self.buttonBrowseCourse.layer.borderWidth = 1.0
         
-        OFAUtils.setBackgroundForTableView(tableView: self.tableView)
+//        OFAUtils.setBackgroundForTableView(tableView: self.tableView)
         self.tableView.backgroundColor = .white
         
         self.tableView.reloadData()

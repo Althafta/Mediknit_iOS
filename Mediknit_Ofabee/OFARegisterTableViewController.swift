@@ -44,7 +44,7 @@ class OFARegisterTableViewController: UITableViewController,UITextFieldDelegate 
         self.buttonRegister.layer.cornerRadius = self.buttonRegister.frame.height/2
         self.buttonRegister.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
         
-        OFAUtils.setBackgroundForTableView(tableView: self.tableView)
+//        OFAUtils.setBackgroundForTableView(tableView: self.tableView)
         self.tableView.backgroundColor = .white
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.tapAction))

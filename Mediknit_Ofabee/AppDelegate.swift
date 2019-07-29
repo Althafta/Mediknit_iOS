@@ -14,6 +14,7 @@ import GoogleSignIn
 import Alamofire
 import Firebase
 import UserNotifications
+import Instabug
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
@@ -60,6 +61,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         UIApplication.shared.statusBarStyle = .default
         
         return true
+    }
+    
+    func setUpInstaBug(){
+        Instabug.start(withToken: InstabugID, invocationEvents: [.shake,.screenshot])
     }
     
     func remoteNotificationInitialization(){

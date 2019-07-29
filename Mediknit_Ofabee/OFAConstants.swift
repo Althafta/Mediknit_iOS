@@ -10,6 +10,8 @@ import Foundation
 
 //APIDetails :- http://beta.ofabee.com/assets/apis/
 
+var InstabugID = "131c336fdf3bfd801e7c5af85032b02b"
+
 var GoogleClientID = "352279737943-utamca1c23s5v430fd52ppk1dnml0nh0.apps.googleusercontent.com"
 
 var DomainKey = "Domain_Key"

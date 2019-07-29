@@ -28,7 +28,7 @@ class OFALoginPasswordTableViewController: UITableViewController {
         self.buttonGenerateOTP.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
         self.buttonGenerateOTP.layer.cornerRadius = self.buttonSignIn.frame.height/2
         
-        OFAUtils.setBackgroundForTableView(tableView: self.tableView)
+//        OFAUtils.setBackgroundForTableView(tableView: self.tableView)
         self.tableView.backgroundColor = .white
         
         
