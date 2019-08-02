@@ -55,11 +55,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         }
         let userId = UserDefaults.standard.value(forKey: USER_ID) as? String
         if userId != nil {
-            self.showTouchIDViewController()
+//            self.showTouchIDViewController()
+             self.autoLogin(userId: userId!)
         }
         self.checkAppVersion()
         UIApplication.shared.statusBarStyle = .default
-        
+        self.setUpInstaBug()
         return true
     }
     

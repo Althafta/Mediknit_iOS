@@ -90,8 +90,14 @@ class OFAMyCourseDetailsViewController: UIViewController {
                                 arrayUnReadNotifications.add(dicNotification)
                             }
                         }
-                        self.notificationBarButtonItem.addBadge(number: arrayUnReadNotifications.count)
+                        if arrayUnReadNotifications.count > 0{
+                            self.notificationBarButtonItem.addBadge(number: arrayUnReadNotifications.count)
+                        }
+                    }else{
+                        print("Empty notification array")
                     }
+                }else{
+                    print("Empty body")
                 }
             }else{
                 print("Notification API failed")

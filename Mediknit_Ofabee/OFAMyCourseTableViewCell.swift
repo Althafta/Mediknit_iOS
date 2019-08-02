@@ -18,6 +18,7 @@ class OFAMyCourseTableViewCell: UITableViewCell {
 //    @IBOutlet var buttonCourseTitle: UIButton!
     @IBOutlet weak var textViewCourseTitle: UITextView!
     @IBOutlet var myCourseInnerView: UIView!
+    @IBOutlet weak var myCourseShadeView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,8 +34,8 @@ class OFAMyCourseTableViewCell: UITableViewCell {
     func customizeCellWithDetails(courseTitle:String,courseImageURL:String,courseDescription:String,percentage:String){
 //        self.labelCourseTitle.text = courseTitle
 //        self.buttonCourseTitle.setTitle(courseTitle, for: .normal)
-        self.myCourseInnerView.dropShadow()
-        self.myCourseInnerView.layer.cornerRadius = 10.0
+//        self.layer.cornerRadius = 10.0
+//        self.myCourseInnerView.layer.cornerRadius = 10.0
         self.textViewCourseTitle.text = courseTitle
         self.labelCourseDescription.text = courseDescription
         
@@ -43,7 +44,19 @@ class OFAMyCourseTableViewCell: UITableViewCell {
         
         self.buttonProgress.layer.cornerRadius = self.buttonProgress.frame.height/2
         self.labelPercentage.text = "\(percentage) %"
+        
+//        let path = UIBezierPath(roundedRect:self.imageViewCourse.bounds,
+//                                byRoundingCorners:[.topRight, .topLeft],
+//                                cornerRadii: CGSize(width: 10, height:  10))
+//        
+//        let maskLayer = CAShapeLayer()
+//        
+//        maskLayer.path = path.cgPath
+//        self.myCourseShadeView.layer.mask = maskLayer
+//        self.imageViewCourse.layer.mask = maskLayer
+        
         self.imageViewCourse.sd_setImage(with: URL(string: courseImageURL), placeholderImage: #imageLiteral(resourceName: "Default image"), options: .progressiveDownload)
+        
         self.myCourseInnerView.dropShadow()
     }
 }

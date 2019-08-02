@@ -31,11 +31,11 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>FirebaseMessagingAutoInitEnabled</key>
 	<true/>
 	<key>FirebaseScreenReportingEnabled</key>
-	<false/>
-	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -52,6 +52,8 @@
 	<string>Mediknit would like to access your Contacts for inviting your friends</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Mediknit would like to access Face ID for login</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Mediknit would like to access your Microphone for user feedback</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Mediknit would like to access your Photos for profile image</string>
 	<key>UIAppFonts</key>

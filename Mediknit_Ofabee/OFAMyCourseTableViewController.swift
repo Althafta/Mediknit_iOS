@@ -15,6 +15,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var headerView: UIView!
     @IBOutlet var buttonLeftIcon: UIButton!
+    @IBOutlet weak var textViewNoCourseDescription: UITextView!
     
     var arrayMyCourses = NSMutableArray()
     let user_id = UserDefaults.standard.value(forKey: USER_ID)
@@ -51,6 +52,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         let barButtonProfile = UIBarButtonItem(image: UIImage(named: "DashboardMyProfile"), style: .plain, target: self, action: #selector(self.profilePressed))
         self.notificationBarButtonItem = UIBarButtonItem(image: UIImage(named: "NotificationIcon"), style: .plain, target: self, action: #selector(self.notificationPressed))
         self.navigationItem.rightBarButtonItems = [barButtonlogout,barButtonProfile,self.notificationBarButtonItem]
+        self.textViewNoCourseDescription.text = OFAUtils.getHTMLAttributedString(htmlString: "It looks like you are not enrolled to our e-courses! </br> Please visit www.mediknit.org to explore our learning programs or please contact info@mediknit.org for any clarifications or queries.")
     }
 
     override func didReceiveMemoryWarning() {
@@ -112,7 +114,9 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
                                 arrayUnReadNotifications.add(dicNotification)
                             }
                         }
-                        self.notificationBarButtonItem.addBadge(number: arrayUnReadNotifications.count)
+                        if arrayUnReadNotifications.count > 0{
+                            self.notificationBarButtonItem.addBadge(number: arrayUnReadNotifications.count)
+                        }
                     }
                 }
             }else{
@@ -237,12 +241,14 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = OFAUtils.getColorFromHexString(ofabeeCellBackground)
+//        cell.layer.cornerRadius = 10.0
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        self.tableView.estimatedRowHeight = 230
+        self.tableView.estimatedRowHeight = 287
         self.tableView.rowHeight = UITableView.automaticDimension
         return self.tableView.rowHeight
+//        return 260
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

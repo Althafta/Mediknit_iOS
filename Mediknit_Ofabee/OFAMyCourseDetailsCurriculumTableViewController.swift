@@ -333,6 +333,7 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
         Alamofire.request(userBaseURL+"api/course/save_rating_review", method: .post, parameters: dicParameters as? Parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (responseJSON) in
             if let dicResult = responseJSON.result.value as? NSDictionary{
                 print(dicResult)
+                OFAUtils.showToastWithTitle("\(dicResult["message"]!)")
                 self.removeBlur()
                 self.animateOut()
                 self.refreshInitiated()

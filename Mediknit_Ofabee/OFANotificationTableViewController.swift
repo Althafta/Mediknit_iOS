@@ -56,7 +56,14 @@ class OFANotificationTableViewController: UITableViewController {
                             dicItem["isSeeMorePressed"] = "0"
                             self.arrayNotification.add(dicItem)
                         }
+                        if arrayNotifications.count <= 0{
+                            OFAUtils.showToastWithTitle("No notificaitons")
+                        }
+                    }else{
+                        OFAUtils.showToastWithTitle("No notificaitons")
                     }
+                }else{
+                    OFAUtils.showToastWithTitle("No notificaitons")
                 }
                 self.refreshController.endRefreshing()
                 self.tableView.reloadData()
@@ -93,34 +100,48 @@ class OFANotificationTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! OFANotificationTableViewCell
         
         let dicNotification = self.arrayNotification[indexPath.row] as! NSDictionary
-        let date = OFAUtils.getDateFromStringWithFormat(dateString: "\(dicNotification["updated_datetime"]!)", format: "yyyy-MM-dd HH:mm:ss")
-        let dateString = OFAUtils.getStringFromDateWithFormat(date: date, format: "dd-MM-yyyy HH:mm:ss")
+//        let date = OFAUtils.getDateFromStringWithFormat(dateString: "\(dicNotification["updated_datetime"]!)", format: "yyyy-MM-dd HH:mm:ss")
+//        let dateString = OFAUtils.getStringFromDateWithFormat(date: date, format: "dd-MM-yyyy HH:mm:ss")
         cell.buttonSeeMore.tag = indexPath.row
         if "\(dicNotification["isSeeMorePressed"]!)" == "1"{
             cell.buttonSeeMore.isHidden = true
+//            cell.buttonSeeMore.setTitle("...See less", for: .normal)
         }else{
             cell.buttonSeeMore.isHidden = false
+//            cell.buttonSeeMore.setTitle("...See more", for: .normal)
         }
-        cell.customizeCellWithDetails(notificationTitle: "\(dicNotification["subject"]!)", notificationBody: "\(dicNotification["body"]!)", isRead: "\(dicNotification["readStatus"]!)" == "1" ? true : false, dateString: dateString, courseName: "Course Name")
+        
+        cell.customizeCellWithDetails(notificationTitle: "\(dicNotification["subject"]!)", notificationBody: "\(dicNotification["body"]!)", isRead: "\(dicNotification["readStatus"]!)" == "1" ? true : false, dateString: "\(dicNotification["updated_datetime"]!)", courseName: "\(dicNotification["cb_title"]!)")
+        let numberOfLines = (cell.textViewNotificationBody.contentSize.height / cell.textViewNotificationBody.font!.lineHeight)
+        print(numberOfLines)
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dicNotification = self.arrayNotification[indexPath.row] as! NSDictionary
+        self.changeReadStatusOfNotifications(notificationID: "\(dicNotification["id"]!)")
         
+        let myCourseDetails = self.storyboard?.instantiateViewController(withIdentifier: "MyCourseDetailsVC") as! OFAMyCourseDetailsViewController
+        
+        myCourseDetails.courseTitle = "\(dicNotification["cb_title"]!)"
+        myCourseDetails.promoImageURLString = "\(dicNotification["cb_image"]!)"
+        COURSE_ID = "\(dicNotification["course_id"]!)"
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(myCourseDetails, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if self.arraySenderTag.contains(indexPath.row){
             if self.isSeeMorePressed{
-                self.tableView.estimatedRowHeight = 191
+                self.tableView.estimatedRowHeight = 212
                 self.tableView.rowHeight = UITableView.automaticDimension
                 return self.tableView.rowHeight
             }else{
-                return 191
+                return 212
             }
         }else{
-            return 191
+            return 212
         }
     }
     
@@ -129,12 +150,17 @@ class OFANotificationTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let dicNotification = self.arrayNotification[indexPath.row] as! NSDictionary
         let rowActionMarkRead = UITableViewRowAction(style: .normal, title: "Mark as read") { (rowAction, indexPath) in
-            let dicNotification = self.arrayNotification[indexPath.row] as! NSDictionary
             self.changeReadStatusOfNotifications(notificationID: "\(dicNotification["id"]!)")
         }
         rowActionMarkRead.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
-        return [rowActionMarkRead]
+        if "\(dicNotification["readStatus"]!)" == "0"{
+            return [rowActionMarkRead]
+        }else{
+            return []
+        }
+        
     }
     
     //MARK:- Button Actions
@@ -143,8 +169,7 @@ class OFANotificationTableViewController: UITableViewController {
         if !self.arraySenderTag.contains(sender.tag){
             self.arraySenderTag.append(sender.tag)
         }
-        self.isSeeMorePressed = true
-//        sender.isHidden = true
+        self.isSeeMorePressed = !self.isSeeMorePressed
         var dicNotification = self.arrayNotification[sender.tag] as! Dictionary<String,Any>
         dicNotification["isSeeMorePressed"] = "1"
         self.arrayNotification.replaceObject(at: sender.tag, with: dicNotification)

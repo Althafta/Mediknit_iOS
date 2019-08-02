@@ -163,16 +163,16 @@ extension UIBarButtonItem {
         // Initialize Badge
         let badge = CAShapeLayer()
         let radius = CGFloat(7)
-        let location = CGPoint(x: view.frame.width - (radius + offset.x), y: (radius + offset.y))
+        let location = CGPoint(x: view.frame.width - (radius + offset.x), y: (radius + offset.y + 1))
         badge.drawCircleAtLocation(location: location, withRadius: radius, andColor: color, filled: filled)
         view.layer.addSublayer(badge)
         
         // Initialiaze Badge's label
         let label = CATextLayer()
-        label.string = "\(number)"
+        label.string = number > 9 ? "9+" : "\(number)"
         label.alignmentMode = CATextLayerAlignmentMode.center
         label.fontSize = 11
-        label.frame = CGRect(origin: CGPoint(x: location.x - 4, y: offset.y), size: CGSize(width: 8, height: 16))
+        label.frame = CGRect(origin: CGPoint(x: location.x - 6, y: offset.y), size: CGSize(width: 12, height: 16))
         label.foregroundColor = filled ? UIColor.white.cgColor : color.cgColor
         label.backgroundColor = UIColor.clear.cgColor
         label.contentsScale = UIScreen.main.scale

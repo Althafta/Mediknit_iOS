@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Instabug
 
 class OFAMyProfileTableViewController: UITableViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
@@ -37,8 +38,7 @@ class OFAMyProfileTableViewController: UITableViewController,UIImagePickerContro
         self.imageViewUser.contentMode = .scaleAspectFill
 //        self.textViewBio.dropShadow()
 //        self.textViewBio.isHidden = true
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.editPressed))
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "profileEdit"), style: .plain, target: self, action: #selector(self.editPressed))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "FeedbackIcon"), style: .plain, target: self, action: #selector(self.feedbackPressed))
         
         self.imageViewUser.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.editImagePressed)))
         
@@ -88,6 +88,11 @@ class OFAMyProfileTableViewController: UITableViewController,UIImagePickerContro
     
     @IBAction func dashboardIconPressed(_ sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @objc func feedbackPressed(){
+        BugReporting.shouldCaptureViewHierarchy = true
+        Instabug.show()
     }
     
     @objc func editPressed(){
@@ -140,6 +145,10 @@ class OFAMyProfileTableViewController: UITableViewController,UIImagePickerContro
             popOVer?.sourceRect = self.imageViewUser.bounds
             popOVer?.sourceView = self.imageViewUser
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 0
     }
     
     //MARK:- Coredata Helper
