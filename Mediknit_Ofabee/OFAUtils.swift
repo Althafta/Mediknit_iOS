@@ -317,7 +317,7 @@ class OFAUtils: NSObject {
         return range == nil ? true : false
     }
     class func trimWhiteSpaceInString(_ string:String)->String{
-        let trimmedString = string.trimmingCharacters(in: CharacterSet.whitespaces)
+        let trimmedString = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         return trimmedString
     }
     class func showToastWithTitle(_ title:String){

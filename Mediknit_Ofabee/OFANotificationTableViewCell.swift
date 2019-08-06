@@ -11,7 +11,8 @@ import UIKit
 class OFANotificationTableViewCell: UITableViewCell {
 
     @IBOutlet weak var labelNotificationTitle: UILabel!
-    @IBOutlet weak var textViewNotificationBody: UITextView!
+//    @IBOutlet weak var textViewNotificationBody: UITextView!
+    @IBOutlet weak var labelNotificationBody: UILabel!
     @IBOutlet weak var labelReadIndicator: UILabel!
     @IBOutlet weak var viewBackground: UIView!
     @IBOutlet weak var labelCourseName: UILabel!
@@ -34,7 +35,8 @@ class OFANotificationTableViewCell: UITableViewCell {
         self.viewBackground.layer.cornerRadius = 10.0
         self.labelReadIndicator.layer.cornerRadius = self.labelReadIndicator.frame.height/2
         self.labelNotificationTitle.text = notificationTitle
-        self.textViewNotificationBody.text = OFAUtils.getHTMLAttributedString(htmlString: notificationBody)
+        
+        self.labelNotificationBody.text = OFAUtils.getHTMLAttributedString(htmlString: OFAUtils.trimWhiteSpaceInString(notificationBody))
         self.labelReadIndicator.isHidden = isRead ? true : false
         
         self.labelNotificationDate.text = dateString

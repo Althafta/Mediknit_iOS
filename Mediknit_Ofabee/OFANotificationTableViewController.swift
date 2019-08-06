@@ -40,6 +40,11 @@ class OFANotificationTableViewController: UITableViewController {
         self.getNotifications()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.reloadData()
+    }
+    
     //MARK:- API Helpers
     
     @objc func getNotifications(){
@@ -99,22 +104,25 @@ class OFANotificationTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! OFANotificationTableViewCell
         
-        let dicNotification = self.arrayNotification[indexPath.row] as! NSDictionary
-//        let date = OFAUtils.getDateFromStringWithFormat(dateString: "\(dicNotification["updated_datetime"]!)", format: "yyyy-MM-dd HH:mm:ss")
-//        let dateString = OFAUtils.getStringFromDateWithFormat(date: date, format: "dd-MM-yyyy HH:mm:ss")
+        var dicNotification = self.arrayNotification[indexPath.row] as! Dictionary<String,Any>
         cell.buttonSeeMore.tag = indexPath.row
         if "\(dicNotification["isSeeMorePressed"]!)" == "1"{
             cell.buttonSeeMore.isHidden = true
-//            cell.buttonSeeMore.setTitle("...See less", for: .normal)
+            cell.buttonSeeMore.setTitle("...Read less", for: .normal)
         }else{
             cell.buttonSeeMore.isHidden = false
-//            cell.buttonSeeMore.setTitle("...See more", for: .normal)
+            cell.buttonSeeMore.setTitle("...Read more", for: .normal)
         }
-        
         cell.customizeCellWithDetails(notificationTitle: "\(dicNotification["subject"]!)", notificationBody: "\(dicNotification["body"]!)", isRead: "\(dicNotification["readStatus"]!)" == "1" ? true : false, dateString: "\(dicNotification["updated_datetime"]!)", courseName: "\(dicNotification["cb_title"]!)")
-        let numberOfLines = (cell.textViewNotificationBody.contentSize.height / cell.textViewNotificationBody.font!.lineHeight)
-        print(numberOfLines)
-        
+        let numberOfLines = Int(cell.labelNotificationBody.intrinsicContentSize.height / cell.labelNotificationBody.font!.lineHeight)
+        dicNotification["number_of_lines"] = numberOfLines
+        if numberOfLines <= 3{
+            cell.buttonSeeMore.isHidden = true
+        }else{
+            cell.buttonSeeMore.isHidden = false
+        }
+        self.arrayNotification.replaceObject(at: indexPath.row, with: dicNotification)
+
         return cell
     }
     
@@ -132,16 +140,34 @@ class OFANotificationTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.arraySenderTag.contains(indexPath.row){
-            if self.isSeeMorePressed{
-                self.tableView.estimatedRowHeight = 212
-                self.tableView.rowHeight = UITableView.automaticDimension
-                return self.tableView.rowHeight
+        let dicNotification = self.arrayNotification[indexPath.row] as! NSDictionary
+        if let numberOfLines = dicNotification["number_of_lines"] as? Int{
+            if numberOfLines > 3{
+                if self.arraySenderTag.contains(indexPath.row){
+                    if "\(dicNotification["isSeeMorePressed"]!)" == "1"{
+                        self.tableView.estimatedRowHeight = 197
+                        self.tableView.rowHeight = UITableView.automaticDimension
+                        return self.tableView.rowHeight
+                    }else{
+                        return 197
+                    }
+                }
             }else{
-                return 212
+                if self.arraySenderTag.contains(indexPath.row){
+                    if "\(dicNotification["isSeeMorePressed"]!)" == "1"{
+                        self.tableView.estimatedRowHeight = 197
+                        self.tableView.rowHeight = UITableView.automaticDimension
+                        return self.tableView.rowHeight
+                    }else{
+                        return 197
+                    }
+                }
             }
+            return 197
         }else{
-            return 212
+            self.tableView.estimatedRowHeight = 197
+            self.tableView.rowHeight = UITableView.automaticDimension
+            return self.tableView.rowHeight
         }
     }
     
@@ -171,9 +197,13 @@ class OFANotificationTableViewController: UITableViewController {
         }
         self.isSeeMorePressed = !self.isSeeMorePressed
         var dicNotification = self.arrayNotification[sender.tag] as! Dictionary<String,Any>
-        dicNotification["isSeeMorePressed"] = "1"
+        self.changeReadStatusOfNotifications(notificationID: "\(dicNotification["id"]!)")
+        if !self.isSeeMorePressed{
+            dicNotification["isSeeMorePressed"] = "0"
+        }else{
+            dicNotification["isSeeMorePressed"] = "1"
+        }
         self.arrayNotification.replaceObject(at: sender.tag, with: dicNotification)
         self.tableView.reloadData()
     }
-    
 }
