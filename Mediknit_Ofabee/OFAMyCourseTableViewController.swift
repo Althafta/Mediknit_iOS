@@ -261,7 +261,7 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if self.arrayMyCourses.count <= 0 {
-            return self.view.frame.height/2
+            return !OFAUtils.isiPhone() ? self.view.frame.height/2 : 420
         }else{
             return 0//self.searchBar.bounds.height
         }
