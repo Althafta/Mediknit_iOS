@@ -197,7 +197,6 @@ class OFANotificationTableViewController: UITableViewController {
         }
         self.isSeeMorePressed = !self.isSeeMorePressed
         var dicNotification = self.arrayNotification[sender.tag] as! Dictionary<String,Any>
-        self.changeReadStatusOfNotifications(notificationID: "\(dicNotification["id"]!)")
         if !self.isSeeMorePressed{
             dicNotification["isSeeMorePressed"] = "0"
         }else{
