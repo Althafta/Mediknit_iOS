@@ -23,7 +23,6 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     let domainKey = UserDefaults.standard.value(forKey: DomainKey) as! String
     
     var refreshController = UIRefreshControl()
-    var searchBarButtonItem = UIBarButtonItem()
     
     var searchString = ""
     var filteredArray = NSArray()
@@ -62,6 +61,8 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.refreshInitiated()
         self.getNotifications()
     }
@@ -69,6 +70,12 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationItem.title = "My Courses"
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationItem.largeTitleDisplayMode = .never
+        self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     @objc func logoutPressed(_ sender: UIButton) {
@@ -126,6 +133,9 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
     }
     
     @objc func refreshInitiated(){
+        self.searchBar.text = ""
+        self.searchString = ""
+        self.searchBar.resignFirstResponder()
         self.loadMyCourses()
     }
     
@@ -294,6 +304,9 @@ class OFAMyCourseTableViewController: UITableViewController,UISearchBarDelegate 
         if !OFAUtils.isWhiteSpace(searchBar.text!){
             let predicate = NSPredicate(format: "cb_title CONTAINS[c] %@",searchBar.text!)
             self.filteredArray = self.arrayMyCourses.filtered(using: predicate) as NSArray
+            if self.filteredArray.count <= 0{
+                OFAUtils.showToastWithTitle("Course not available")
+            }
         }else{
             self.loadMyCourses()
         }

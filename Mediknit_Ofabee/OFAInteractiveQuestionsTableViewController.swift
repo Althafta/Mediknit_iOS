@@ -77,7 +77,7 @@ class OFAInteractiveQuestionsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5//self.arrayOptions.count
+        return 4//self.arrayOptions.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -117,6 +117,7 @@ class OFAInteractiveQuestionsTableViewController: UITableViewController {
         }else{
             cell.imageViewStatus.tintColor = UIColor.red
             cell.imageViewStatus.image = UIImage(named: "Wrong_Answer")//wrong
+            self.showRightAnswer(cell: self.tableView.cellForRow(at: IndexPath(row: self.optionIndex.firstIndex(of: correctAnser)!, section: 0)) as! OFAVideoInteractiveQuestionTableViewCell)
         }
         self.textViewAnswerDescription.isHidden = false
         self.labelSolution.isHidden = false
@@ -132,6 +133,12 @@ class OFAInteractiveQuestionsTableViewController: UITableViewController {
         return self.tableView.rowHeight
     }
 
+    func showRightAnswer(cell:OFAVideoInteractiveQuestionTableViewCell){
+        cell.imageViewStatus.tintColor = UIColor.green
+        cell.imageViewStatus.image = UIImage(named: "Right_Answer")
+        cell.cellSelected = true
+        self.tableView.reloadData()
+    }
     //MARK:- Save interactive questions
     
     func saveInteractiveQuestion(){

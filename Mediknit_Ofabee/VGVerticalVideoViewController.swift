@@ -90,12 +90,13 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
         }
         self.avVideoPlayerController.player = self.avPlayer
         
-        try! AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+//        try! AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
         if self.percentage != 100.0{
             let totalPlayerTime = CMTimeGetSeconds((self.avVideoPlayerController.player?.currentItem?.asset.duration)!)
             let currentTime = (self.percentage/100)*totalPlayerTime
             self.originalTime = currentTime.toInt()!
             let cmtime = CMTime(seconds: currentTime, preferredTimescale: 1)
+            self.avPlayer.isMuted = false
             self.avPlayer.play()
             
             self.time = Int(CMTimeGetSeconds(cmtime))
@@ -153,6 +154,7 @@ class VGVerticalVideoViewController: UIViewController,STRatingControlDelegate {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         avPlayer.pause()
+        self.avPlayer.isMuted = true
         self.liveTimer.invalidate()
         UIApplication.shared.isStatusBarHidden = false
     }

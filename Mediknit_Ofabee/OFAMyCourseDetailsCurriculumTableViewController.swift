@@ -296,9 +296,9 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let dicSection = self.arraySections[indexPath.section] as! NSDictionary
+        let arrLectures = dicSection["lectures"] as! NSArray
         let rowActionQandA = UITableViewRowAction(style: .normal, title: "Q & A") { (rowAction, indexPath) in
-            let dicSection = self.arraySections[indexPath.section] as! NSDictionary
-            let arrLectures = dicSection["lectures"] as! NSArray
             if let dicLecture = arrLectures[indexPath.row] as? NSDictionary{
                 let QandATabCVC = self.storyboard?.instantiateViewController(withIdentifier: "QandAContainerVC") as! OFALectureQAndAContainerViewController
                 LECTURE_ID = "\(dicLecture["id"]!)"
@@ -306,8 +306,6 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
             }
         }
         let rowActionRatingLecture = UITableViewRowAction(style: .normal, title: "Rating") { (rowAction, indexPath) in
-            let dicSection = self.arraySections[indexPath.section] as! NSDictionary
-            let arrLectures = dicSection["lectures"] as! NSArray
             if let dicLecture = arrLectures[indexPath.row] as? NSDictionary{
                 LECTURE_ID = "\(dicLecture["id"]!)"
                  self.ratingView.rating = ("\(dicLecture["rating"]!)" == "<null>" || "\(dicLecture["rating"]!)" == "") ? 0 : Int("\(dicLecture["rating"]!)")!
@@ -315,10 +313,16 @@ class OFAMyCourseDetailsCurriculumTableViewController: UITableViewController,MyC
                 self.animateIn()
                 self.blur()
             }
-            
         }
         rowActionQandA.backgroundColor = OFAUtils.getColorFromHexString(barTintColor)
         rowActionRatingLecture.backgroundColor = OFAUtils.getColorFromHexString(ofabeeGreenColorCode)
+        
+        if let dicLecture = arrLectures[indexPath.row] as? NSDictionary{
+            if "\(dicLecture["cl_lecture_type"]!)" == "7" || "\(dicLecture["ll_percentage"]!)" != "100"{
+                return []
+            }
+        }
+        
         return [rowActionQandA,rowActionRatingLecture]
     }
     
